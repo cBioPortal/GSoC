@@ -18,7 +18,7 @@ A list of cBioPortal GSoC project ideas are [available on GitHub with label GSoC
 * What we are looking for in the proposal are: 1) your understanding of the proposed project; 2) your understanding of cbioportal and its code base; 3) a concrete plan of implementation.
 * Submit your proposal early. We will start to provide feedbacks to proposals once they are submitted.
 * If you have any questions about any of the ideas, please comment on GitHub issues or ask us on the [cBioPortal Public Slack](https://slack.cbioportal.org). You can also send us your draft proposal privately on Slack.
-* For questions of eligibility, see [GSoC FAQ](https://developers.google.com/open-source/gsoc/faq).
+* For questions of eligibility, see [GSoC FAQ](https://developers.google.com/open-source/gsoc/faq#what_are_the_eligibility_requirements_for_participation). Note that unlike previous years, it is not necessary to be enrolled in an academic program, allowing anyone eager to learn to participate.
 
 ## About the cBioPortal
 
