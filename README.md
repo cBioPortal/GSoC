@@ -34,12 +34,12 @@ The cBioPortal project has become an [open source project](https://github.com/cB
 
 We are a group of software engineers, bioinformaticians, and cancer biologists building software solutions for precision medicine for cancer patients. Our overall goal is to build infrastructure to support clinical decisions for personalized cancer treatment by utilizing “big data” of cancer genomics and patient clinical profiles. Our multi-institutional team currently has more than 30 active members, primarily from [Memorial Sloan Kettering Cancer Center](https://www.mskcc.org/) in New York, [the Dana-Farber Cancer Institute](http://www.dana-farber.org/) in Boston, [Princess Margaret Cancer Centre](http://www.theprincessmargaret.ca/) in Toronto, [Children's Hospital of Philadelphia](http://www.chop.edu/), and [The Hyve, a bioinformatics company from the Netherlands](http://thehyve.nl/).
 
-## Resources for GSoC:
+## Resources for GSoC
 
 - [A list of GSoC project ideas](https://github.com/cBioPortal/GSoC/issues?q=is%3Aopen+is%3Aissue+label%3AGSoC-2022)
 - [Template proposal](https://github.com/cBioPortal/GSoC/wiki/Template)
 
-## Previous GSoC Projects:
+## Previous GSoC Projects
 
 - [GSoC 2019 Wrap-up](https://github.com/cBioPortal/GSoC/wiki/Google-Summer-of-Code-2019-Wrap-up)
 - [GSoC 2017 Wrap-up](https://github.com/cBioPortal/GSoC/wiki/Google-Summer-of-Code-2017-Wrap-up)
