@@ -43,3 +43,8 @@ We are a group of software engineers, bioinformaticians, and cancer biologists b
 
 - [GSoC 2019 Wrap-up](https://github.com/cBioPortal/GSoC/wiki/Google-Summer-of-Code-2019-Wrap-up)
 - [GSoC 2017 Wrap-up](https://github.com/cBioPortal/GSoC/wiki/Google-Summer-of-Code-2017-Wrap-up)
+
+## Timeline
+- April 4 - April 19 GSoC contributor application period opens
+- June 13 - September 12 (flexible): Coding period. Can be extended until November 21st if necessary.
+- [Complete Program Timeline](https://developers.google.com/open-source/gsoc/timeline)
