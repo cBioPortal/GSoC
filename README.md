@@ -7,7 +7,7 @@ Welcome to cBioPortal's Google Summer of Code (GSoC) 👋! GSoC is a great progr
 
 ## Project ideas
 
-A list of cBioPortal GSoC project ideas are [available on GitHub with label GSoC-2022](https://github.com/cBioPortal/GSoC/issues?q=is%3Aopen+is%3Aissue+label%3AGSoC-2022). If you have any questions about any of the ideas, please comment in the issues on GitHub or ask us on the [cBioPortal Public Slack](https://slack.cbioportal.org).
+A list of cBioPortal GSoC project ideas are [available on GitHub with label GSoC-2023](https://github.com/cBioPortal/GSoC/issues?q=is%3Aopen+is%3Aissue+label%3AGSoC-2023). If you have any questions about any of the ideas, please comment in the issues on GitHub or ask us on the [cBioPortal Public Slack](https://slack.cbioportal.org).
 
 ## How to apply
 
@@ -45,6 +45,6 @@ We are a group of software engineers, bioinformaticians, and cancer biologists b
 - [GSoC 2017 Wrap-up](https://github.com/cBioPortal/GSoC/wiki/Google-Summer-of-Code-2017-Wrap-up)
 
 ## Timeline
-- April 4 - April 19 GSoC contributor application period
-- June 13 - September 12 (flexible): Coding period. Can be extended until November 21st if necessary.
+- March 20 - April 4 GSoC contributor application period
+- May 29 - September 4 (flexible): Coding period. Can be extended until November 6th if necessary.
 - [Complete Program Timeline](https://developers.google.com/open-source/gsoc/timeline)
