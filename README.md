@@ -8,7 +8,7 @@ Welcome to cBioPortal's Google Summer of Code (GSoC) 👋! GSoC is a great progr
 
 ## Project ideas
 
-A list of cBioPortal GSoC project ideas are [available on GitHub with label GSoC-2023](https://github.com/cBioPortal/GSoC/issues?q=is%3Aopen+is%3Aissue+label%3AGSoC-2023). If you have any questions about any of the ideas, please comment in the issues on GitHub or ask us on the [cBioPortal Public Slack](https://slack.cbioportal.org).
+A list of cBioPortal GSoC project ideas are [available on GitHub with label GSoC-2024](https://github.com/cBioPortal/GSoC/issues?q=is%3Aopen+is%3Aissue+label%3AGSoC-2024). If you have any questions about any of the ideas, please comment in the issues on GitHub or ask us on the [cBioPortal Public Slack](https://slack.cbioportal.org).
 
 ## How to apply
 
