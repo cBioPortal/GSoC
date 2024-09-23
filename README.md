@@ -42,6 +42,7 @@ We are a group of software engineers, bioinformaticians, and cancer biologists b
 
 ## Previous GSoC Projects
 
+- [GSoC 2024 Wrap-up](https://github.com/cBioPortal/GSoC/wiki/Google-Summer-of-Code-2024-Wrap-up)
 - [GSoC 2019 Wrap-up](https://github.com/cBioPortal/GSoC/wiki/Google-Summer-of-Code-2019-Wrap-up)
 - [GSoC 2017 Wrap-up](https://github.com/cBioPortal/GSoC/wiki/Google-Summer-of-Code-2017-Wrap-up)
 
