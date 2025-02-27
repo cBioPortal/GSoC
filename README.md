@@ -8,13 +8,13 @@ Welcome to cBioPortal's Google Summer of Code (GSoC) 👋! GSoC is a great progr
 
 ## Project ideas
 
-A list of cBioPortal GSoC project ideas are [available on GitHub with label GSoC-2024](https://github.com/cBioPortal/GSoC/issues?q=is%3Aopen+is%3Aissue+label%3AGSoC-2024). If you have any questions about any of the ideas, please comment in the issues on GitHub or ask us on the [cBioPortal Public Slack](https://slack.cbioportal.org).
+A list of cBioPortal GSoC project ideas are [available on GitHub with label GSoC-2025](https://github.com/cBioPortal/GSoC/issues?q=is%3Aopen+is%3Aissue+label%3AGSoC-2025). If you have any questions about any of the ideas, please comment in the issues on GitHub or ask us on the [cBioPortal Public Slack](https://slack.cbioportal.org).
 
 ## How to apply
 
 - Get familiar with the [cBioPortal](https://cbioportal.org). [Our tutorials](https://www.cbioportal.org/tutorials) might be useful. cBioPortal combines a lot of different disciplines so please take your time to fully understand the purpose and plan of the idea. Please feel free to ask us questions if anything is unclear. We are here to help!
 - Get familiar with cBioPortal's [backend](https://github.com/cBioPortal/cbioportal) and [frontend](https://github.com/cBioPortal/cbioportal-frontend) codebase. If you want to get your feet wet, there are also [good first issues](https://github.com/cBioPortal/cbioportal/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22good+first+issue%22).
-- Develop your project proposal based on one of [the ideas](https://github.com/cBioPortal/GSoC/issues?q=is%3Aopen+is%3Aissue+label%3AGSoC-2024). Please feel free to come up with your own project idea. We recommend looking at [how to write a proposal](https://google.github.io/gsocguides/student/writing-a-proposal).
+- Develop your project proposal based on one of [the ideas](https://github.com/cBioPortal/GSoC/issues?q=is%3Aopen+is%3Aissue+label%3AGSoC-2025). Please feel free to come up with your own project idea. We recommend looking at [how to write a proposal](https://google.github.io/gsocguides/student/writing-a-proposal).
 - Start with the [proposal template](https://github.com/cBioPortal/GSoC/wiki/template).
 - What we are looking for in the proposal are: 1) your understanding of the proposed project; 2) your understanding of cbioportal and its code base; 3) a concrete plan of implementation.
 - Submit your proposal early. We will start to provide feedbacks to proposals once they are submitted.
