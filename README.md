@@ -37,7 +37,7 @@ We are a group of software engineers, bioinformaticians, and cancer biologists b
 
 ## Resources for GSoC
 
-- [A list of GSoC project ideas](https://github.com/cBioPortal/GSoC/issues?q=is%3Aopen+is%3Aissue+label%3AGSoC-2024)
+- [A list of GSoC project ideas](https://github.com/cBioPortal/GSoC/issues?q=is%3Aopen+is%3Aissue+label%3AGSoC-2025)
 - [Template proposal](https://github.com/cBioPortal/GSoC/wiki/Template)
 
 ## Previous GSoC Projects
