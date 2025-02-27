@@ -1,6 +1,6 @@
 # cBioPortal's Google Summer of Code (GSoC)
 
-Welcome to cBioPortal's Google Summer of Code (GSoC) 👋! GSoC is a great program to get some experience with open source development. Our organization aims to help clinicians and research more easily analyze complex cancer genomics data. Working with cBioPortal is not only fun but also extremely rewarding in that your work directly affects cancer research.
+Welcome to cBioPortal's Google Summer of Code (GSoC) 👋! GSoC is a great program to get some experience with open source development. Our organization aims to help clinicians and researchers analyze complex cancer genomics data. Working with cBioPortal is not only fun also rewarding in that your work directly affects cancer research.
 
 ## About Google Summer of Code
 
