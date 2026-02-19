@@ -49,6 +49,6 @@ We are a group of software engineers, bioinformaticians, and cancer biologists b
 
 ## Timeline
 
-- March 24 - April 8 GSoC contributor application period
-- June 2 - September 1 (flexible): Coding period. Can be extended until November 10th if necessary.
+- Mar 16 - Mar 31 GSoC contributor application period
+- May 25 - Aug 24 (flexible): Coding period. Can be extended until November 10th if necessary.
 - [Complete Program Timeline](https://developers.google.com/open-source/gsoc/timeline)
