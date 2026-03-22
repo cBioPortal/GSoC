@@ -1,0 +1,35 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    textarea {
+        resize: none;
+        width: 100%;
+        height: 200px;
+        margin-top: 5px;
+    }
+    textarea.invalid {
+        border-color: red;
+        outline-color: red;
+    }
+
+    textarea.valid {
+        border-color: green;
+        outline-color: green;
+    }
+}
+
+.selection {
+    display: flex;
+    align-items: center;
+}
+
+.selectionText {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.operations {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}

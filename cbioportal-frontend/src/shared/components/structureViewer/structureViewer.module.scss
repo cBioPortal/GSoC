@@ -1,0 +1,88 @@
+.main-3d-panel {
+    width: 480px;
+    position: absolute;
+    float: right;
+    overflow: hidden;
+    right: 0;
+    top: 0;
+    z-index: 100;
+    border: 1px solid $borderColor;
+    border-radius: $cornerBorderRadius;
+    background-color: #ffffff;
+    /* fix for bootstrap 3 */
+    box-sizing: content-box;
+}
+
+.header {
+    padding: 5px 30px 0;
+}
+
+.body {
+    padding: 5px 30px 15px;
+}
+
+.collapsed-panel {
+    height: 0;
+    padding: 0 30px;
+    overflow: hidden;
+}
+
+.increased-size-panel {
+    width: auto;
+}
+
+.main-3d-panel canvas {
+    position: relative !important;
+}
+
+.default-option-select {
+    height: 28px !important;
+    padding: 3px 6px !important;
+    font-size: 13px !important;
+    width: 98% !important;
+}
+
+.main-3d-panel hr {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+.alpha-helix {
+    font-weight: bold;
+    color: #ffa500;
+}
+
+.beta-sheet {
+    font-weight: bold;
+    color: #0000ff;
+}
+
+.loop {
+    font-weight: bold;
+    color: #888888;
+}
+
+.highlighted {
+    color: #ffdd00;
+    font-weight: bold;
+}
+
+.uniform-mutation {
+    color: #8a2be2;
+    font-weight: bold;
+}
+
+.missense-mutation {
+    color: #008000;
+    font-weight: bold;
+}
+
+.trunc-mutation {
+    color: #000000;
+    font-weight: bold;
+}
+
+.inframe-mutation {
+    color: #8b4513;
+    font-weight: bold;
+}

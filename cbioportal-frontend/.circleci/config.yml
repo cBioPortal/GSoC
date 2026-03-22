@@ -1,0 +1,543 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2.1
+
+parameters:
+  remote_spec_pattern:
+    type: string
+    default: "./remote/specs/**/*.spec.js"
+  localdb_spec_pattern:
+    type: string
+    default: "./local/specs/**/*.spec.js"
+  enable_remote_e2e:
+    type: boolean
+    default: true
+  enable_localdb_e2e:
+    type: boolean
+    default: true
+  manual_trigger_branch_env:
+    type: string
+    default: "master"
+
+defaults: &defaults
+  working_directory: /tmp/repo
+  docker:
+    # specify the version you desire here
+    - image: cimg/node:22.18.0-browsers
+
+run_e2e_and_save_artifacts: &run_e2e_and_save_artifacts
+
+  steps:
+    - checkout
+
+    # Install Node.js 22.18.0
+    - run:
+        name: Install Node.js 22.18.0
+        command: |
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          nvm install 22.18.0
+          nvm use 22.18.0
+          nvm alias default 22.18.0
+          node -v
+          npm -v
+
+    # Install Google Chrome
+    - run:
+        name: Install Google Chrome
+        command: |
+          CHROME_VERSION="139.0.7258.154"
+          wget https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}-1_amd64.deb
+          sudo apt-get update
+          sudo apt-get install -y ./google-chrome-stable_${CHROME_VERSION}-1_amd64.deb
+          google-chrome --version
+
+    # Install ChromeDriver
+    - run:
+        name: Install ChromeDriver
+        command: |
+          CHROME_VERSION=139.0.7258.154
+          wget -q "https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chromedriver-linux64.zip"
+          unzip -q chromedriver-linux64.zip
+          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
+          sudo chmod +x /usr/local/bin/chromedriver
+          rm -rf chromedriver-linux64.zip chromedriver-linux64
+
+    - when:
+        condition: << pipeline.parameters.enable_remote_e2e >>
+        steps:
+          - attach_workspace:
+              at: /tmp/repo
+#          - run:
+#              name: Install linux dependencies
+#              command: |
+#                sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev || true
+          - run:
+              name: Check remote cbioportal connection
+              command: |
+                cd cbioportal-test
+                sh ./utils/check-connection.sh --url=$CBIOPORTAL_URL
+          - run:
+              name: Run end-to-end tests
+              environment:
+                FRONTEND_TEST_USE_LOCAL_DIST: true
+                WEBPACK_PARALLEL: false
+              command: |
+                yarn config set ignore-engines true
+                cd /tmp/repo/cbioportal-frontend
+                yarn serveDist --ignore-engines &
+                cd /tmp/repo/cbioportal-test
+                sh ./utils/check-connection.sh --url=https://localhost:3000 --insecure='true'
+                cd /tmp/repo/cbioportal-frontend/end-to-end-test
+                ../scripts/env_vars.sh
+                eval "$(../scripts/env_vars.sh)"
+                yarn run test-webdriver-manager-remote --ignore-engines
+          - run:
+              name: Make sure all screenshots are tracked (otherwise the test will always be successful)
+              command: |
+                cd cbioportal-frontend
+                for f in end-to-end-test/remote/screenshots/reference/*.png; do git ls-files --error-unmatch $f > /dev/null 2> /dev/null || (echo -e "\033[0;31m $f not tracked \033[0m" && touch screenshots_not_tracked); done; ls screenshots_not_tracked > /dev/null 2> /dev/null && exit 1 || exit 0
+          -  store_artifacts:
+               path: /tmp/repo/cbioportal-frontend/end-to-end-test/remote/screenshots
+               destination: /screenshots
+          -  store_artifacts:
+               path: /tmp/repo/cbioportal-frontend/end-to-end-test/shared/image-compare
+               destination: /image-compare
+          -  store_artifacts:
+               path: /tmp/repo/cbioportal-frontend/end-to-end-test/remote/error
+               destination: /errorShots
+          - store_test_results:
+              path: /tmp/repo/cbioportal-frontend/end-to-end-test/remote/junit
+          - store_artifacts:
+              path: /tmp/repo/cbioportal-frontend/end-to-end-test/remote/junit
+          - store_artifacts:
+              path: /tmp/repo/cbioportal-frontend/end-to-end-test/shared/imageCompare.html
+              destination: /imageCompare.html
+          - store_artifacts:
+              path: /tmp/repo/cbioportal-frontend/end-to-end-test/remote/junit/completeResults.json
+              destination: /completeResults.json
+          - store_artifacts:
+              path: /tmp/repo/cbioportal-frontend/end-to-end-test/remote/junit/errors
+              destination: /errors
+    - unless:
+        condition: << pipeline.parameters.enable_remote_e2e >>
+        steps:
+          - run: echo "Job Ignored via enable_remote_e2e"
+          - run: exit 1
+
+orbs:
+  browser-tools: circleci/browser-tools@2.3.1
+jobs:
+  api_sync_cbioportal:
+    <<: *defaults
+    resource_class: medium
+    environment:
+      MANUAL_TRIGGER_BRANCH_ENV: << pipeline.parameters.manual_trigger_branch_env >>
+    steps:
+      - attach_workspace:
+          at: /tmp/repo
+      - run:
+          name: Check that cbioportal api responses are still the same
+          command: |
+            cd cbioportal-frontend
+            bash src/test/check_api_sync_cbioportal.sh
+
+  api_sync_dependencies:
+    <<: *defaults
+    environment:
+      MANUAL_TRIGGER_BRANCH_ENV: << pipeline.parameters.manual_trigger_branch_env >>
+    steps:
+      - attach_workspace:
+          at: /tmp/repo
+      - run:
+          name: Check that dependency api responses (OncoKB, GenomeNexus) are still the same
+          command: |
+            cd cbioportal-frontend
+            bash src/test/check_api_sync_dependencies.sh
+
+
+  unit_tests_main:
+    <<: *defaults
+    resource_class: medium
+    steps:
+      - attach_workspace:
+          at: /tmp/repo
+      - run:
+          name: Run junit tests main
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./junit/unit/main/
+            JEST_JUNIT_OUTPUT_NAME: test-results-unit-main.xml
+            NODE_OPTIONS: --max-old-space-size=4096
+            DISABLE_SOURCEMAP: true
+            WEBPACK_PARALLEL: false
+          command: |
+            cd cbioportal-frontend
+            yarn run testMain
+      - store_test_results:
+          path: ./junit/unit/main/
+
+  unit_tests_packages:
+    <<: *defaults
+    resource_class: medium
+    steps:
+      - attach_workspace:
+          at: /tmp/repo
+      - run:
+          name: Run jest junit tests
+          environment:
+            DISABLE_SOURCEMAP: true
+            NODE_OPTIONS: --max-old-space-size=4096
+            WEBPACK_PARALLEL: false
+          command: |
+            cd cbioportal-frontend
+            yarn run testPackagesCI
+      - store_test_results:
+          path: /tmp/junit/module/
+
+  check_forgotten_spec_only_statements:
+    <<: *defaults
+    resource_class: medium
+    steps:
+      - attach_workspace:
+          at: /tmp/repo
+      # Ignore doTest.only in oql parser
+      - run:
+          name: "Check forgotten `.only` statements"
+          command: |
+            cd cbioportal-frontend
+            ! grep '\\.only' $(find ./src ./end-to-end-test -type f -name '*spec*' | grep -v node_modules) | grep -v 'doTest.only = function' | grep -v expectedParsedResult
+
+  check_incorrect_import_statements:
+    <<: *defaults
+    resource_class: medium
+    steps:
+      - attach_workspace:
+          at: /tmp/repo
+      - run:
+          name: "Check incorrect package import statements"
+          command: |
+            cd cbioportal-frontend
+            yarn run checkIncorrectImportStatements
+
+  check_typescript:
+    <<: *defaults
+    resource_class: large
+    steps:
+      - attach_workspace:
+          at: /tmp/repo
+      - run:
+          name: "Run TypeScript type checking"
+          command: |
+            cd cbioportal-frontend
+            yarn run checkTS
+
+  e2e_tests:
+    machine:
+      image: ubuntu-2204:2024.08.1
+    resource_class: large
+    working_directory: /tmp/repo
+    environment:
+      MANUAL_TRIGGER_BRANCH_ENV: << pipeline.parameters.manual_trigger_branch_env >>
+      SPEC_FILE_PATTERN: << pipeline.parameters.remote_spec_pattern >>
+      JUNIT_REPORT_PATH: ./remote/junit/
+      SCREENSHOT_DIRECTORY: ./remote/screenshots
+      CBIOPORTAL_URL: https://www.cbioportal.org
+      CHROMEDRIVER_CUSTOM_PATH: /usr/local/bin/chromedriver
+      HEADLESS_CHROME: true
+    <<: *run_e2e_and_save_artifacts
+
+  e2e_tests_against_master:
+    <<: *defaults
+    environment:
+      SPEC_FILE_PATTERN: ./remote/specs/**/*.spec.js
+      JUNIT_REPORT_PATH: ./remote/junit/
+      SCREENSHOT_DIRECTORY: ./remote/screenshots
+      CBIOPORTAL_URL: https://master.cbioportal.org
+      CHROMEDRIVER_CUSTOM_PATH: /usr/local/bin/chromedriver
+    <<: *run_e2e_and_save_artifacts
+
+  prettier:
+    <<: *defaults
+    resource_class: medium
+    environment:
+      MANUAL_TRIGGER_BRANCH_ENV: << pipeline.parameters.manual_trigger_branch_env >>
+    steps:
+      - attach_workspace:
+          at: /tmp/repo
+      - run:
+          name: 'Check code style with Prettier'
+          environment:
+            GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
+          command: |
+            cd cbioportal-frontend
+            yarn add -W prettier@1.19.1
+            yarn run prettierCheckCircleCI
+
+  pull_cbioportal_test_codebase:
+    machine:
+      image: ubuntu-2204:2024.08.1
+    resource_class: medium
+    working_directory: /tmp/repo
+    steps:
+      - run:
+          name: Checkout cbioportal/cbioportal-test
+          environment:
+            TEST_REPO_URL: https://github.com/cbioportal/cbioportal-test
+          command: |
+            git clone ${TEST_REPO_URL}
+      - persist_to_workspace:
+          root: /tmp/repo
+          paths: cbioportal-test
+
+  checkout:
+    machine:
+      image: ubuntu-2204:2024.08.1
+    resource_class: medium
+    working_directory: /tmp/repo
+    steps:
+      - checkout:
+          path: /tmp/repo/cbioportal-frontend
+      - persist_to_workspace:
+          root: /tmp/repo
+          paths: cbioportal-frontend
+
+  build_frontend:
+    <<: *defaults
+    resource_class: large
+    working_directory: /tmp/repo
+    environment:
+      BRANCH_ENV: master
+      TRANSPILE_ONLY: true
+    steps:
+      - attach_workspace:
+          at: /tmp/repo
+      - run:
+          name: Generate cache key for dist
+          command: |
+            cd cbioportal-frontend
+            echo "Concatenate all source files to use as hash key."
+            cat yarn.lock $(find src/ -type f | sort) $(find packages/ -type f | sort) webpack.config.js vendor-bundles.webpack.config.js > has_source_changed
+      - restore_cache:
+          keys:
+            - v11-dependencies-plus-dist-{{ checksum "cbioportal-frontend/has_source_changed" }}
+            - v11-dependencies-{{ checksum "cbioportal-frontend/yarn.lock" }}
+      - run:
+          name: Download dependencies
+          command: |
+            cd cbioportal-frontend
+            echo "Check if node_modules and built packages exist. If so, skip dependency installation."
+            if [ -d "node_modules" ]; then echo "✓ node_modules exists"; fi
+            if [ -d "packages/*/dist" ]; then echo "✓ Built packages exist"; fi
+            (ls node_modules && ls packages/*/dist) || (yarn && yarn buildModules)
+      - save_cache:
+          name: Save dependency cache
+          key: v11-dependencies-{{ checksum "cbioportal-frontend/yarn.lock" }}
+          paths:
+            - cbioportal-frontend/node_modules
+      - run:
+          name: Build frontend application
+          environment:
+            DISABLE_SOURCEMAP: true
+            NO_PARALLEL: true
+          command: |
+            cd cbioportal-frontend
+            ls dist || yarn run build
+      - run:
+          name: Build frontend tests
+          command: |
+            cd cbioportal-frontend/end-to-end-test
+            ls node_modules || yarn install --frozen-lockfile --ignore-engines
+      - save_cache:
+          name: Save dependency plus dist cache
+          key: v11-dependencies-plus-dist-{{ checksum "cbioportal-frontend/has_source_changed" }}
+          paths:
+            - cbioportal-frontend/node_modules
+            - cbioportal-frontend/dist
+            - cbioportal-frontend/common-dist
+            - cbioportal-frontend/packages
+      - persist_to_workspace:
+          root: /tmp/repo
+          paths:
+            - cbioportal-frontend
+
+  e2e_localdb_tests:
+    machine:
+      image: ubuntu-2204:2024.08.1
+    resource_class: large
+    working_directory: /tmp/repo
+    environment:
+      BACKEND_PORT: 8080
+      FRONTEND_PORT: 3000
+      DOCKER_IMAGE_MYSQL: cbioportal/mysql:8.0-database-test
+      DOCKER_IMAGE_CBIOPORTAL: cbioportal/cbioportal:master
+      DOCKER_COMPOSE_REF: master
+      APP_CBIOPORTAL_CORE_BRANCH: main
+    steps:
+      - attach_workspace:
+          at: /tmp/repo
+      - run:
+          name: Generate keycloak config
+          environment:
+            STUDIES: 'ascn_test_study study_hg38 teststudy_genepanels study_es_0 lgg_ucsf_2014_test_generic_assay'
+          command: |
+            git clone https://github.com/cbioportal/cbioportal-docker-compose.git
+            cd cbioportal-test
+            ./utils/gen-keycloak-config.sh --studies="$STUDIES" --template='/tmp/repo/cbioportal-docker-compose/dev/keycloak/keycloak-config.json' --out='/tmp/repo/keycloak-config-generated.json'
+      - run:
+          name: Start backend server with keycloak
+          environment:
+            KEYCLOAK_CONFIG_PATH: '/tmp/repo/keycloak-config-generated.json'
+            APPLICATION_PROPERTIES_PATH: '/tmp/repo/cbioportal-frontend/end-to-end-test/local/runtime-config/portal.properties'
+          command: |
+            cd cbioportal-test
+            nohup ./scripts/docker-compose.sh --portal_type='keycloak' --compose_extensions='-f addon/clickhouse/docker-compose.remote.clickhouse.yml'  >> /tmp/repo/docker-compose-logs.txt 2>&1 &
+      - run:
+          name: Check keycloak connection at localhost
+          command: |
+            cd cbioportal-test
+            ./utils/check-connection.sh --url=localhost:8081 --max_retries=50
+      - run:
+          name: Check backend connection at localhost
+          command: |
+            cd cbioportal-test
+            ./utils/check-connection.sh --url=localhost:${BACKEND_PORT} --max_retries=250
+      - run:
+          name: Run e2e localdb tests
+          environment:
+            SPEC_FILE_PATTERN: << pipeline.parameters.localdb_spec_pattern >>
+            CBIOPORTAL_URL: http://localhost:8080
+            JUNIT_REPORT_PATH: ./local/junit/
+            SCREENSHOT_DIRECTORY: ./local/screenshots
+            PORTAL_SOURCE_DIR: /tmp/repo/cbioportal-frontend
+            TEST_HOME: /tmp/repo/cbioportal-frontend/end-to-end-test/local
+            CHROMEDRIVER_CUSTOM_PATH: /usr/local/bin/chromedriver
+          command: |
+            cd $PORTAL_SOURCE_DIR
+            $TEST_HOME/docker_compose/test.sh
+      - run:
+          environment:
+            TEST_HOME: /tmp/repo/cbioportal-frontend/end-to-end-test/local
+          name: Make sure all screenshots are tracked (otherwise the test will always be successful)
+          command: |
+            cd cbioportal-frontend
+            for f in end-to-end-test/local/screenshots/reference/*.png; do
+              git ls-files --error-unmatch $f > /dev/null 2> /dev/null ||
+              (echo -e "\033[0;31m $f not tracked \033[0m" && touch screenshots_not_tracked);
+            done;
+            ls screenshots_not_tracked > /dev/null 2> /dev/null && exit 1 || exit 0
+      - store_artifacts:
+          path: /tmp/repo/docker-compose-logs.txt
+      - store_artifacts:
+          path: /tmp/repo/cbioportal-frontend/end-to-end-test/local/screenshots/diff
+          destination: /screenshots/diff
+      - store_artifacts:
+          path: /tmp/repo/cbioportal-frontend/end-to-end-test/local/screenshots/screen
+          destination: /screenshots/screen
+      - store_artifacts:
+          path: /tmp/repo/cbioportal-frontend/end-to-end-test/local/screenshots/errors
+          destination: /screenshots/errors
+      - store_artifacts:
+          path: /tmp/repo/cbioportal-frontend/end-to-end-test/local/screenshots/reference
+          destination: /screenshots/reference
+      - store_artifacts:
+          path: /tmp/repo/cbioportal-frontend/end-to-end-test/shared/image-compare
+          destination: /image-compare
+      - store_test_results:
+          path: /tmp/repo/cbioportal-frontend/end-to-end-test/local/junit
+      - store_artifacts:
+          path: /tmp/repo/cbioportal-frontend/end-to-end-test/local/junit
+      - store_artifacts:
+          path: /tmp/repo/cbioportal-frontend/end-to-end-test/shared/imageCompare.html
+          destination: /imageCompare.html
+      - store_artifacts:
+          path: /tmp/repo/cbioportal-frontend/end-to-end-test/local/junit/completeResults.json
+          destination: /completeResults.json
+
+workflows:
+  tests:
+    jobs:
+      - pull_cbioportal_test_codebase
+      - checkout
+      - prettier:
+          requires:
+            - checkout
+          filters:
+            branches:
+              ignore:
+                - master
+                - release-*
+      - check_forgotten_spec_only_statements:
+          requires:
+            - checkout
+      - check_incorrect_import_statements:
+          requires:
+            - checkout
+      - build_frontend:
+          requires:
+            - checkout
+      - e2e_localdb_tests:
+          requires:
+            - pull_cbioportal_test_codebase
+            - build_frontend
+      - e2e_tests:
+          requires:
+            - pull_cbioportal_test_codebase
+            - build_frontend
+      - api_sync_cbioportal:
+          requires:
+            - build_frontend
+      - api_sync_dependencies:
+          requires:
+            - build_frontend
+      - unit_tests_packages:
+          requires:
+            - build_frontend
+      - unit_tests_main:
+          requires:
+            - build_frontend
+      - check_typescript:
+          requires:
+            - build_frontend
+
+
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 22 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - pull_cbioportal_test_codebase
+      - checkout
+      - build_frontend:
+          requires:
+            - checkout
+      - e2e_localdb_tests:
+          requires:
+            - pull_cbioportal_test_codebase
+            - build_frontend
+      - e2e_tests:
+          requires:
+            - pull_cbioportal_test_codebase
+            - build_frontend
+      # - e2e_tests_against_master:
+      #     requires:
+      #       - pull_cbioportal_test_codebase
+      #       - build_frontend
+      - api_sync_cbioportal:
+          requires:
+            - build_frontend
+      - api_sync_dependencies:
+          requires:
+            - build_frontend
+      - unit_tests_main:
+          requires:
+            - build_frontend
+      - unit_tests_packages:
+          requires:
+            - build_frontend

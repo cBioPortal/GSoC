@@ -1,0 +1,83 @@
+@import './variables.scss';
+
+@mixin dashed-border-section {
+    padding: 10px;
+    border-radius: $cornerBorderRadius;
+    border: 1px dashed $borderColor;
+}
+
+@mixin scrollbar-always-visible {
+    // force scrollbar visible
+    // source: https://gist.github.com/devinrhode2/2573411#gistcomment-2243001
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        background-color: rgba(0, 0, 0, 0);
+        -webkit-border-radius: 100px;
+    }
+
+    &::-webkit-scrollbar:hover {
+        //background-color: rgba(0, 0, 0, 0.09);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.21);
+        -webkit-border-radius: 100px;
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+        background: rgba(0, 0, 0, 0.42);
+        -webkit-border-radius: 100px;
+    }
+}
+
+@mixin marching-ants-v2-init($ant-size, $ant-width, $speed, $id) {
+    background-size: $ant-size $ant-width, $ant-size $ant-width,
+        $ant-width $ant-size, $ant-width $ant-size !important;
+    background-position: 0 0, 0 100%, 0 0, 100% 0;
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y !important;
+    animation: marching-ants-#{$id} $speed;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+    &:hover,
+    &.marching {
+        animation-play-state: running;
+    }
+    &.reverse {
+        animation-direction: reverse;
+    }
+}
+@mixin marching-ants-v2-color($a, $b) {
+    background-image: linear-gradient(to right, $a 50%, $b 50%),
+        linear-gradient(to right, $a 50%, $b 50%),
+        linear-gradient(to bottom, $a 50%, $b 50%),
+        linear-gradient(to bottom, $a 50%, $b 50%) !important;
+}
+
+@mixin marching-ants-v2-animation($ant-size, $id) {
+    @keyframes marching-ants-#{$id} {
+        0% {
+            background-position: 0 0, 0 100%, 0 0, 100% 0;
+        }
+        100% {
+            background-position: 2 * $ant-size 0, -2 * $ant-size 100%,
+                0 -2 * $ant-size, 100% 2 * $ant-size;
+        }
+    }
+}
+
+@mixin marching-ants() {
+    @include marching-ants-v2-init(20px, 1px, 2s, 1);
+    @include marching-ants-v2-color(#eee, #333);
+}
+
+@include marching-ants-v2-animation(20px, 1);
+@include marching-ants-v2-animation(20px, 2);
+@include marching-ants-v2-animation(20px, 3);

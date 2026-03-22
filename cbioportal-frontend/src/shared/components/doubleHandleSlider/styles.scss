@@ -1,0 +1,37 @@
+.slider {
+    position: relative;
+}
+
+.slider > .mainTrack {
+    background-color: #dddddd;
+    height: 6px;
+    top: -3px;
+    width: 100%;
+    position: absolute;
+}
+.slider > .middleTrack {
+    background-color: #3786c2;
+    height: 6px;
+    top: -3px;
+    left: 0%;
+    right: 0%;
+    position: absolute;
+}
+
+.slider > .handle {
+    height: 0;
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    pointer-events: none;
+    position: absolute;
+}
+.slider > .handle::-webkit-slider-thumb {
+    pointer-events: auto;
+}
+.slider > .handle::-moz-range-thumb {
+    pointer-events: auto;
+}
+.slider > .handle::-moz-range-thumb:hover {
+    background-color: #bbbbbb;
+}

@@ -1,0 +1,31 @@
+.filter-list {
+    a {
+        display: block;
+        padding: 5px 0;
+    }
+
+    li:first-of-type a {
+        padding-top: 0 !important;
+    }
+
+    li:last-of-type a {
+        padding-bottom: 0 !important;
+    }
+
+    a,
+    .dropdown-item {
+        color: $dropdown-link-color;
+        line-height: $line-height-base;
+
+        &:hover,
+        &:focus {
+            text-decoration: none;
+            color: $dropdown-link-color;
+            background-color: $dropdown-link-hover-bg;
+        }
+    }
+
+    hr {
+        margin-top: 1em;
+    }
+}

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cbioportal.legacy.persistence.mybatis.MolecularProfileMapper">
+
+    <sql id="select">
+        genetic_profile.genetic_profile_id AS "${prefix}molecularProfileId",
+        genetic_profile.stable_id AS "${prefix}stableId",
+        genetic_profile.cancer_study_id AS "${prefix}cancerStudyId",
+        cancer_study.cancer_study_identifier AS "${prefix}cancerStudyIdentifier"
+        <if test="projection == 'SUMMARY' || projection == 'DETAILED'">
+            ,
+            genetic_profile.genetic_alteration_type AS "${prefix}molecularAlterationType",
+            genetic_profile.datatype AS "${prefix}datatype",
+            genetic_profile.name AS "${prefix}name",
+            genetic_profile.description AS "${prefix}description",
+            genetic_profile.show_profile_in_analysis_tab AS "${prefix}showProfileInAnalysisTab",
+            genetic_profile.pivot_threshold AS "${prefix}pivotThreshold",
+            genetic_profile.sort_order AS "${prefix}sortOrder",
+            genetic_profile.generic_assay_type AS "${prefix}genericAssayType",
+            genetic_profile.patient_level AS "${prefix}patientLevel"
+        </if>
+        <if test="projection == 'DETAILED'">
+            ,
+            cancer_study.cancer_study_id         AS "cancerStudy.cancerStudyId",
+            cancer_study.cancer_study_identifier AS "cancerStudy.cancerStudyIdentifier",
+            cancer_study.type_of_cancer_id       AS "cancerStudy.typeOfCancerId",
+            cancer_study.name                    AS "cancerStudy.name",
+            cancer_study.description             AS "cancerStudy.description",
+            cancer_study.public                  AS "cancerStudy.publicStudy",
+            cancer_study.pmid                    AS "cancerStudy.pmid",
+            cancer_study.citation                AS "cancerStudy.citation",
+            cancer_study.groups                  AS "cancerStudy.groups",
+            cancer_study.status                  AS "cancerStudy.status",
+            cancer_study.import_date             AS "cancerStudy.importDate",
+            reference_genome.name                AS "cancerStudy.referenceGenome"
+        </if>
+    </sql>
+
+    <select id="getAllMolecularProfilesInStudies" resultType="org.cbioportal.legacy.model.MolecularProfile">
+        SELECT
+        <include refid="select">
+            <property name="prefix" value=""/>
+        </include>
+        FROM genetic_profile
+        INNER JOIN cancer_study ON genetic_profile.cancer_study_id = cancer_study.cancer_study_id
+        INNER JOIN reference_genome ON cancer_study.reference_genome_id = reference_genome.reference_genome_id
+        <if test="studyIds != null">
+            WHERE cancer_study.cancer_study_identifier IN
+            <if test="studyIds.isEmpty()">(NULL)</if>
+            <if test="!studyIds.isEmpty()"><foreach item="item" collection="studyIds" open="(" separator="," close=")">#{item}</foreach></if>
+        </if>
+        <choose>    
+            <when test="sortBy != null and projection != 'ID'">
+                ORDER BY "${sortBy}" ${direction}
+            </when>
+            <otherwise>
+                ORDER BY genetic_profile.stable_id ASC
+            </otherwise>
+        </choose>
+        <if test="limit != null and limit != 0">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
+    </select>
+
+    <select id="getMetaMolecularProfilesInStudies" resultType="org.cbioportal.legacy.model.meta.BaseMeta">
+        SELECT
+        COUNT(*) AS totalCount
+        FROM genetic_profile
+        <if test="list != null">
+            INNER JOIN cancer_study ON genetic_profile.cancer_study_id = cancer_study.cancer_study_id
+            INNER JOIN reference_genome ON cancer_study.reference_genome_id = reference_genome.reference_genome_id
+            WHERE cancer_study.cancer_study_identifier IN
+                <foreach item="item" collection="list" open="(" separator="," close=")">#{item}</foreach>
+        </if>
+    </select>
+
+    <select id="getMolecularProfile" resultType="org.cbioportal.legacy.model.MolecularProfile">
+        SELECT
+        <include refid="select">
+            <property name="prefix" value=""/>
+        </include>
+        FROM genetic_profile
+        INNER JOIN cancer_study ON genetic_profile.cancer_study_id = cancer_study.cancer_study_id
+        INNER JOIN reference_genome ON cancer_study.reference_genome_id = reference_genome.reference_genome_id
+        WHERE genetic_profile.stable_id = #{molecularProfileId}
+    </select>
+
+    <select id="getMolecularProfiles" resultType="org.cbioportal.legacy.model.MolecularProfile">
+        SELECT
+        <include refid="select">
+            <property name="prefix" value=""/>
+        </include>
+        FROM genetic_profile
+        INNER JOIN cancer_study ON genetic_profile.cancer_study_id = cancer_study.cancer_study_id
+        INNER JOIN reference_genome ON cancer_study.reference_genome_id = reference_genome.reference_genome_id
+        <where>
+            <if test="molecularProfileIds != null and !molecularProfileIds.isEmpty()">
+                genetic_profile.stable_id IN
+                    <foreach item="item" collection="molecularProfileIds" open="(" separator="," close=")">#{item}</foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="getMetaMolecularProfiles" resultType="org.cbioportal.legacy.model.meta.BaseMeta">
+        SELECT
+        COUNT(*) AS totalCount
+        FROM genetic_profile
+        <where>
+            <if test="molecularProfileIds != null and !molecularProfileIds.isEmpty()">
+                genetic_profile.stable_id IN
+                    <foreach item="item" collection="molecularProfileIds" open="(" separator="," close=")">#{item}</foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="getMolecularProfilesReferredBy" resultType="org.cbioportal.legacy.model.MolecularProfile">
+        SELECT
+        <include refid="select">
+            <property name="prefix" value=""/>
+        </include>
+        FROM genetic_profile
+        INNER JOIN cancer_study ON genetic_profile.cancer_study_id = cancer_study.cancer_study_id
+        INNER JOIN reference_genome ON cancer_study.reference_genome_id = reference_genome.reference_genome_id
+        WHERE
+            genetic_profile.genetic_profile_id IN
+                (
+                    SELECT referred_genetic_profile_id
+                       FROM genetic_profile_link
+                       JOIN genetic_profile ON genetic_profile_link.referring_genetic_profile_id = genetic_profile.genetic_profile_id
+                       WHERE genetic_profile.stable_id = #{referringMolecularProfileId}
+                )
+    </select>
+
+    <select id="getMolecularProfilesReferringTo" resultType="org.cbioportal.legacy.model.MolecularProfile">
+        SELECT
+        <include refid="select">
+            <property name="prefix" value=""/>
+        </include>
+        FROM genetic_profile
+        INNER JOIN cancer_study ON genetic_profile.cancer_study_id = cancer_study.cancer_study_id
+        INNER JOIN reference_genome ON cancer_study.reference_genome_id = reference_genome.reference_genome_id
+        WHERE
+            genetic_profile.genetic_profile_id IN
+                (
+                    SELECT referring_genetic_profile_id
+                       FROM genetic_profile_link
+                       JOIN genetic_profile on genetic_profile_link.referred_genetic_profile_id = genetic_profile.genetic_profile_id
+                       WHERE genetic_profile.stable_id = #{referredMolecularProfileId}
+                )
+    </select>
+</mapper>

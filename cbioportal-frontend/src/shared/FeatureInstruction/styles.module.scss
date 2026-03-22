@@ -1,0 +1,19 @@
+.container {
+    position: relative;
+    > div:first-child {
+        display: none;
+        top: 3px;
+        position: absolute;
+        z-index: 100;
+        background: #dddddd;
+        padding: 1px 5px;
+        border-radius: $cornerBorderRadius;
+        color: #fff;
+        font-size: 11px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+.instructionPanel {
+}

@@ -1,0 +1,50 @@
+.chart {
+    border: 1px solid #d3d3d3;
+    flex-direction: column;
+    position: relative;
+    display: flex;
+    height: 100%;
+    border-radius: $border-radius-base;
+    background: white;
+
+    &.highlight {
+        outline: 2px solid #e5e076;
+    }
+}
+
+.chartHeightOne {
+    height: 195px;
+}
+
+.chartHeightTwo {
+    height: 400px;
+}
+
+.chartWidthOne {
+    width: 195px;
+}
+
+.chartWidthTwo {
+    width: 400px;
+}
+
+.chartLoader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    > div {
+        margin-left: 0px !important;
+    }
+}
+
+.chartError {
+    position: absolute;
+}
+
+.chartInnerWrapper {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+}

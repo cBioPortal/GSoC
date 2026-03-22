@@ -1,0 +1,23 @@
+@import '../../../globalStyles/mixins.scss';
+
+.oncoprintjs__tooltip {
+    padding: 5px;
+    margin-top: -10px; // to compensate position for padding, since tooltip is positioned above (if positioned at center, wouldnt be problem)
+    //width: 250px;
+    max-width: unset !important;
+    min-width: 225px !important;
+    word-break: keep-all;
+}
+
+.nobreak {
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.oncoprint-hidden {
+    opacity: 0;
+}
+
+.oncoprintjs__scroll_div {
+    @include scrollbar-always-visible;
+}

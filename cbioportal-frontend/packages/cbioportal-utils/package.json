@@ -1,0 +1,39 @@
+{
+  "name": "cbioportal-utils",
+  "description": "cBioPortal Utilities",
+  "version": "0.3.49",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "typings": "dist/index.d.ts",
+  "styles": "dist/styles.css",
+  "engines": {
+    "node": "22.18.0",
+    "yarn":"1.22.22"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "cBioPortal",
+  "license": "AGPL-3.0-or-later",
+  "repository": "cBioPortal/cbioportal-frontend",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max-old-space-size=2048 yarn run rollup",
+    "start": "yarn run watch",
+    "watch": "yarn run rollup:watch",
+    "watchSSL": "yarn run watch",
+    "rollup": "rollup -c rollup.config.ts",
+    "rollup:watch": "rollup -c rollup.config.ts -w",
+    "prepare": "yarn run build",
+    "test": "cross-env jest $GREP --env=jsdom --runInBand --ci --reporters=default --reporters=jest-junit --passWithNoTests",
+    "test:watch": "yarn run test --watch"
+  },
+  "dependencies": {
+    "buffer": "^6.0.3",
+    "genome-nexus-ts-api-client": "^1.1.35",
+    "lodash": "^4.17.21",
+    "oncokb-ts-api-client": "^1.3.8",
+    "superagent": "^3.8.3",
+    "typescript": "4.0.3"
+  }
+}

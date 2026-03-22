@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html class="cbioportal-frontend">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <link rel="icon" href="/images/cbioportal_icon.png"/>
+    <title>cBioPortal for Cancer Genomics</title>
+    <script>
+
+        window.devContext = true;
+        window.frontendConfig = {
+        }
+
+        /* REMOVED: This is an example of how to add custom tabs to the patient page. Enabling this will clobber localStorage.frontendConfig that is set through the browser console
+        localStorage.frontendConfig = JSON.stringify(
+        {
+            serverConfig:{
+
+                custom_tabs:[
+                    {
+                        title: 'Sync Tab',
+                        id: 'customTab1',
+                        location: 'PATIENT_PAGE',
+                        mountCallback: `(div)=>{
+                                $(div).html("tab for patient " + window.location.search.split("=").slice(-1))
+                            }`,
+                    },
+                    {
+                        title: 'Async Tab',
+                        id: 'customTab2',
+                        location: 'PATIENT_PAGE',
+                        hideAsync: `()=>{
+                                    return new Promise((resolve)=>{
+                                            setTimeout(()=>{
+                                                resolve(true);
+                                            }, 2000);
+                                    });
+                                }`,
+                    },
+                ]
+            }
+        });
+        */
+
+    function renderCustomTab1(div, tab){
+        $(div).append(`<div>this is the content for <strong>${tab.title}</strong></div>`);
+    }
+
+
+    </script>
+    <script src="/reactapp/common.bundle.js"></script>
+
+    <link href="/reactapp/prefixed-bootstrap.min.css" rel="stylesheet"></link>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+
+<div id="reactRoot"></div>
+
+</body>
+</html>

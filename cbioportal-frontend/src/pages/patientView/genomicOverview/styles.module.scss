@@ -1,0 +1,70 @@
+.igvTrackSampleSummaryText {
+    font-size: smaller;
+    font-weight: bolder;
+}
+
+.customIgvColumn {
+    padding-top: 4px;
+}
+
+.rightAlignedIgvColumn {
+    text-align: end;
+}
+
+.centerAlignedIgvColumn {
+    text-align: center;
+}
+
+.compactIgvColumn {
+    width: 20px !important;
+}
+
+.customIgvNavbarButton {
+    margin-right: 4px;
+    z-index: 666;
+}
+
+.navbarButtonContainer {
+    display: flex;
+}
+
+.compactNavbarButtonContainer {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.compactVafPlot {
+    padding: 0 8px;
+    color: #666666;
+}
+
+.advancedNavbarButtonContainer {
+    margin-left: 520px;
+    margin-bottom: -32px;
+    z-index: 666;
+}
+
+.compactIgvButton {
+    width: 12px;
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
+.rightEmbeddedIgvColumn {
+    margin-left: -100px;
+}
+
+.genePanelIcon {
+    vertical-align: text-top;
+    border-radius: 5px;
+    padding: 1px 5px;
+    font-size: x-small;
+}
+
+.igvContainer {
+    :global(.igv-navbar) {
+        background: none;
+        border: none;
+    }
+}

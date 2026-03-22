@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cbioportal.legacy.persistence.mybatis.SampleEmbeddingMapper">
+
+    <resultMap id="sampleEmbeddingResultMap" type="org.cbioportal.domain.sample.SampleEmbedding">
+        <constructor>
+            <arg column="cancerStudyIdentifier" javaType="String"/>
+            <arg column="sampleStableId" javaType="String"/>
+            <arg column="embeddingType" javaType="String"/>
+            <arg column="embeddingName" javaType="String"/>
+            <arg column="x" javaType="Float"/>
+            <arg column="y" javaType="Float"/>
+            <arg column="z" javaType="Float"/>
+        </constructor>
+    </resultMap>
+
+    <select id="getEmbeddingsByStudy" resultMap="sampleEmbeddingResultMap">
+        SELECT
+            cancer_study.cancer_study_identifier AS cancerStudyIdentifier,
+            sample.stable_id AS sampleStableId,
+            sample_embedding.embedding_type AS embeddingType,
+            sample_embedding.embedding_name AS embeddingName,
+            sample_embedding.x AS x,
+            sample_embedding.y AS y,
+            sample_embedding.z AS z
+        FROM sample_embedding
+        INNER JOIN sample ON sample_embedding.sample_id = sample.internal_id
+        INNER JOIN cancer_study ON sample_embedding.cancer_study_id = cancer_study.cancer_study_id
+        WHERE cancer_study.cancer_study_identifier = #{studyId}
+    </select>
+
+    <select id="getEmbeddingsByStudyAndName" resultMap="sampleEmbeddingResultMap">
+        SELECT
+            cancer_study.cancer_study_identifier AS cancerStudyIdentifier,
+            sample.stable_id AS sampleStableId,
+            sample_embedding.embedding_type AS embeddingType,
+            sample_embedding.embedding_name AS embeddingName,
+            sample_embedding.x AS x,
+            sample_embedding.y AS y,
+            sample_embedding.z AS z
+        FROM sample_embedding
+        INNER JOIN sample ON sample_embedding.sample_id = sample.internal_id
+        INNER JOIN cancer_study ON sample_embedding.cancer_study_id = cancer_study.cancer_study_id
+        WHERE cancer_study.cancer_study_identifier = #{studyId}
+        AND sample_embedding.embedding_name = #{embeddingName}
+    </select>
+
+    <insert id="saveEmbeddings">
+        INSERT INTO sample_embedding (
+            cancer_study_id,
+            sample_id,
+            embedding_type,
+            embedding_name,
+            x,
+            y,
+            z
+        ) VALUES
+        <foreach collection="embeddings" item="item" separator=",">
+            (
+                (SELECT cancer_study_id FROM cancer_study WHERE cancer_study_identifier = #{item.cancerStudyIdentifier}),
+                (SELECT internal_id FROM sample 
+                 INNER JOIN cancer_study ON sample.patient_id IN (SELECT internal_id FROM patient WHERE cancer_study_id = cancer_study.cancer_study_id)
+                 WHERE sample.stable_id = #{item.sampleStableId} AND cancer_study.cancer_study_identifier = #{item.cancerStudyIdentifier} LIMIT 1),
+                #{item.embeddingType},
+                #{item.embeddingName},
+                #{item.x},
+                #{item.y},
+                #{item.z}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+            x = VALUES(x),
+            y = VALUES(y),
+            z = VALUES(z)
+    </insert>
+
+    <delete id="deleteEmbeddingsByStudy">
+        DELETE FROM sample_embedding
+        WHERE cancer_study_id = (SELECT cancer_study_id FROM cancer_study WHERE cancer_study_identifier = #{studyId})
+    </delete>
+
+</mapper>

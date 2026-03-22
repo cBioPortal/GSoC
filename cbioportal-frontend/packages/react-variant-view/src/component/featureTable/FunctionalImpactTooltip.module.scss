@@ -1,0 +1,21 @@
+@import './FunctionalImpact';
+
+.high {
+    color: $high;
+}
+
+.medium {
+    color: $medium;
+}
+
+.low {
+    color: $low;
+}
+
+.neutral {
+    color: $neutral;
+}
+
+.unknown {
+    display: none;
+}

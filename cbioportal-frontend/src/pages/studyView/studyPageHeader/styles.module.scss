@@ -1,0 +1,36 @@
+.rightPanel {
+    font-size: 16px;
+    display: flex;
+    align-items: flex-start;
+
+    textarea {
+        width: 280px !important;
+        margin: 0 !important;
+    }
+
+    div {
+        justify-content: flex-end;
+    }
+}
+
+.summary {
+    flex-grow: 1;
+}
+
+.description {
+    font-size: 13px;
+    word-break: break-word;
+}
+
+.submitQuery {
+    margin-left: 5px !important;
+}
+
+.iconGroup {
+    display: flex;
+}
+
+.studyLinks {
+    list-style: none;
+    padding-left: 0;
+}

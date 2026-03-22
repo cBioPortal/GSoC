@@ -1,0 +1,28 @@
+.missense-mutation {
+    color: #008000;
+    font-weight: bold;
+}
+.trunc-mutation {
+    color: #000000;
+    font-weight: bold;
+}
+.inframe-mutation {
+    color: #8b4513;
+    font-weight: bold;
+}
+.other-mutation {
+    color: #cf58bc;
+    font-weight: bold;
+}
+.default-mutation {
+    color: #bb0000;
+    font-weight: bold;
+}
+.fusion {
+    color: #8b00c9;
+    font-weight: bold;
+}
+.splice {
+    color: #e5802b;
+    font-weight: bold;
+}

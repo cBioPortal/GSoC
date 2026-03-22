@@ -1,0 +1,45 @@
+.ptmLegend {
+    ul {
+        list-style: none; /* Remove default bullets */
+
+        li::before {
+            content: '\2022'; /* Add content: \2022 is the CSS Code/unicode for a bullet */
+            display: inline-block; /* Needed to add space between the bullet and the text */
+            width: 1em; /* Also needed for space */
+            margin-left: -1em; /* Also needed for space */
+            font-weight: bold;
+            font-size: 150%;
+            line-height: 0;
+        }
+
+        li.Phosphorylation::before,
+        li.Phosphorylation strong {
+            color: #2dcf00;
+        }
+
+        li.Acetylation::before,
+        li.Acetylation strong {
+            color: #5b5bff;
+        }
+
+        li.Ubiquitination::before,
+        li.Ubiquitination strong {
+            color: #b9264f;
+        }
+
+        li.Methylation::before,
+        li.Methylation strong {
+            color: #ebd61d;
+        }
+
+        li.multiType::before,
+        li.multiType strong {
+            color: #444444;
+        }
+
+        li.default::before,
+        li.default strong {
+            color: #ba21e0;
+        }
+    }
+}

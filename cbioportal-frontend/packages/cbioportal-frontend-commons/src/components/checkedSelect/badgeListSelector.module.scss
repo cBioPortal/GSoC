@@ -1,0 +1,18 @@
+.headerRow {
+    border-bottom: 1px solid #eeeeee;
+}
+
+.onlyButton {
+    visibility: hidden;
+    padding: 0px 4px 0px 4px;
+    font-size: 10px;
+}
+
+.badgeCell {
+    display: flex;
+    align-items: center;
+}
+
+.badgeCell:hover .onlyButton {
+    visibility: visible;
+}

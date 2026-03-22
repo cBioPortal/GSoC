@@ -1,0 +1,18 @@
+div.SectionHeader {
+    :global(.spinner) {
+        float: right;
+        height: 0;
+        overflow: visible;
+    }
+
+    h2 {
+        color: #333 !important;
+        flex-grow: 2;
+        margin: 0 !important;
+        font-size: 15px;
+    }
+
+    .error {
+        margin-top: 8px;
+    }
+}

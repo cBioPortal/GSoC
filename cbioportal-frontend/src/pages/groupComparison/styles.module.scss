@@ -1,0 +1,185 @@
+:global(.msk-tabs .tabAnchor.greyedOut) {
+    color: #afafaf;
+}
+
+:global(.btn-group) > :global(.btn.noMarginLeft) {
+    margin-left: 0px !important;
+}
+
+.comparisonGroupManager {
+    .groupCheckboxes {
+        margin-top: 4px;
+        max-height: 350px;
+        width: 100%;
+        overflow: auto;
+        padding: 3px;
+
+        :global(div.checkbox) {
+            margin-bottom: 0px;
+            margin-top: 0px;
+        }
+
+        .markedForDeletion {
+            color: #888888;
+            text-decoration: line-through black;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .groupRow:nth-of-type(even) {
+            background-color: #f9f9f9;
+        }
+
+        .groupItem {
+            input {
+                margin-top: 0px;
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .noGroupsMessage {
+    }
+
+    :global(input.form-control) {
+        font-size: 12px;
+        height: 36px;
+    }
+}
+
+.groupButtons {
+    button {
+        margin: 2px !important;
+    }
+    display: inline-block;
+
+    .buttonUnselected {
+        //filter: grayscale(1);
+        //opacity: 0.35;
+        background-color: rgba(0, 0, 0, 0) !important;
+        border: 1px solid #c3c3c3;
+
+        span {
+            color: black !important;
+        }
+    }
+
+    .buttonExcludedFromAnalysis {
+        background-color: #dddddd !important;
+        color: white !important;
+        text-decoration: line-through solid black !important;
+    }
+
+    i {
+        width: 15px;
+    }
+}
+
+.groupLineItemActionButtons {
+    display: flex;
+    > span {
+        margin-left: 5px;
+        i {
+            color: $brand-primary;
+            &:hover {
+                color: darken($brand-primary, 10%);
+            }
+        }
+    }
+}
+
+.sharedGroup {
+    background-color: #ffffaa !important;
+}
+
+.headerControls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    > div {
+        margin-right: 30px;
+    }
+}
+.survivalPlotHeaderContainer {
+    display: flex;
+    margin-right: 5px;
+}
+
+.survivalPlotHeader {
+    > :global(.nav.nav-pills) {
+        margin-bottom: $standardMargin;
+        li {
+            margin-bottom: 2px;
+            a {
+                background: #eee !important;
+                border-top: none !important;
+                padding: 10px 6px !important;
+                margin-right: 6px !important;
+            }
+            &:global(.active) a {
+                background: $brand-primary !important;
+                border-top: none !important;
+                border-bottom: 0px !important;
+                &:hover {
+                    color: #fff !important;
+                }
+            }
+        }
+    }
+    li a {
+        font-size: 12px;
+        padding: 10px 6px !important;
+        cursor: pointer;
+        line-height: 0.8px;
+        text-decoration: none !important;
+    }
+}
+
+.survivalTypeOptions {
+    display: flex;
+    margin-right: 5px;
+    float: left;
+}
+
+.inlineAlterationTypeSelectorMenu {
+    zindex: 2;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #eee;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.buttonAlterationTypeSelectorMenu {
+    zindex: 2;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    h5 {
+        margin-left: -10px;
+    }
+
+    button {
+        font-size: 12px !important;
+    }
+}
+
+.noPaddingLeftTruncationCheckbox {
+    background-color: white;
+    margin-bottom: 3px;
+}
+
+.settingsMenuButton {
+    padding-top: 5px;
+}
+
+.noMutationsMessage {
+    margin-top: 20px;
+}
+
+.numericalData {
+    text-align: right !important;
+}

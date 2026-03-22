@@ -1,0 +1,14 @@
+.integer-data {
+    text-align: right !important;
+}
+
+/***
+    Workaround for bootstrap 4 classes
+    TODO remove after switching to bootstrap 4
+*/
+:global(.gnomad-frequency-table .text-wrap) {
+    white-space: normal;
+}
+:global(.gnomad-frequency-table .font-weight-bold) {
+    font-weight: bold;
+}

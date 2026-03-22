@@ -1,0 +1,6 @@
+{
+  "heatmap": false,
+  "dotplot": false,
+  "raincloud": false,
+  "hexbin": false
+}

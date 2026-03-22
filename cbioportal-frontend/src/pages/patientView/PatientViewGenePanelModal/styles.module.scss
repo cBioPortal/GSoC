@@ -1,0 +1,21 @@
+.genesList {
+    table {
+        margin-top: 20px;
+    }
+
+    .searchInput {
+        margin-left: 5px;
+    }
+
+    h4.panelName {
+        margin-bottom: 15px;
+    }
+
+    .copyDownloadControls {
+        z-index: 1080;
+    }
+}
+
+.patientViewModal {
+    z-index: 1070 !important;
+}

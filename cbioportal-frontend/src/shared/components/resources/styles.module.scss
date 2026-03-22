@@ -1,0 +1,16 @@
+.carouselButton {
+    color: #e0e0e0;
+
+    &.active {
+        color: black;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.7;
+        }
+
+        &:active {
+            opacity: 0.9;
+        }
+    }
+}

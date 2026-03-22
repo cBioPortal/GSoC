@@ -1,0 +1,127 @@
+.cancer-summary--chart-container {
+    padding: 0px 0px;
+    margin-top: 10px;
+    position: relative;
+    width: 100%;
+    height: 600px;
+}
+
+.cancer-type--summary-tab-tooltip {
+    background-color: white !important;
+    border: 1px solid $borderColor !important;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    position: absolute;
+    display: block;
+    padding: 8px !important;
+    min-width: 300px;
+    max-width: 500px;
+    .table {
+        margin-bottom: 0px !important;
+        > thead > tr > th {
+            font-size: 12px;
+            line-height: 1;
+        }
+    }
+    th:first-child,
+    td:first-child {
+        border-right: 2px solid #ddd;
+    }
+}
+
+.cancer-summary-chart-controls {
+    margin-right: 10px;
+
+    .axis-block {
+        display: flex;
+        background: #eee;
+        border-radius: 4px;
+        padding: 10px;
+        align-items: center;
+        margin-bottom: 10px;
+
+        .axis-title {
+            writing-mode: vertical-lr;
+            padding: 0 !important;
+            margin: 0 !important;
+            width: 23px;
+            text-align: center;
+            transform: rotate(180deg);
+            position: relative;
+            left: -8px;
+        }
+
+        .cancer-summary-chart-control-group {
+            margin-bottom: $standardMargin;
+
+            .control-label {
+                width: 100%;
+                font-size: 12px;
+            }
+
+            .slider-holder {
+                display: flex;
+                align-items: flex-start;
+                width: 235px;
+                margin-bottom: 15px;
+
+                .slider-input {
+                    width: 110px;
+                    margin-left: 25px;
+                }
+
+                .slider {
+                    width: 100%;
+                }
+            }
+        }
+
+        .cancer-summary-chart-control-group:last-child {
+            margin-bottom: 10px;
+        }
+    }
+
+    .rangeslider-horizontal .rangeslider__fill {
+        background-image: -webkit-linear-gradient(top, #89cdef 0, #81bfde 100%);
+        background-image: -o-linear-gradient(top, #89cdef 0, #81bfde 100%);
+        background-image: linear-gradient(to bottom, #89cdef 0, #81bfde 100%);
+        background-repeat: repeat-x;
+    }
+
+    .rangeslider__label-list .rangeslider__label {
+        top: 20px;
+    }
+
+    .rangeslider {
+        margin: 8px 0 20px;
+    }
+
+    .rangeslider-horizontal .rangeslider__handle {
+        width: 20px;
+        height: 20px;
+        border-radius: 20px;
+        &:after {
+            width: 12px;
+            height: 12px;
+            top: 3px;
+            left: 3px;
+        }
+    }
+}
+
+.highlightInput {
+    .form-control {
+        border-color: #66afe9;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+            0 0 8px rgba(102, 175, 233, 0.6);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+            0 0 8px rgba(102, 175, 233, 0.6);
+    }
+}
+
+.category-filtering-alert {
+    margin-bottom: 10px !important;
+    background-color: #eee !important;
+    border: none !important;
+}

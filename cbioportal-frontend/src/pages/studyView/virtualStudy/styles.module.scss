@@ -1,0 +1,67 @@
+.virtualStudy {
+    width: 350px;
+
+    .virtualStudyForm {
+        margin-bottom: 5px;
+        textarea {
+            resize: none;
+        }
+        .saveButton {
+            height: 34px;
+        }
+    }
+
+    .studiesSummaryInfo {
+        margin-top: 5px;
+        font-size: 12px;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .result {
+        display: flex;
+        align-items: center;
+        .name {
+            flex-grow: 1;
+        }
+
+        .controls {
+            flex-shrink: 0;
+            float: right;
+        }
+    }
+
+    .disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+}
+
+.studySummary {
+    .studyName {
+        cursor: pointer;
+        padding-right: 5px;
+        i {
+            padding-right: 3px;
+        }
+    }
+    .studyDescription {
+        padding: 7px;
+    }
+
+    :global {
+        .input-group {
+            margin-bottom: 5px;
+        }
+        .btn {
+            line-height: inherit;
+        }
+        .panel {
+            margin-bottom: 5px;
+        }
+        .panel-heading,
+        .panel-body {
+            padding: 7px;
+        }
+    }
+}

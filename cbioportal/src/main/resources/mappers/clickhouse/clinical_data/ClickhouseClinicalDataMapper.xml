@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cbioportal.infrastructure.repository.clickhouse.clinical_data.ClickhouseClinicalDataMapper">
+
+    <select id="getSampleClinicalDataFromStudyViewFilter" resultMap="clinicalDataSummaryResultMap">
+        SELECT
+            internal_id as internalId,
+            replaceOne(sample_unique_id, concat(cancer_study_identifier, '_'), '') as sampleId,
+            replaceOne(patient_unique_id, concat(cancer_study_identifier, '_'), '') as patientId,
+            attribute_name as attrId,
+            attribute_value as attrValue,
+            cancer_study_identifier as studyId
+        FROM clinical_data_derived
+        <where>
+            <include refid="org.cbioportal.infrastructure.repository.clickhouse.studyview.ClickhouseStudyViewFilterMapper.applyStudyViewFilterUsingSampleId"/>
+        </where>
+        <if test="studyViewFilterContext.customDataFilterCancerStudies != null and !studyViewFilterContext.customDataFilterCancerStudies.isEmpty()">
+            AND cancer_study_identifier IN
+            <foreach item="studyId" collection="studyViewFilterContext.customDataFilterCancerStudies" open="(" separator="," close=")">
+                #{studyId}
+            </foreach>
+        </if>
+        <if test="attributeIds != null and !attributeIds.isEmpty()">
+            AND attribute_name IN
+            <foreach item="attributeId" collection="attributeIds" open="(" separator="," close=")">
+                #{attributeId}
+            </foreach>
+        </if>
+        AND type = 'sample'
+    </select>
+
+    <select id="getPatientClinicalDataFromStudyViewFilter" resultMap="clinicalDataSummaryResultMap">
+        SELECT
+            internal_id as internalId,
+            replaceOne(patient_unique_id, concat(cancer_study_identifier, '_'), '') as patientId,
+            NULL as sampleId,
+            attribute_name as attrId,
+            attribute_value as attrValue,
+            cancer_study_identifier as studyId
+        FROM clinical_data_derived
+        <where>
+            <include refid="org.cbioportal.infrastructure.repository.clickhouse.studyview.ClickhouseStudyViewFilterMapper.applyStudyViewFilterUsingPatientId"/>
+        </where>
+        <if test="studyViewFilterContext.customDataFilterCancerStudies != null and !studyViewFilterContext.customDataFilterCancerStudies.isEmpty()">
+            AND cancer_study_identifier IN
+            <foreach item="studyId" collection="studyViewFilterContext.customDataFilterCancerStudies" open="(" separator="," close=")">
+                #{studyId}
+            </foreach>
+        </if>
+        <if test="attributeIds != null and !attributeIds.isEmpty()">
+            AND attribute_name IN
+            <foreach item="attributeId" collection="attributeIds" open="(" separator="," close=")">
+                #{attributeId}
+            </foreach>
+        </if>
+        AND type = 'patient'
+    </select>
+
+    <select id="fetchClinicalDataId" resultMap="clinicalDataIdResultMap">
+        SELECT
+            cd.internal_id as internalId,
+            <if test="clinicalDataType == 'sample'">
+                replaceOne(cd.sample_unique_id, concat(cd.cancer_study_identifier, '_'), '') as sampleId,
+            </if>
+            <if test="clinicalDataType != 'sample'">
+                NULL as sampleId,
+            </if>
+            replaceOne(cd.patient_unique_id, concat(cd.cancer_study_identifier, '_'), '') as patientId,
+            cd.cancer_study_identifier as studyId,
+            cd.attribute_name as attrId
+        FROM clinical_data_derived cd
+        <include refid="fetchClinicalDataWhereClause" />
+    </select>
+
+    <select id="fetchClinicalDataSummary" resultMap="clinicalDataSummaryResultMap">
+        SELECT
+            cd.internal_id as internalId,
+            <if test="clinicalDataType == 'sample'">
+                replaceOne(cd.sample_unique_id, concat(cd.cancer_study_identifier, '_'), '') as sampleId,
+            </if>
+            <if test="clinicalDataType != 'sample'">
+                NULL as sampleId,
+            </if>
+            replaceOne(cd.patient_unique_id, concat(cd.cancer_study_identifier, '_'), '') as patientId,
+            cd.cancer_study_identifier as studyId,
+            cd.attribute_name as attrId,
+            cd.attribute_value as attrValue
+        FROM clinical_data_derived cd
+        <include refid="fetchClinicalDataWhereClause" />
+    </select>
+
+    <select id="fetchClinicalDataDetailed" resultMap="clinicalDataDetailedResultMap">
+        SELECT
+            cd.internal_id as internalId,
+            <if test="clinicalDataType == 'sample'">
+                replaceOne(cd.sample_unique_id, concat(cd.cancer_study_identifier, '_'), '') as sampleId,
+            </if>
+            <if test="clinicalDataType != 'sample'">
+                NULL as sampleId,
+            </if>
+            replaceOne(cd.patient_unique_id, concat(cd.cancer_study_identifier, '_'), '') as patientId,
+            cd.cancer_study_identifier as studyId,
+            cd.attribute_name as attrId,
+            cd.attribute_value as attrValue,
+            cd.attribute_name as attributeName,
+            cam.display_name as displayName,
+            cam.description as description,
+            cam.datatype as datatype,
+            cam.patient_attribute as patientAttribute,
+            cam.priority as priority,
+            cam.cancer_study_id as cancerStudyId,
+            cd.cancer_study_identifier as cancerStudyIdentifier
+        FROM clinical_data_derived cd
+        LEFT JOIN cancer_study cs ON cd.cancer_study_identifier = cs.cancer_study_identifier
+        LEFT JOIN clinical_attribute_meta cam ON cd.attribute_name = cam.attr_id AND cs.cancer_study_id = cam.cancer_study_id
+        <include refid="fetchClinicalDataWhereClause" />
+    </select>
+
+    <sql id="fetchClinicalDataWhereClause">
+        WHERE cd.type = #{clinicalDataType}
+        <if test="studyIds != null and !studyIds.isEmpty()">
+            AND cd.cancer_study_identifier IN
+            <foreach item="studyId" collection="studyIds" open="(" separator="," close=")">
+                #{studyId}
+            </foreach>
+        </if> 
+        <if test="uniqueIds != null and !uniqueIds.isEmpty()">
+            AND
+            <choose>
+                <when test="clinicalDataType == 'sample'">
+                    cd.sample_unique_id IN
+                </when>
+                <otherwise>
+                    cd.patient_unique_id IN
+                </otherwise>
+            </choose>
+            <foreach item="uniqueId" collection="uniqueIds" open="(" separator="," close=")">
+                #{uniqueId}
+            </foreach>
+        </if>
+        <if test="attributeIds != null and !attributeIds.isEmpty()">
+            AND cd.attribute_name IN
+            <foreach item="attributeId" collection="attributeIds" open="(" separator="," close=")">
+                #{attributeId}
+            </foreach>
+        </if>
+    </sql>
+
+    <!-- Get Clinical Data Count for Meta -->
+    <select id="fetchClinicalDataMeta" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM clinical_data_derived cd
+        WHERE cd.type = #{clinicalDataType}
+        <if test="studyIds != null and !studyIds.isEmpty()">
+            AND cd.cancer_study_identifier IN
+            <foreach item="studyId" collection="studyIds" open="(" separator="," close=")">
+                #{studyId}
+            </foreach>
+        </if>
+        <if test="uniqueIds != null and !uniqueIds.isEmpty()">
+            AND
+            <choose>
+                <when test="clinicalDataType == 'sample'">
+                    cd.sample_unique_id IN
+                </when>
+                <otherwise>
+                    cd.patient_unique_id IN
+                </otherwise>
+            </choose>
+            <foreach item="uniqueId" collection="uniqueIds" open="(" separator="," close=")">
+                #{uniqueId}
+            </foreach>
+        </if>
+        <if test="attributeIds != null and !attributeIds.isEmpty()">
+            AND cd.attribute_name IN
+            <foreach item="attributeId" collection="attributeIds" open="(" separator="," close=")">
+                #{attributeId}
+            </foreach>
+        </if>
+    </select>
+
+    <!-- for /clinical-data-counts/fetch (returns ClinicalData) which will then be converted to clinicalDataCountItems -->
+    <select id="getClinicalDataCounts" resultMap="ClinicalDataCountItemResultMap">
+        <if test="sampleAttributeIds != null and !sampleAttributeIds.isEmpty()">
+            <include refid="getClinicalDataCountsQuery">
+                <property name="type" value="sample"/>
+                <property name="attributeIds" value="sampleAttributeIds"/>
+                <property name="isConflicting" value="false"/>
+            </include>
+        </if>
+
+        <if test="patientAttributeIds != null and !patientAttributeIds.isEmpty()">
+            <if test="sampleAttributeIds != null and !sampleAttributeIds.isEmpty()">UNION ALL</if>
+            <include refid="getClinicalDataCountsQuery">
+                <property name="type" value="patient"/>
+                <property name="attributeIds" value="patientAttributeIds"/>
+                <property name="isConflicting" value="false"/>
+            </include>
+        </if>
+
+        <if test="conflictingAttributeIds != null and !conflictingAttributeIds.isEmpty()">
+            <if test="(sampleAttributeIds != null and !sampleAttributeIds.isEmpty()) or (patientAttributeIds != null and !patientAttributeIds.isEmpty())">
+                UNION ALL
+            </if>
+            <include refid="getClinicalDataCountsQuery">
+                <property name="type" value="patient"/>
+                <property name="attributeIds" value="conflictingAttributeIds"/>
+                <property name="isConflicting" value="true"/>
+            </include>
+        </if>
+    </select>
+
+    <sql id="getClinicalDataCountsQuery">
+        (
+        WITH clinical_data_query AS (
+        SELECT
+            attribute_name AS attributeId,
+            attribute_value AS value,
+            cast(count(*) AS INTEGER) as count
+        FROM clinical_data_derived cdd
+        <if test="'${isConflicting}' == 'true'">
+            <!-- JOIN patient data with sample table to map patient-level attributes to sample-level counts -->
+            LEFT JOIN sample_derived sd ON cdd.patient_unique_id = sd.patient_unique_id
+        </if>
+        <where>
+            <if test="studyViewFilterContext.customDataFilterCancerStudies != null and !studyViewFilterContext.customDataFilterCancerStudies.isEmpty()">
+                AND cdd.cancer_study_identifier IN
+                <foreach item="studyId" collection="studyViewFilterContext.customDataFilterCancerStudies" open="(" separator="," close=")">
+                    #{studyId}
+                </foreach>
+            </if>
+            AND <!-- Table creation in clickhouse.sql has ensured no NA values but extra caution is always appreciated -->
+            <include refid="org.cbioportal.infrastructure.repository.clickhouse.studyview.ClickhouseStudyViewFilterMapper.normalizeAttributeValue">
+                <property name="attribute_value" value="value"/>
+            </include>
+            != 'NA'
+            AND
+            <choose>
+                <when test="'${type}' == 'sample'">
+                    <include refid="org.cbioportal.infrastructure.repository.clickhouse.studyview.ClickhouseStudyViewFilterMapper.applyStudyViewFilterUsingSampleId"/>
+                </when>
+                <otherwise>
+                    <include refid="org.cbioportal.infrastructure.repository.clickhouse.studyview.ClickhouseStudyViewFilterMapper.applyStudyViewFilterUsingPatientId"/>
+                </otherwise>
+            </choose>
+            AND attribute_name IN
+            <foreach item="attributeId" collection="${attributeIds}" open="(" separator="," close=")">
+                #{attributeId}
+            </foreach>
+        </where>
+        GROUP BY attribute_name, value ),
+        clinical_data_sum AS (SELECT attributeId, sum(count) AS sum FROM clinical_data_query GROUP BY attributeId)
+
+        SELECT * FROM clinical_data_query
+        UNION ALL
+        SELECT attributeId,
+        'NA' AS value,
+        ((
+        <choose>
+            <when test="'${type}' == 'sample' or '${isConflicting}' == 'true'">
+                <!-- Use sample count for:
+                    1. Pure sample attributes (type='sample')
+                    2. Conflicting attributes (already mapped to sample-level via JOIN) -->
+                <include refid="org.cbioportal.infrastructure.repository.clickhouse.sample.ClickhouseSampleMapper.getFilteredSampleCount"/>
+            </when>
+            <otherwise>
+                <include refid="org.cbioportal.infrastructure.repository.clickhouse.patient.ClickhousePatientMapper.getFilteredPatientCount"/>
+            </otherwise>
+        </choose>
+        ) - clinical_data_sum.sum) AS count
+        FROM clinical_data_sum
+        <where>
+            count > 0
+        </where>
+        )
+    </sql>
+
+    <resultMap id="ClinicalDataCountItemResultMap" type="org.cbioportal.legacy.model.ClinicalDataCountItem">
+        <result property="attributeId" column="attributeId"/>
+        <collection property="counts" ofType="org.cbioportal.legacy.model.ClinicalDataCount">
+            <result property="attributeId" column="attributeId"/>
+            <result property="value" column="value"/>
+            <result property="count" column="count"/>
+        </collection>
+    </resultMap>
+
+    <!-- ID projection - minimal fields -->
+    <resultMap id="clinicalDataIdResultMap" type="org.cbioportal.domain.clinical_data.ClinicalData">
+        <constructor>
+            <arg name="internalId" column="internalId" javaType="Integer" />
+            <arg name="sampleId" column="sampleId" javaType="String" />
+            <arg name="patientId" column="patientId" javaType="String" />
+            <arg name="studyId" column="studyId" javaType="String" />
+            <arg name="attrId" column="attrId" javaType="String" />
+        </constructor>
+    </resultMap>
+
+    <!-- SUMMARY projection - includes value -->
+    <resultMap id="clinicalDataSummaryResultMap" type="org.cbioportal.domain.clinical_data.ClinicalData">
+        <constructor>
+            <arg name="internalId" column="internalId" javaType="Integer" />
+            <arg name="sampleId" column="sampleId" javaType="String" />
+            <arg name="patientId" column="patientId" javaType="String" />
+            <arg name="studyId" column="studyId" javaType="String" />
+            <arg name="attrId" column="attrId" javaType="String" />
+            <arg name="attrValue" column="attrValue" javaType="String" />
+        </constructor>
+    </resultMap>
+
+    <!-- DETAILED projection - includes ClinicalAttribute -->
+    <resultMap id="clinicalDataDetailedResultMap" type="org.cbioportal.domain.clinical_data.ClinicalData">
+        <constructor>
+            <arg name="internalId" column="internalId" javaType="Integer" />
+            <arg name="sampleId" column="sampleId" javaType="String" />
+            <arg name="patientId" column="patientId" javaType="String" />
+            <arg name="studyId" column="studyId" javaType="String" />
+            <arg name="attrId" column="attrId" javaType="String" />
+            <arg name="attrValue" column="attrValue" javaType="String" />
+            <arg name="clinicalAttribute" resultMap="clinicalAttributeResultMap" javaType="org.cbioportal.domain.clinical_attributes.ClinicalAttribute" />
+        </constructor>
+    </resultMap>
+
+    <resultMap id="clinicalAttributeResultMap" type="org.cbioportal.domain.clinical_attributes.ClinicalAttribute">
+        <constructor>
+            <arg name="attrId" column="attributeName" javaType="String" />
+            <arg name="displayName" column="displayName" javaType="String" />
+            <arg name="description" column="description" javaType="String" />
+            <arg name="datatype" column="datatype" javaType="String" />
+            <arg name="patientAttribute" column="patientAttribute" javaType="Boolean" />
+            <arg name="priority" column="priority" javaType="String" />
+            <arg name="cancerStudyId" column="cancerStudyId" javaType="Integer" />
+            <arg name="cancerStudyIdentifier" column="cancerStudyIdentifier" javaType="String" />
+        </constructor>
+    </resultMap>
+</mapper>

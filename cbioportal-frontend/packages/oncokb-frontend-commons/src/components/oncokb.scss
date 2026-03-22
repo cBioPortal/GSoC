@@ -1,0 +1,65 @@
+@import '~oncokb-styles/scss/vars';
+
+.oncokb-tooltip {
+    background: none;
+
+    .rc-tooltip-inner {
+        padding: 0;
+        border-color: $oncokb-border-color;
+    }
+}
+
+.oncokb-card-tabs {
+    > .nav {
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+        display: flex;
+
+        > li {
+            > a {
+                padding: 7px 10px;
+                display: block;
+            }
+
+            a:focus {
+                outline-width: 0;
+            }
+
+            a:hover {
+                text-decoration: none;
+            }
+
+            &:not(.active) {
+                a:hover {
+                    background: none !important;
+                    border-color: transparent !important;
+                }
+            }
+        }
+
+        .active {
+            a {
+                border-top: 3px solid $oncokb-blue !important;
+                padding-top: 5px;
+            }
+        }
+    }
+
+    > .tab-content {
+        padding: 10px 0;
+        min-height: 50px;
+        position: relative;
+
+        > .fade {
+            &.in {
+                opacity: 1;
+            }
+        }
+    }
+
+    // Default left align all react-table headers under oncokb-card-tabs
+    .rt-thead .rt-resizable-header-content {
+        text-align: left;
+    }
+}

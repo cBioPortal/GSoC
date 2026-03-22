@@ -1,0 +1,34 @@
+@import '../featureTable/FunctionalImpact.scss';
+
+// This module comes from cBioPortal-frontend
+
+.polyPhen2-probably_damaging {
+    background-color: $high;
+    font-weight: bold;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+}
+.polyPhen2-possibly_damaging {
+    background-color: $low;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+}
+.polyPhen2-benign {
+    background-color: $neutral;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+}
+.polyPhen2-unknown {
+    display: none;
+}
+.polyPhen2-tooltip-table {
+    td:first-child {
+        padding-right: 5px;
+    }
+}

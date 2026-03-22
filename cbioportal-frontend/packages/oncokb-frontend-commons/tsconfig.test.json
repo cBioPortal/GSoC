@@ -1,0 +1,6 @@
+{
+  "extends": "../config/tsconfig.test.json",
+  "include": [
+    "../typings/file.d.ts"
+  ]
+}

@@ -1,0 +1,15 @@
+.msk-tabs .nav-tabs {
+    .tabAnchor {
+        display: flex;
+        align-items: center;
+
+        .closeButton {
+            margin-left: 10px;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.6;
+            }
+        }
+    }
+}

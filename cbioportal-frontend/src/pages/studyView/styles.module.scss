@@ -1,0 +1,173 @@
+.absolutePanel {
+    position: absolute;
+    top: 5px;
+    right: 18px;
+    z-index: 2;
+    display: flex;
+}
+
+.selectedInfoLoadingIndicator {
+    padding: 5px;
+    width: 200px;
+}
+
+.selectedInfo {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.hesitateControls {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.hesitateControlsAlign {
+    padding: 0 !important;
+    margin: 0 !important;
+    vertical-align: text-top;
+}
+
+.selectedInfoCheckbox {
+    margin: 2px 3px 0 0 !important;
+}
+
+.mainTabs {
+    position: relative;
+}
+
+.studyViewSurvivalPlot {
+    float: left;
+    margin: 5px;
+}
+
+.studyViewSurvivalPlotTitle {
+    font-size: 18px;
+    color: #000;
+    font-weight: 700;
+    text-align: center;
+}
+
+.studyViewSurvivalPlotBody {
+    position: relative;
+}
+
+.studyViewAutoMargin {
+    margin: auto;
+}
+
+.studyViewLoadingIndicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    flex-direction: column;
+}
+.userSelections {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.parentGroupLogic {
+    background-color: $lightGrey;
+    border: 1px solid $borderColor;
+    border-radius: 5px;
+    margin: 2px 5px 2px 0;
+    padding: 5px;
+}
+
+.summaryClearAllBtn {
+    height: 30px;
+    margin-left: 5px !important;
+}
+
+.filterClinicalAttrName {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.summary {
+    flex-grow: 1;
+    .description {
+        font-size: 13px;
+    }
+}
+
+.actionButtons {
+    display: flex;
+    button {
+        margin-left: 10px;
+    }
+}
+
+.studyFilterResult {
+    display: flex;
+    z-index: 2;
+    > div {
+        white-space: nowrap;
+        &:nth-child(n + 2) {
+            margin-left: 5px;
+        }
+    }
+}
+
+.titleMeta {
+    font-size: smaller;
+    color: #a9a9a9;
+}
+
+.bookmarkButton {
+    margin-left: 10px;
+    :global(.fa-stack) {
+        font-size: 16px;
+    }
+    :global(.fa-link) {
+        color: #fff !important;
+    }
+}
+
+.tooltip {
+    max-width: 300px;
+}
+
+$wide: 10px;
+$regular: 5px;
+
+.content {
+    margin: $regular $wide $regular 0;
+    font-size: smaller;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.editableSpanStyles {
+    padding: 0px 3px;
+    border: none;
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.studyViewPageGearMenu {
+    button {
+        margin-left: 10px;
+    }
+
+    h5 {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+}
+
+.autosubmitToggle label:nth-child(2) {
+    margin-left: 10px;
+}

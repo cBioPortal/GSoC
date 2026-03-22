@@ -1,0 +1,39 @@
+.optionGroup {
+    border-bottom: 1px dashed $borderColor;
+    position: relative;
+    line-height: 1;
+
+    &:first-child {
+        margin-top: 5px;
+    }
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &:nth-child(n + 2) {
+        .groupHeader {
+            top: -8px;
+            background-color: #fff;
+        }
+    }
+}
+
+.groupHeader {
+    position: absolute;
+    padding: 0 20px;
+    left: 50%;
+    top: -5px;
+    transform: translateX(-50%);
+    color: #ccc;
+    font-size: 11.5px;
+}
+
+.optionWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.optionLabelWrapper {
+    margin-right: 10px;
+}

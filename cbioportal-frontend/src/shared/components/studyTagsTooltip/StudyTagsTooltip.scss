@@ -1,0 +1,55 @@
+/**
+ * This file is part of cBioPortal.
+ *
+ * cBioPortal is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ **/
+
+.studyTagsTooltip {
+    max-height: 45vh;
+    overflow: auto;
+
+    .json-to-table table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: sans-serif;
+        font-size: 0.7rem;
+        background-color: #fff;
+    }
+
+    .json-to-table td,
+    .json-to-table th {
+        padding: 5px;
+        border: 1px solid #e2e2e2;
+    }
+
+    .json-to-table td {
+        text-align: left;
+    }
+
+    .json-to-table tr:nth-child(even) {
+        background-color: #fff;
+    }
+
+    .json-to-table th[scope='col'] {
+        background-color: #fff;
+        color: #fff;
+    }
+
+    .json-to-table th[scope='row'] {
+        background-color: #d7d9f2;
+    }
+
+    .json-to-table caption {
+        caption-side: bottom;
+    }
+}

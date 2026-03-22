@@ -1,0 +1,5372 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "contact": {
+      "email": "cbioportal@googlegroups.com",
+      "name": "cbioportal",
+      "url": "https://www.cbioportal.org"
+    },
+    "description": "A web service for supplying JSON formatted data to cBioPortal clients. Please note that this API is currently in beta and subject to change.",
+    "license": {
+      "name": "License",
+      "url": "https://github.com/cBioPortal/cbioportal/blob/master/LICENSE"
+    },
+    "title": "cBioPortal web Public API [Alpha]",
+    "version": "1.0 (beta). Backwards compatibility will be maintained (after 1.0 release)"
+  },
+  "paths": {
+    "/api/cancer-types": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "cancerTypeId",
+              "name",
+              "dedicatedColor",
+              "shortName",
+              "parent"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/TypeOfCancer"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Cancer Types"
+        ],
+        "description": "Get all cancer types",
+        "operationId": "getAllCancerTypesUsingGET"
+      }
+    },
+    "/api/cancer-types/{cancerTypeId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Cancer Type ID e.g. acc",
+            "in": "path",
+            "name": "cancerTypeId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "tags": [
+          "Cancer Types"
+        ],
+        "description": "Get a cancer type",
+        "operationId": "getCancerTypeUsingGET"
+      }
+    },
+    "/api/clinical-attributes": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "clinicalAttributeId",
+              "displayName",
+              "description",
+              "datatype",
+              "patientAttribute",
+              "priority",
+              "studyId"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalAttribute"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Clinical Attributes"
+        ],
+        "description": "Get all clinical attributes",
+        "operationId": "getAllClinicalAttributesUsingGET"
+      }
+    },
+    "/api/clinical-attributes/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "studyIds",
+            "required": true,
+            "schema": {
+              "description": "List of Study IDs",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalAttribute"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Clinical Attributes"
+        ],
+        "description": "Fetch clinical attributes",
+        "operationId": "fetchClinicalAttributesUsingPOST"
+      }
+    },
+    "/api/clinical-data/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SAMPLE",
+            "description": "Type of the clinical data",
+            "enum": [
+              "SAMPLE",
+              "PATIENT"
+            ],
+            "in": "query",
+            "name": "clinicalDataType",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "clinicalDataMultiStudyFilter",
+            "schema": {
+              "$ref": "#/definitions/ClinicalDataMultiStudyFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Clinical Data"
+        ],
+        "description": "Fetch clinical data by patient IDs or sample IDs (all studies)",
+        "operationId": "fetchClinicalDataUsingPOST"
+      }
+    },
+    "/api/copy-number-segments/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Chromosome",
+            "in": "query",
+            "name": "chromosome",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "sampleIdentifiers",
+            "schema": {
+              "description": "List of sample identifiers",
+              "items": {
+                "$ref": "#/definitions/SampleIdentifier"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/CopyNumberSeg"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Copy Number Segments"
+        ],
+        "description": "Fetch copy number segments by sample ID",
+        "operationId": "fetchCopyNumberSegmentsUsingPOST"
+      }
+    },
+    "/api/gene-panel-data/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "genePanelDataMultipleStudyFilter",
+            "schema": {
+              "$ref": "#/definitions/GenePanelDataMultipleStudyFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenePanelData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Gene Panel Data"
+        ],
+        "description": "Fetch gene panel data",
+        "operationId": "fetchGenePanelDataInMultipleMolecularProfilesUsingPOST"
+      }
+    },
+    "/api/gene-panels": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "genePanelId",
+              "description"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenePanel"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Gene Panels"
+        ],
+        "description": "Get all gene panels",
+        "operationId": "getAllGenePanelsUsingGET"
+      }
+    },
+    "/api/gene-panels/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "genePanelIds",
+            "required": true,
+            "schema": {
+              "description": "List of Gene Panel IDs",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenePanel"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Gene Panels"
+        ],
+        "description": "Get gene panel",
+        "operationId": "fetchGenePanelsUsingPOST"
+      }
+    },
+    "/api/gene-panels/{genePanelId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Gene Panel ID e.g. NSCLC_UNITO_2016_PANEL",
+            "in": "path",
+            "name": "genePanelId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GenePanel"
+            }
+          }
+        },
+        "tags": [
+          "Gene Panels"
+        ],
+        "description": "Get gene panel",
+        "operationId": "getGenePanelUsingGET"
+      }
+    },
+    "/api/generic-assay-data/{molecularProfileId}/generic-assay/{genericAssayStableId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Molecular Profile ID",
+            "in": "path",
+            "name": "molecularProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Generic Assay stable ID",
+            "in": "path",
+            "name": "genericAssayStableId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenericAssayData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Generic Assay Data"
+        ],
+        "description": "Get generic_assay_data in a molecular profile",
+        "operationId": "getGenericAssayDataInMolecularProfileUsingGET"
+      }
+    },
+    "/api/generic-assay-meta/generic-assay/{genericAssayStableId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Generic Assay stable ID",
+            "in": "path",
+            "name": "genericAssayStableId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenericAssayMeta"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Generic Assays"
+        ],
+        "description": "Fetch meta data for generic-assay by ID",
+        "operationId": "getGenericAssayMeta_gaUsingGET"
+      }
+    },
+    "/api/generic-assay-meta/{molecularProfileId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Molecular Profile ID",
+            "in": "path",
+            "name": "molecularProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenericAssayMeta"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Generic Assays"
+        ],
+        "description": "Fetch meta data for generic-assay by ID",
+        "operationId": "getGenericAssayMetaUsingGET"
+      }
+    },
+    "/api/generic_assay_data/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "genericAssayDataMultipleStudyFilter",
+            "schema": {
+              "$ref": "#/definitions/GenericAssayDataMultipleStudyFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenericAssayData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Generic Assay Data"
+        ],
+        "description": "Fetch generic_assay_data",
+        "operationId": "fetchGenericAssayDataInMultipleMolecularProfilesUsingPOST"
+      }
+    },
+    "/api/generic_assay_data/{molecularProfileId}/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Molecular Profile ID",
+            "in": "path",
+            "name": "molecularProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "genericAssayFilter",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenericAssayFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenericAssayData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Generic Assay Data"
+        ],
+        "description": "fetch generic_assay_data in a molecular profile",
+        "operationId": "fetchGenericAssayDataInMolecularProfileUsingPOST"
+      }
+    },
+    "/api/generic_assay_meta/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "genericAssayMetaFilter",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenericAssayMetaFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenericAssayMeta"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Generic Assays"
+        ],
+        "description": "Fetch meta data for generic-assay by ID",
+        "operationId": "fetchGenericAssayMetaUsingPOST"
+      }
+    },
+    "/api/genes": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Search keyword that applies to hugo gene symbol of the genes",
+            "in": "query",
+            "name": "keyword",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Alias of the gene",
+            "in": "query",
+            "name": "alias",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "entrezGeneId",
+              "hugoGeneSymbol",
+              "type",
+              "cytoband",
+              "length"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Gene"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Genes"
+        ],
+        "description": "Get all genes",
+        "operationId": "getAllGenesUsingGET"
+      }
+    },
+    "/api/genes/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "ENTREZ_GENE_ID",
+            "enum": [
+              "ENTREZ_GENE_ID",
+              "HUGO_GENE_SYMBOL"
+            ],
+            "in": "query",
+            "name": "geneIdType",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "geneIds",
+            "required": true,
+            "schema": {
+              "description": "List of Gene IDs",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Gene"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Genes"
+        ],
+        "description": "Fetch genes by ID",
+        "operationId": "fetchGenesUsingPOST"
+      }
+    },
+    "/api/genes/{geneId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Entrez Gene ID or Hugo Gene Symbol e.g. 1 or A1BG",
+            "in": "path",
+            "name": "geneId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Gene"
+            }
+          }
+        },
+        "tags": [
+          "Genes"
+        ],
+        "description": "Get a gene",
+        "operationId": "getGeneUsingGET"
+      }
+    },
+    "/api/genes/{geneId}/aliases": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Entrez Gene ID or Hugo Gene Symbol e.g. 1 or A1BG",
+            "in": "path",
+            "name": "geneId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Genes"
+        ],
+        "description": "Get aliases of a gene",
+        "operationId": "getAliasesOfGeneUsingGET"
+      }
+    },
+    "/api/health": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServerStatusMessage"
+            }
+          }
+        },
+        "tags": [
+          "Server running status"
+        ],
+        "description": "Get the running status of the server",
+        "operationId": "getServerStatusUsingGET"
+      }
+    },
+    "/api/info": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Info"
+            }
+          }
+        },
+        "tags": [
+          "Info"
+        ],
+        "description": "Get information about the running instance",
+        "operationId": "getInfoUsingGET"
+      }
+    },
+    "/api/molecular-data/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "molecularDataMultipleStudyFilter",
+            "schema": {
+              "$ref": "#/definitions/MolecularDataMultipleStudyFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/NumericGeneMolecularData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Molecular Data"
+        ],
+        "description": "Fetch molecular data",
+        "operationId": "fetchMolecularDataInMultipleMolecularProfilesUsingPOST"
+      }
+    },
+    "/api/molecular-profiles": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "molecularProfileId",
+              "molecularAlterationType",
+              "datatype",
+              "name",
+              "description",
+              "showProfileInAnalysisTab"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/MolecularProfile"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Molecular Profiles"
+        ],
+        "description": "Get all molecular profiles",
+        "operationId": "getAllMolecularProfilesUsingGET"
+      }
+    },
+    "/api/molecular-profiles/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "molecularProfileFilter",
+            "schema": {
+              "$ref": "#/definitions/MolecularProfileFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/MolecularProfile"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Molecular Profiles"
+        ],
+        "description": "Fetch molecular profiles",
+        "operationId": "fetchMolecularProfilesUsingPOST"
+      }
+    },
+    "/api/molecular-profiles/{molecularProfileId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Molecular Profile ID e.g. acc_tcga_mutations",
+            "in": "path",
+            "name": "molecularProfileId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MolecularProfile"
+            }
+          }
+        },
+        "tags": [
+          "Molecular Profiles"
+        ],
+        "description": "Get molecular profile",
+        "operationId": "getMolecularProfileUsingGET"
+      }
+    },
+    "/api/molecular-profiles/{molecularProfileId}/discrete-copy-number": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Molecular Profile ID e.g. acc_tcga_gistic",
+            "in": "path",
+            "name": "molecularProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Sample List ID e.g. acc_tcga_all",
+            "in": "query",
+            "name": "sampleListId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "HOMDEL_AND_AMP",
+            "description": "Type of the copy number event",
+            "enum": [
+              "HOMDEL_AND_AMP",
+              "HOMDEL",
+              "AMP",
+              "GAIN",
+              "HETLOSS",
+              "DIPLOID",
+              "ALL"
+            ],
+            "in": "query",
+            "name": "discreteCopyNumberEventType",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/DiscreteCopyNumberData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Discrete Copy Number Alterations"
+        ],
+        "description": "Get discrete copy number alterations in a molecular profile",
+        "operationId": "getDiscreteCopyNumbersInMolecularProfileUsingGET"
+      }
+    },
+    "/api/molecular-profiles/{molecularProfileId}/discrete-copy-number/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Molecular Profile ID e.g. acc_tcga_gistic",
+            "in": "path",
+            "name": "molecularProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "HOMDEL_AND_AMP",
+            "description": "Type of the copy number event",
+            "enum": [
+              "HOMDEL_AND_AMP",
+              "HOMDEL",
+              "AMP",
+              "GAIN",
+              "HETLOSS",
+              "DIPLOID",
+              "ALL"
+            ],
+            "in": "query",
+            "name": "discreteCopyNumberEventType",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "discreteCopyNumberFilter",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DiscreteCopyNumberFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/DiscreteCopyNumberData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Discrete Copy Number Alterations"
+        ],
+        "description": "Fetch discrete copy number alterations in a molecular profile by sample ID",
+        "operationId": "fetchDiscreteCopyNumbersInMolecularProfileUsingPOST"
+      }
+    },
+    "/api/molecular-profiles/{molecularProfileId}/gene-panel-data/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Molecular Profile ID e.g. nsclc_unito_2016_mutations",
+            "in": "path",
+            "name": "molecularProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "genePanelDataFilter",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenePanelDataFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenePanelData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Gene Panel Data"
+        ],
+        "description": "Get gene panel data",
+        "operationId": "getGenePanelDataUsingPOST"
+      }
+    },
+    "/api/molecular-profiles/{molecularProfileId}/molecular-data": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Molecular Profile ID e.g. acc_tcga_rna_seq_v2_mrna",
+            "in": "path",
+            "name": "molecularProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Sample List ID e.g. acc_tcga_all",
+            "in": "query",
+            "name": "sampleListId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Entrez Gene ID e.g. 1",
+            "format": "int32",
+            "in": "query",
+            "name": "entrezGeneId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/NumericGeneMolecularData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Molecular Data"
+        ],
+        "description": "Get all molecular data in a molecular profile",
+        "operationId": "getAllMolecularDataInMolecularProfileUsingGET"
+      }
+    },
+    "/api/molecular-profiles/{molecularProfileId}/molecular-data/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Molecular Profile ID e.g. acc_tcga_rna_seq_v2_mrna",
+            "in": "path",
+            "name": "molecularProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "molecularDataFilter",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MolecularDataFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/NumericGeneMolecularData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Molecular Data"
+        ],
+        "description": "Fetch molecular data in a molecular profile",
+        "operationId": "fetchAllMolecularDataInMolecularProfileUsingPOST"
+      }
+    },
+    "/api/molecular-profiles/{molecularProfileId}/mutations": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Molecular Profile ID e.g. acc_tcga_mutations",
+            "in": "path",
+            "name": "molecularProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Sample List ID e.g. acc_tcga_all",
+            "in": "query",
+            "name": "sampleListId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Entrez Gene ID",
+            "format": "int32",
+            "in": "query",
+            "name": "entrezGeneId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "entrezGeneId",
+              "center",
+              "mutationStatus",
+              "validationStatus",
+              "tumorAltCount",
+              "tumorRefCount",
+              "normalAltCount",
+              "normalRefCount",
+              "aminoAcidChange",
+              "startPosition",
+              "endPosition",
+              "referenceAllele",
+              "variantAllele",
+              "proteinChange",
+              "mutationType",
+              "ncbiBuild",
+              "variantType",
+              "refseqMrnaId",
+              "proteinPosStart",
+              "proteinPosEnd",
+              "keyword"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Mutation"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Mutations"
+        ],
+        "description": "Get mutations in a molecular profile by Sample List ID",
+        "operationId": "getMutationsInMolecularProfileBySampleListIdUsingGET"
+      }
+    },
+    "/api/molecular-profiles/{molecularProfileId}/mutations/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Molecular Profile ID e.g. acc_tcga_mutations",
+            "in": "path",
+            "name": "molecularProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "entrezGeneId",
+              "center",
+              "mutationStatus",
+              "validationStatus",
+              "tumorAltCount",
+              "tumorRefCount",
+              "normalAltCount",
+              "normalRefCount",
+              "aminoAcidChange",
+              "startPosition",
+              "endPosition",
+              "referenceAllele",
+              "variantAllele",
+              "proteinChange",
+              "mutationType",
+              "ncbiBuild",
+              "variantType",
+              "refseqMrnaId",
+              "proteinPosStart",
+              "proteinPosEnd",
+              "keyword"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "mutationFilter",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MutationFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Mutation"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Mutations"
+        ],
+        "description": "Fetch mutations in a molecular profile",
+        "operationId": "fetchMutationsInMolecularProfileUsingPOST"
+      }
+    },
+    "/api/mutations/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "entrezGeneId",
+              "center",
+              "mutationStatus",
+              "validationStatus",
+              "tumorAltCount",
+              "tumorRefCount",
+              "normalAltCount",
+              "normalRefCount",
+              "aminoAcidChange",
+              "startPosition",
+              "endPosition",
+              "referenceAllele",
+              "variantAllele",
+              "proteinChange",
+              "mutationType",
+              "ncbiBuild",
+              "variantType",
+              "refseqMrnaId",
+              "proteinPosStart",
+              "proteinPosEnd",
+              "keyword"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "mutationMultipleStudyFilter",
+            "schema": {
+              "$ref": "#/definitions/MutationMultipleStudyFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Mutation"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Mutations"
+        ],
+        "description": "Fetch mutations in multiple molecular profiles by sample IDs",
+        "operationId": "fetchMutationsInMultipleMolecularProfilesUsingPOST"
+      }
+    },
+    "/api/namespace-attributes/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "studyIds",
+            "required": true,
+            "schema": {
+              "description": "List of Study IDs",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/NamespaceAttribute"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Namespace Attributes"
+        ],
+        "description": "Fetch namespace attributes",
+        "operationId": "fetchNamespaceUsingPOST"
+      }
+    },
+    "/api/patients": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Search keyword that applies to ID of the patients",
+            "in": "query",
+            "name": "keyword",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "patientId"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Patient"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Patients"
+        ],
+        "description": "Get all patients",
+        "operationId": "getAllPatientsUsingGET"
+      }
+    },
+    "/api/patients/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "patientFilter",
+            "schema": {
+              "$ref": "#/definitions/PatientFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Patient"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Patients"
+        ],
+        "operationId": "fetchPatientsUsingPOST"
+      }
+    },
+    "/api/sample-lists": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "sampleListId",
+              "category",
+              "studyId",
+              "name",
+              "description"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SampleList"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Sample Lists"
+        ],
+        "description": "Get all sample lists",
+        "operationId": "getAllSampleListsUsingGET"
+      }
+    },
+    "/api/sample-lists/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "sampleListIds",
+            "required": true,
+            "schema": {
+              "description": "List of sample list IDs",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SampleList"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Sample Lists"
+        ],
+        "description": "Fetch sample lists by ID",
+        "operationId": "fetchSampleListsUsingPOST"
+      }
+    },
+    "/api/sample-lists/{sampleListId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Sample List ID e.g. acc_tcga_all",
+            "in": "path",
+            "name": "sampleListId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SampleList"
+            }
+          }
+        },
+        "tags": [
+          "Sample Lists"
+        ],
+        "description": "Get sample list",
+        "operationId": "getSampleListUsingGET"
+      }
+    },
+    "/api/sample-lists/{sampleListId}/sample-ids": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Sample List ID e.g. acc_tcga_all",
+            "in": "path",
+            "name": "sampleListId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Sample Lists"
+        ],
+        "description": "Get all sample IDs in a sample list",
+        "operationId": "getAllSampleIdsInSampleListUsingGET"
+      }
+    },
+    "/api/samples": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Search keyword that applies to the study ID",
+            "in": "query",
+            "name": "keyword",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "sampleId",
+              "sampleType"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Sample"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Samples"
+        ],
+        "description": "Get all samples matching keyword",
+        "operationId": "getSamplesByKeywordUsingGET"
+      }
+    },
+    "/api/samples/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "sampleFilter",
+            "schema": {
+              "$ref": "#/definitions/SampleFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Sample"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Samples"
+        ],
+        "description": "Fetch samples by ID",
+        "operationId": "fetchSamplesUsingPOST"
+      }
+    },
+    "/api/studies": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Search keyword that applies to name and cancer type of the studies",
+            "in": "query",
+            "name": "keyword",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "studyId",
+              "cancerTypeId",
+              "name",
+              "description",
+              "publicStudy",
+              "pmid",
+              "citation",
+              "groups",
+              "status",
+              "importDate"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/CancerStudy"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Studies"
+        ],
+        "description": "Get all studies",
+        "operationId": "getAllStudiesUsingGET"
+      }
+    },
+    "/api/studies/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "studyIds",
+            "required": true,
+            "schema": {
+              "description": "List of Study IDs",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/CancerStudy"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Studies"
+        ],
+        "description": "Fetch studies by IDs",
+        "operationId": "fetchStudiesUsingPOST"
+      }
+    },
+    "/api/studies/tags/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "studyIds",
+            "required": true,
+            "schema": {
+              "description": "List of Study IDs",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/CancerStudyTags"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Studies"
+        ],
+        "description": "Get the study tags by IDs",
+        "operationId": "getTagsForMultipleStudiesUsingPOST"
+      }
+    },
+    "/api/studies/{studyId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CancerStudy"
+            }
+          }
+        },
+        "tags": [
+          "Studies"
+        ],
+        "description": "Get a study",
+        "operationId": "getStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/clinical-attributes": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "clinicalAttributeId",
+              "displayName",
+              "description",
+              "datatype",
+              "patientAttribute",
+              "priority",
+              "studyId"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalAttribute"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Clinical Attributes"
+        ],
+        "description": "Get all clinical attributes in the specified study",
+        "operationId": "getAllClinicalAttributesInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/clinical-attributes/{clinicalAttributeId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Clinical Attribute ID e.g. CANCER_TYPE",
+            "in": "path",
+            "name": "clinicalAttributeId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ClinicalAttribute"
+            }
+          }
+        },
+        "tags": [
+          "Clinical Attributes"
+        ],
+        "description": "Get specified clinical attribute",
+        "operationId": "getClinicalAttributeInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/clinical-data": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Attribute ID e.g. CANCER_TYPE",
+            "in": "query",
+            "name": "attributeId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SAMPLE",
+            "description": "Type of the clinical data",
+            "enum": [
+              "SAMPLE",
+              "PATIENT"
+            ],
+            "in": "query",
+            "name": "clinicalDataType",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "clinicalAttributeId",
+              "value"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Clinical Data"
+        ],
+        "description": "Get all clinical data in a study",
+        "operationId": "getAllClinicalDataInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/clinical-data/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SAMPLE",
+            "description": "Type of the clinical data",
+            "enum": [
+              "SAMPLE",
+              "PATIENT"
+            ],
+            "in": "query",
+            "name": "clinicalDataType",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "clinicalDataSingleStudyFilter",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ClinicalDataSingleStudyFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Clinical Data"
+        ],
+        "description": "Fetch clinical data by patient IDs or sample IDs (specific study)",
+        "operationId": "fetchAllClinicalDataInStudyUsingPOST"
+      }
+    },
+    "/api/studies/{studyId}/molecular-profiles": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "molecularProfileId",
+              "molecularAlterationType",
+              "datatype",
+              "name",
+              "description",
+              "showProfileInAnalysisTab"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/MolecularProfile"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Molecular Profiles"
+        ],
+        "description": "Get all molecular profiles in a study",
+        "operationId": "getAllMolecularProfilesInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/patients": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "patientId"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Patient"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Patients"
+        ],
+        "description": "Get all patients in a study",
+        "operationId": "getAllPatientsInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/patients/{patientId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Patient ID e.g. TCGA-OR-A5J2",
+            "in": "path",
+            "name": "patientId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Patient"
+            }
+          }
+        },
+        "tags": [
+          "Patients"
+        ],
+        "description": "Get a patient in a study",
+        "operationId": "getPatientInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/patients/{patientId}/clinical-data": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Patient ID e.g. TCGA-OR-A5J2",
+            "in": "path",
+            "name": "patientId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Attribute ID e.g. AGE",
+            "in": "query",
+            "name": "attributeId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "clinicalAttributeId",
+              "value"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Clinical Data"
+        ],
+        "description": "Get all clinical data of a patient in a study",
+        "operationId": "getAllClinicalDataOfPatientInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/patients/{patientId}/samples": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Patient ID e.g. TCGA-OR-A5J2",
+            "in": "path",
+            "name": "patientId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "sampleId",
+              "sampleType"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Sample"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Samples"
+        ],
+        "description": "Get all samples of a patient in a study",
+        "operationId": "getAllSamplesOfPatientInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/sample-lists": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "sampleListId",
+              "category",
+              "studyId",
+              "name",
+              "description"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SampleList"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Sample Lists"
+        ],
+        "description": "Get all sample lists in a study",
+        "operationId": "getAllSampleListsInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/samples": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "sampleId",
+              "sampleType"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Sample"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Samples"
+        ],
+        "description": "Get all samples in a study",
+        "operationId": "getAllSamplesInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/samples/{sampleId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Sample ID e.g. TCGA-OR-A5J2-01",
+            "in": "path",
+            "name": "sampleId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Sample"
+            }
+          }
+        },
+        "tags": [
+          "Samples"
+        ],
+        "description": "Get a sample in a study",
+        "operationId": "getSampleInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/samples/{sampleId}/clinical-data": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Sample ID e.g. TCGA-OR-A5J2-01",
+            "in": "path",
+            "name": "sampleId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Attribute ID e.g. CANCER_TYPE",
+            "in": "query",
+            "name": "attributeId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "clinicalAttributeId",
+              "value"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Clinical Data"
+        ],
+        "description": "Get all clinical data of a sample in a study",
+        "operationId": "getAllClinicalDataOfSampleInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/samples/{sampleId}/copy-number-segments": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Sample ID e.g. TCGA-OR-A5J2-01",
+            "in": "path",
+            "name": "sampleId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Chromosome",
+            "in": "query",
+            "name": "chromosome",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 20000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 20000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "chromosome",
+              "start",
+              "end",
+              "numberOfProbes",
+              "segmentMean"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/CopyNumberSeg"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Copy Number Segments"
+        ],
+        "description": "Get copy number segments in a sample in a study",
+        "operationId": "getCopyNumberSegmentsInSampleInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/tags": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Studies"
+        ],
+        "description": "Get the tags of a study",
+        "operationId": "getTagsUsingGET"
+      }
+    }
+  },
+  "definitions": {
+    "AlleleSpecificCopyNumber": {
+      "properties": {
+        "ascnIntegerCopyNumber": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "ascnMethod": {
+          "type": "string"
+        },
+        "ccfExpectedCopies": {
+          "format": "float",
+          "type": "number"
+        },
+        "ccfExpectedCopiesUpper": {
+          "format": "float",
+          "type": "number"
+        },
+        "clonal": {
+          "type": "string"
+        },
+        "expectedAltCopies": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "minorCopyNumber": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalCopyNumber": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "CancerStudy": {
+      "properties": {
+        "allSampleCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "cancerType": {
+          "$ref": "#/definitions/TypeOfCancer"
+        },
+        "cancerTypeId": {
+          "type": "string"
+        },
+        "citation": {
+          "type": "string"
+        },
+        "cnaSampleCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "completeSampleCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        },
+        "groups": {
+          "type": "string"
+        },
+        "importDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "massSpectrometrySampleCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "methylationHm27SampleCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "miRnaSampleCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "mrnaMicroarraySampleCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "mrnaRnaSeqSampleCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "mrnaRnaSeqV2SampleCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "pmid": {
+          "type": "string"
+        },
+        "publicStudy": {
+          "type": "boolean"
+        },
+        "readPermission": {
+          "type": "boolean"
+        },
+        "referenceGenome": {
+          "type": "string"
+        },
+        "resourceCounts": {
+          "items": {
+            "$ref": "#/definitions/ResourceCount"
+          },
+          "type": "array"
+        },
+        "rppaSampleCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "sequencedSampleCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "status": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "structuralVariantCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "treatmentCount": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "CancerStudyTags": {
+      "properties": {
+        "tags": {
+          "type": "string"
+        },
+        "cancerStudyId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "studyId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalAttribute": {
+      "properties": {
+        "clinicalAttributeId": {
+          "type": "string"
+        },
+        "datatype": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "patientAttribute": {
+          "type": "boolean"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "clinicalAttributeId",
+        "displayName",
+        "patientAttribute",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "ClinicalData": {
+      "properties": {
+        "clinicalAttribute": {
+          "$ref": "#/definitions/ClinicalAttribute"
+        },
+        "clinicalAttributeId": {
+          "type": "string"
+        },
+        "patientAttribute": {
+          "type": "boolean"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "clinicalAttributeId",
+        "patientId",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "ClinicalDataIdentifier": {
+      "properties": {
+        "entityId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalDataMultiStudyFilter": {
+      "description": "List of patient or sample identifiers and attribute IDs",
+      "properties": {
+        "attributeIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "identifiers": {
+          "items": {
+            "$ref": "#/definitions/ClinicalDataIdentifier"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalDataSingleStudyFilter": {
+      "description": "List of patient or sample IDs and attribute IDs",
+      "properties": {
+        "attributeIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "CopyNumberSeg": {
+      "properties": {
+        "chromosome": {
+          "type": "string"
+        },
+        "end": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numberOfProbes": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "segmentMean": {
+          "type": "number"
+        },
+        "start": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "chromosome",
+        "end",
+        "numberOfProbes",
+        "patientId",
+        "sampleId",
+        "segmentMean",
+        "start",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "DiscreteCopyNumberData": {
+      "properties": {
+        "alteration": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "driverFilter": {
+          "type": "string"
+        },
+        "driverFilterAnnotation": {
+          "type": "string"
+        },
+        "driverTiersFilter": {
+          "type": "string"
+        },
+        "driverTiersFilterAnnotation": {
+          "type": "string"
+        },
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gene": {
+          "$ref": "#/definitions/Gene"
+        },
+        "molecularProfileId": {
+          "type": "string"
+        },
+        "namespaceColumns": {
+          "type": "object"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "alteration",
+        "entrezGeneId",
+        "molecularProfileId",
+        "patientId",
+        "sampleId",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "DiscreteCopyNumberFilter": {
+      "description": "List of Sample IDs/Sample List ID and Entrez Gene IDs",
+      "properties": {
+        "entrezGeneIds": {
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "maxItems": 50000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "sampleIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "sampleListId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Gene": {
+      "properties": {
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "geneticEntityId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "entrezGeneId",
+        "geneticEntityId",
+        "hugoGeneSymbol"
+      ],
+      "type": "object"
+    },
+    "GenePanel": {
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "genePanelId": {
+          "type": "string"
+        },
+        "genes": {
+          "items": {
+            "$ref": "#/definitions/GenePanelToGene"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "genePanelId"
+      ],
+      "type": "object"
+    },
+    "GenePanelData": {
+      "properties": {
+        "genePanelId": {
+          "type": "string"
+        },
+        "molecularProfileId": {
+          "type": "string"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "profiled": {
+          "type": "boolean"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "molecularProfileId",
+        "patientId",
+        "profiled",
+        "sampleId",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "GenePanelDataFilter": {
+      "description": "List of Sample IDs/Sample List ID and Entrez Gene IDs",
+      "properties": {
+        "sampleIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "sampleListId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GenePanelDataMultipleStudyFilter": {
+      "description": "Gene panel data filter object",
+      "properties": {
+        "molecularProfileIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 0,
+          "type": "array"
+        },
+        "sampleMolecularIdentifiers": {
+          "items": {
+            "$ref": "#/definitions/SampleMolecularIdentifier"
+          },
+          "maxItems": 10000000,
+          "minItems": 0,
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "GenePanelToGene": {
+      "properties": {
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "entrezGeneId",
+        "hugoGeneSymbol"
+      ],
+      "type": "object"
+    },
+    "GenericAssayData": {
+      "properties": {
+        "genericAssayStableId": {
+          "type": "string"
+        },
+        "molecularProfileId": {
+          "type": "string"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "patientLevel": {
+          "type": "boolean"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "stableId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "genericAssayStableId",
+        "molecularProfileId",
+        "patientId",
+        "sampleId",
+        "studyId",
+        "value"
+      ],
+      "type": "object"
+    },
+    "GenericAssayDataMultipleStudyFilter": {
+      "description": "List of Molecular Profile ID and Sample ID pairs or List of MolecularProfile IDs and Generic Assay IDs",
+      "properties": {
+        "genericAssayStableIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "molecularProfileIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "sampleMolecularIdentifiers": {
+          "items": {
+            "$ref": "#/definitions/SampleMolecularIdentifier"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "GenericAssayFilter": {
+      "description": "List of Sample IDs/Sample List ID and Generic Assay IDs",
+      "properties": {
+        "genericAssayStableIds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "sampleIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "sampleListId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GenericAssayMeta": {
+      "properties": {
+        "entityType": {
+          "type": "string"
+        },
+        "genericEntityMetaProperties": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "stableId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GenericAssayMetaFilter": {
+      "description": "List of Molecular Profile ID or List of Stable ID",
+      "properties": {
+        "genericAssayStableIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "molecularProfileIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "Info": {
+      "properties": {
+        "dbVersion": {
+          "type": "string"
+        },
+        "derivedTableVersion": {
+          "type": "string"
+        },
+        "geneTableVersion": {
+          "type": "string"
+        },
+        "genesetVersion": {
+          "type": "string"
+        },
+        "gitBranch": {
+          "type": "string"
+        },
+        "gitCommitId": {
+          "type": "string"
+        },
+        "gitCommitIdAbbrev": {
+          "type": "string"
+        },
+        "gitCommitIdDescribe": {
+          "type": "string"
+        },
+        "gitCommitIdDescribeShort": {
+          "type": "string"
+        },
+        "gitCommitMessageFull": {
+          "type": "string"
+        },
+        "gitCommitMessageShort": {
+          "type": "string"
+        },
+        "gitCommitMessageUserEmail": {
+          "type": "string"
+        },
+        "gitCommitMessageUserName": {
+          "type": "string"
+        },
+        "gitDirty": {
+          "type": "boolean"
+        },
+        "portalVersion": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "dbVersion",
+        "derivedTableVersion",
+        "geneTableVersion",
+        "genesetVersion",
+        "gitBranch",
+        "gitCommitId",
+        "gitCommitIdAbbrev",
+        "gitCommitIdDescribe",
+        "gitCommitIdDescribeShort",
+        "gitCommitMessageFull",
+        "gitCommitMessageShort",
+        "gitCommitMessageUserEmail",
+        "gitCommitMessageUserName",
+        "gitDirty",
+        "portalVersion"
+      ],
+      "type": "object"
+    },
+    "MolecularDataFilter": {
+      "description": "List of Sample IDs/Sample List ID and Entrez Gene IDs",
+      "properties": {
+        "entrezGeneIds": {
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "sampleIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "sampleListId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MolecularDataMultipleStudyFilter": {
+      "description": "List of Molecular Profile ID and Sample ID pairs or List of MolecularProfile IDs and Entrez Gene IDs",
+      "properties": {
+        "entrezGeneIds": {
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "molecularProfileIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "sampleMolecularIdentifiers": {
+          "items": {
+            "$ref": "#/definitions/SampleMolecularIdentifier"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "MolecularProfile": {
+      "properties": {
+        "datatype": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "genericAssayType": {
+          "type": "string"
+        },
+        "molecularAlterationType": {
+          "enum": [
+            "MUTATION_EXTENDED",
+            "MUTATION_UNCALLED",
+            "STRUCTURAL_VARIANT",
+            "COPY_NUMBER_ALTERATION",
+            "MICRO_RNA_EXPRESSION",
+            "MRNA_EXPRESSION",
+            "MRNA_EXPRESSION_NORMALS",
+            "RNA_EXPRESSION",
+            "METHYLATION",
+            "METHYLATION_BINARY",
+            "PHOSPHORYLATION",
+            "PROTEIN_LEVEL",
+            "PROTEIN_ARRAY_PROTEIN_LEVEL",
+            "PROTEIN_ARRAY_PHOSPHORYLATION",
+            "GENESET_SCORE",
+            "GENERIC_ASSAY"
+          ],
+          "type": "string"
+        },
+        "molecularProfileId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "patientLevel": {
+          "type": "boolean"
+        },
+        "pivotThreshold": {
+          "format": "float",
+          "type": "number"
+        },
+        "showProfileInAnalysisTab": {
+          "type": "boolean"
+        },
+        "sortOrder": {
+          "type": "string"
+        },
+        "study": {
+          "$ref": "#/definitions/CancerStudy"
+        },
+        "studyId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "molecularProfileId",
+        "patientLevel",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "MolecularProfileFilter": {
+      "description": "List of Molecular Profile IDs or List of Study IDs",
+      "properties": {
+        "molecularProfileIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "studyIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "Mutation": {
+      "properties": {
+        "alleleSpecificCopyNumber": {
+          "$ref": "#/definitions/AlleleSpecificCopyNumber"
+        },
+        "aminoAcidChange": {
+          "type": "string"
+        },
+        "center": {
+          "type": "string"
+        },
+        "chr": {
+          "type": "string"
+        },
+        "driverFilter": {
+          "type": "string"
+        },
+        "driverFilterAnnotation": {
+          "type": "string"
+        },
+        "driverTiersFilter": {
+          "type": "string"
+        },
+        "driverTiersFilterAnnotation": {
+          "type": "string"
+        },
+        "endPosition": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gene": {
+          "$ref": "#/definitions/Gene"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "molecularProfileId": {
+          "type": "string"
+        },
+        "mutationStatus": {
+          "type": "string"
+        },
+        "mutationType": {
+          "type": "string"
+        },
+        "namespaceColumns": {
+          "type": "object"
+        },
+        "ncbiBuild": {
+          "type": "string"
+        },
+        "normalAltCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "normalRefCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "proteinChange": {
+          "type": "string"
+        },
+        "proteinPosEnd": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "proteinPosStart": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "referenceAllele": {
+          "type": "string"
+        },
+        "refseqMrnaId": {
+          "type": "string"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "startPosition": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "tumorAltCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "tumorRefCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        },
+        "validationStatus": {
+          "type": "string"
+        },
+        "variantAllele": {
+          "type": "string"
+        },
+        "variantType": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "entrezGeneId",
+        "molecularProfileId",
+        "patientId",
+        "sampleId",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "MutationFilter": {
+      "description": "List of Sample IDs/Sample List ID and Entrez Gene IDs",
+      "properties": {
+        "entrezGeneIds": {
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "sampleIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "sampleListId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MutationMultipleStudyFilter": {
+      "description": "List of Molecular Profile IDs or List of Molecular Profile ID / Sample ID pairs, and List of Entrez Gene IDs",
+      "properties": {
+        "entrezGeneIds": {
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "molecularProfileIds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "sampleMolecularIdentifiers": {
+          "items": {
+            "$ref": "#/definitions/SampleMolecularIdentifier"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "NamespaceAttribute": {
+      "properties": {
+        "innerKey": {
+          "type": "string"
+        },
+        "outerKey": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "NumericGeneMolecularData": {
+      "properties": {
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gene": {
+          "$ref": "#/definitions/Gene"
+        },
+        "molecularProfileId": {
+          "type": "string"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "entrezGeneId",
+        "molecularProfileId",
+        "patientId",
+        "sampleId",
+        "studyId",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Patient": {
+      "properties": {
+        "cancerStudy": {
+          "$ref": "#/definitions/CancerStudy"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "patientId",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "PatientFilter": {
+      "description": "List of patient identifiers",
+      "properties": {
+        "patientIdentifiers": {
+          "items": {
+            "$ref": "#/definitions/PatientIdentifier"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "uniquePatientKeys": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "PatientIdentifier": {
+      "properties": {
+        "patientId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResourceCount": {
+      "properties": {
+        "customMetaData": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "openByDefault": {
+          "type": "boolean"
+        },
+        "patientCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "resourceId": {
+          "type": "string"
+        },
+        "resourceType": {
+          "enum": [
+            "STUDY",
+            "SAMPLE",
+            "PATIENT"
+          ],
+          "type": "string"
+        },
+        "sampleCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "studyId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "displayName",
+        "resourceId",
+        "resourceType",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "Sample": {
+      "properties": {
+        "copyNumberSegmentPresent": {
+          "type": "boolean"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "sampleType": {
+          "enum": [
+            "Primary Solid Tumor",
+            "Recurrent Solid Tumor",
+            "Primary Blood Tumor",
+            "Recurrent Blood Tumor",
+            "Metastatic",
+            "Blood Derived Normal",
+            "Solid Tissues Normal"
+          ],
+          "type": "string"
+        },
+        "sequenced": {
+          "type": "boolean"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "patientId",
+        "sampleId",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "SampleFilter": {
+      "description": "List of sample identifiers",
+      "properties": {
+        "sampleIdentifiers": {
+          "items": {
+            "$ref": "#/definitions/SampleIdentifier"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "sampleListIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "uniqueSampleKeys": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "SampleIdentifier": {
+      "properties": {
+        "sampleId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "SampleList": {
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sampleCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "sampleIds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "sampleListId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "sampleListId"
+      ],
+      "type": "object"
+    },
+    "SampleMolecularIdentifier": {
+      "properties": {
+        "molecularProfileId": {
+          "type": "string"
+        },
+        "sampleId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ServerStatusMessage": {
+      "properties": {
+        "status": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TypeOfCancer": {
+      "properties": {
+        "cancerTypeId": {
+          "type": "string"
+        },
+        "dedicatedColor": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        },
+        "shortName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cancerTypeId"
+      ],
+      "type": "object"
+    }
+  },
+  "tags": [
+    {
+      "description": "This end point does not require authentication",
+      "name": "Server running status"
+    }
+  ],
+  "externalDocs": {
+    "description": "SpringShop Wiki Documentation",
+    "url": "https://springshop.wiki.github.org/docs"
+  },
+  "x-components": {}
+}

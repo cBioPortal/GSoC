@@ -1,0 +1,16 @@
+.signal-frequency-table {
+    font-size: 1rem;
+    min-width: 300px;
+}
+
+.signal-frequency-table .rt-tbody {
+    line-height: 1rem;
+}
+
+.signal-frequency-table .-pagination {
+    font-size: 0.8rem;
+}
+
+.signal-frequency-table .-pagination .-center {
+    flex-grow: 5;
+}

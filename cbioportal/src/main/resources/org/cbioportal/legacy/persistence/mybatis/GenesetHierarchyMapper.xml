@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cbioportal.legacy.persistence.mybatis.GenesetHierarchyMapper">
+
+    <sql id="select">
+        a.node_id AS nodeId,
+        a.node_name AS nodeName,
+        a.parent_id AS parentId,
+        b.node_name AS parentNodeName
+    </sql>
+
+    <select id="getGenesetHierarchyParents" resultType="org.cbioportal.legacy.model.GenesetHierarchyInfo">
+        SELECT
+        <include refid="select"/>
+        FROM geneset_hierarchy_node as a LEFT JOIN geneset_hierarchy_node as b ON a.parent_id = b.node_id
+        <if test="genesetIds != null and !genesetIds.isEmpty()">
+        WHERE a.node_id IN
+            (SELECT geneset_hierarchy_leaf.node_id
+             FROM geneset_hierarchy_leaf JOIN geneset ON geneset_hierarchy_leaf.geneset_id = geneset.id
+             WHERE geneset.external_id IN
+                <foreach item="item" collection="genesetIds" open="(" separator="," close=")">#{item}</foreach>
+            )
+        </if>
+        ORDER BY b.node_name, a.node_name
+    </select>
+
+    <select id="getGenesetHierarchySuperNodes" resultType="org.cbioportal.legacy.model.GenesetHierarchyInfo">
+        SELECT
+        <include refid="select"/>
+        FROM geneset_hierarchy_node as a LEFT JOIN geneset_hierarchy_node as b ON a.parent_id = b.node_id
+        WHERE a.node_id NOT IN
+            (SELECT geneset_hierarchy_leaf.node_id
+             FROM geneset_hierarchy_leaf JOIN geneset ON geneset_hierarchy_leaf.geneset_id = geneset.id
+             <if test="genesetIds != null and !genesetIds.isEmpty()">
+             WHERE geneset.external_id IN
+                <foreach item="item" collection="genesetIds" open="(" separator="," close=")">#{item}</foreach>
+             </if>
+            )
+        ORDER BY b.node_name, a.node_name
+    </select>
+
+    <select id="getGenesetHierarchyGenesets" resultType="org.cbioportal.legacy.model.Geneset">
+        SELECT
+        <include refid="org.cbioportal.legacy.persistence.mybatis.GenesetMapper.select">
+                <property name="prefix" value=""/>
+        </include>
+        FROM geneset
+        WHERE id IN
+            (SELECT geneset_hierarchy_leaf.geneset_id
+             FROM geneset_hierarchy_leaf
+             WHERE geneset_hierarchy_leaf.node_id = #{nodeId}
+            )
+        ORDER BY geneset.name
+    </select>
+
+</mapper>

@@ -1,0 +1,107 @@
+.Safari {
+    // this is necessary to fix hidden scroll bars when position:absolute
+    .oncoprintjs__scroll_div {
+        position: static !important;
+    }
+}
+
+.oncoprintAddTracks {
+    .tab-content {
+        min-height: 100px !important;
+        padding: 10px 0 10px 0 !important;
+        .msk-tab {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+        }
+    }
+}
+
+.oncoprintAddTracksDropdown {
+    display: inline-block;
+}
+
+.oncoprintGenericAssayTab {
+    button {
+        width: auto !important;
+        margin-bottom: 0 !important;
+    }
+}
+
+.oncoprintAddClinicalTracks {
+    > ul {
+        margin-top: -5px !important;
+        padding-left: 20px;
+        margin-left: -20px;
+    }
+    > .tab-content {
+        padding: 10px 0 5px 0 !important;
+
+        > .msk-tab {
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+
+            .ReactVirtualized__Table > * {
+                width: 100% !important;
+            }
+        }
+    }
+    button:first-child {
+        margin-bottom: 0px !important;
+        width: auto !important;
+    }
+}
+
+.oncoprintAddClinicalTracksDropdown {
+    .rc-tooltip-arrow {
+        border: none !important;
+    }
+}
+
+.oncoprintDropdownCount {
+    font-size: 11px;
+    background: #ddd;
+    border-radius: 40px;
+    padding: 2px 6px;
+}
+
+.oncoprintContainer {
+    border: none !important;
+    padding: 0 !important;
+}
+
+.oncoprintContainer {
+    opacity: 0;
+
+    max-width: 95vw;
+    &.fadeIn {
+        transition: opacity 0.75s ease-in-out;
+        opacity: 1;
+    }
+}
+
+.tabMessageContainer {
+    .alert {
+        margin-bottom: 5px;
+    }
+}
+
+#wideGeneBoxValidationStatus > div {
+    white-space: normal;
+    width: 100%;
+    max-width: 555px;
+}
+
+.quick_oql_edit {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+
+    .oqlValidationContainer {
+        min-height: 27px;
+    }
+
+    div {
+        justify-content: left !important;
+    }
+}

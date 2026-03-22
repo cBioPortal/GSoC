@@ -1,0 +1,59 @@
+@import '~oncokb-styles/scss/vars';
+
+$oncokb-tabs-bg-color: $oncokb-darker-blue;
+$oncokb-header-height: 45px;
+$oncokb-tabs-text-color: white;
+
+.tabs-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.tabs {
+    display: flex;
+    flex-direction: row;
+    background-color: $oncokb-tabs-bg-color;
+    margin-bottom: 5px !important;
+    white-space: nowrap;
+    height: $oncokb-header-height;
+    padding: 0;
+}
+
+.tab {
+    flex-grow: 1;
+    text-align: center;
+    height: $oncokb-header-height;
+}
+
+.tab-pane {
+    padding: 0 10px 0 10px;
+}
+
+.tab-title-a {
+    color: $oncokb-tabs-text-color;
+    display: flex;
+    flex-direction: column;
+}
+
+.tab > a:hover {
+    text-decoration: none !important;
+}
+
+.tab-title-a:hover {
+    transition: color 0.28s ease;
+    color: lighten($oncokb-tabs-text-color, 20%);
+}
+
+.tab-title {
+    line-height: 22px;
+    float: left;
+    color: white;
+    text-transform: uppercase;
+}
+
+.tab-subtitle {
+    width: 100%;
+    line-height: 20px;
+    color: orange;
+    text-overflow: ellipsis;
+}

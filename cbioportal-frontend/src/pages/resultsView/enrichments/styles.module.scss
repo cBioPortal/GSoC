@@ -1,0 +1,151 @@
+.Container {
+    :global(.borderedChart) {
+        height: 100%;
+    }
+}
+
+.ChartsPanel {
+    display: flex;
+
+    > div {
+        margin-right: $standardMargin;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    margin-bottom: $standardMargin;
+}
+
+.Checkboxes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 30px;
+    float: left;
+}
+
+.Checkboxes > * {
+    margin-right: 10px !important;
+}
+
+.TableContainer {
+    :global(.tableSearchInput) {
+        width: 194px !important;
+    }
+}
+
+.Checkbox {
+    margin-top: -2px !important;
+    margin-bottom: 0 !important;
+}
+
+.Checkbox label input:disabled {
+    cursor: auto !important;
+}
+
+.Checkbox label {
+    cursor: auto !important;
+    min-height: 12px !important;
+}
+
+.GeneName {
+    margin-bottom: 5px;
+}
+
+.StableId {
+    margin-bottom: 5px;
+}
+
+.DataSet {
+    padding-bottom: $standardMargin;
+    :global(div.Select-menu-outer) {
+        z-index: 99 !important;
+    }
+}
+
+.ScatterTooltip div:last-child {
+    padding: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.BarTooltip div:last-child {
+    padding: 3px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.BoxTooltip div:last-child {
+    padding: 3px 10px;
+    white-space: nowrap;
+}
+
+.Tendency {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &.Significant {
+        font-weight: bold;
+    }
+
+    &.ColoredBackground {
+        border-radius: 3px;
+        padding: 1px 5px 1px 5px;
+        display: inline-block;
+        line-height: 1.4;
+    }
+}
+
+.FlexCheckbox label {
+    font-weight: normal !important;
+    display: flex;
+    align-items: center;
+}
+
+.FlexCheckbox label input {
+    margin-top: 1px !important;
+    margin-right: 5px !important;
+}
+
+.ChartLoader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    > div {
+        margin-left: 0px !important;
+    }
+}
+
+.BoxEmpty {
+    width: 350px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.BoxPlot {
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 350px;
+    min-width: 350px;
+    display: flex;
+}
+
+.inlineAlterationTypeSelectorMenuDash {
+    height: 545px;
+    min-width: 229px;
+    margin-right: 0px;
+}
+
+.ProfileTooltip {
+    max-width: 300px;
+}
+
+.ProfileInfoIcon {
+    margin-left: 8px;
+    color: #555;
+}

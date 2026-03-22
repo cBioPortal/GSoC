@@ -1,0 +1,8 @@
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_3" d="m8.4729,200.99999c0,-70.99448 57.50552,-128.5 128.5,-128.5c70.99448,0 128.5,57.50552 128.5,128.5c0,70.99448 -57.50552,128.5 -128.5,128.5c-70.99448,0 -128.5,-57.50552 -128.5,-128.5z" stroke-linecap="null" stroke-linejoin="null" stroke-width="15" fill="#ffffff" stroke="#7f7f7f"/>
+  <circle stroke="#7f7f7f" id="svg_4" r="128.5" cy="154.00001" cx="249.02708" stroke-width="15" fill="#ffffff" transform="matrix(1,0,0,1,10,47) "/>
+  <path id="svg_5" d="m197.99999,312.69291a115.09157,122.09931 0 0 1 0,-223.38582a115.09157,122.09931 0 0 1 0,223.38582" stroke-width="15" fill="#639dc6" stroke="#7f7f7f"/>
+ </g>
+</svg>

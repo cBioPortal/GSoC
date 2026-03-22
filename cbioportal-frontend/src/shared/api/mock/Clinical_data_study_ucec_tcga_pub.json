@@ -1,0 +1,308 @@
+[
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "Cancer Type",
+            "description": "Disease type",
+            "datatype": "STRING",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "CANCER_TYPE",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "CANCER_TYPE",
+        "value": "Endometrial Cancer"
+    },
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "Cancer Type Detailed",
+            "description": "Cancer Type Detailed",
+            "datatype": "STRING",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "CANCER_TYPE_DETAILED",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "CANCER_TYPE_DETAILED",
+        "value": "Uterine Serous Carcinoma/Uterine Papillary Serous Carcinoma"
+    },
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "CNA Cluster K4",
+            "description": "CNA cluster K4.",
+            "datatype": "STRING",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "CNA_CLUSTER_K4",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "CNA_CLUSTER_K4",
+        "value": "4"
+    },
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "CNA Data",
+            "description": "CNA data.",
+            "datatype": "STRING",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "CNA_DATA",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "CNA_DATA",
+        "value": "Y"
+    },
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "Data Core Sample",
+            "description": "Data core sample.",
+            "datatype": "STRING",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "DATA_CORE_SAMPLE",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "DATA_CORE_SAMPLE",
+        "value": "Y"
+    },
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "Neoplasm Histologic Grade",
+            "description": "Numeric value to express the degree of abnormality of cancer cells, a measure of differentiation and aggressiveness.",
+            "datatype": "STRING",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "GRADE",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "GRADE",
+        "value": "Grade 3"
+    },
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "MAF Data",
+            "description": "MAF Data.",
+            "datatype": "STRING",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "MAF_DATA",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "MAF_DATA",
+        "value": "Y"
+    },
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "Methylation Cluster",
+            "description": "Methylation cluster.",
+            "datatype": "STRING",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "METHYLATION_CLUSTER",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "METHYLATION_CLUSTER",
+        "value": "3"
+    },
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "MicroRNA Cluster",
+            "description": "MicroRNA cluster.",
+            "datatype": "STRING",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "MICRO_RNA_CLUSTER",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "MICRO_RNA_CLUSTER",
+        "value": "4"
+    },
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "MicroRNA Score",
+            "description": "MicroRNA score.",
+            "datatype": "NUMBER",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "MICRO_RNA_SCORE",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "MICRO_RNA_SCORE",
+        "value": "0.886489497"
+    },
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "MLH1 Silencing",
+            "description": "Epigenetic silencing status of MLH1.",
+            "datatype": "STRING",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "MLH1_SILENCING",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "MLH1_SILENCING",
+        "value": "0"
+    },
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "MRNA Expression Cluster",
+            "description": "MRNA expression cluster.",
+            "datatype": "STRING",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "MRNA_EXPRESSION_CLUSTER",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "MRNA_EXPRESSION_CLUSTER",
+        "value": "1"
+    },
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "MSI Status 5 Marker Call",
+            "description": "MSI status 5 marker call.",
+            "datatype": "STRING",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "MSI_STATUS_5_MARKER_CALL",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "MSI_STATUS_5_MARKER_CALL",
+        "value": "MSS"
+    },
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "MSI Status 7 Marker Call",
+            "description": "MSI status 7 marker call.",
+            "datatype": "STRING",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "MSI_STATUS_7_MARKER_CALL",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "MSI_STATUS_7_MARKER_CALL",
+        "value": "MSS"
+    },
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "Mutation Rate Cluster",
+            "description": "Mutation rate cluster",
+            "datatype": "STRING",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "MUTATION_RATE_CLUSTER",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "MUTATION_RATE_CLUSTER",
+        "value": "1_LOW"
+    },
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "RNA-SEQ Data",
+            "description": "RNA-SEQ data.",
+            "datatype": "STRING",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "RNASEQ_DATA",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "RNASEQ_DATA",
+        "value": "Y"
+    },
+    {
+        "uniqueSampleKey": "VENHQS1CSy1BMENDLTAxOnVjZWNfdGNnYV9wdWI",
+        "uniquePatientKey": "VENHQS1CSy1BMENDOnVjZWNfdGNnYV9wdWI",
+        "sampleId": "TCGA-BK-A0CC-01",
+        "patientId": "TCGA-BK-A0CC",
+        "studyId": "ucec_tcga_pub",
+        "clinicalAttribute": {
+            "displayName": "Tumor Stage 2009",
+            "description": "Tumor stage 2009.",
+            "datatype": "STRING",
+            "patientAttribute": false,
+            "priority": "1",
+            "clinicalAttributeId": "TUMOR_STAGE_2009",
+            "studyId": "ucec_tcga_pub"
+        },
+        "clinicalAttributeId": "TUMOR_STAGE_2009",
+        "value": "Stage III"
+    }
+]

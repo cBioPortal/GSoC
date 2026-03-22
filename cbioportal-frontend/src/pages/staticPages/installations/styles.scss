@@ -1,0 +1,10 @@
+.mainContainer {
+    .installationMap {
+        padding-bottom: 0 !important;
+        iframe,
+        #mainColumn > div {
+            width: 100%;
+            height: 90vh;
+        }
+    }
+}

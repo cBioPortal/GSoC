@@ -1,0 +1,8 @@
+.dataSets {
+    :global(.tableMainToolbar) {
+        :global(.tableFilter) {
+            float: left !important;
+        }
+    }
+    margin-bottom: 20px;
+}

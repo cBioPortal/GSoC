@@ -1,0 +1,457 @@
+Sample_ID	Cancer_Type	Protein_Change	Mutation_Type	Chromosome	Start_Position	End_Position	Reference_Allele	Variant_Allele	Tumor_Alt_Count	Tumor_Ref_Count	Normal_Alt_Count	Normal_Ref_Count
+TCGA-49-4494-01	Lung Adenocarcinoma	T790M	Missense_Mutation	7	55249071	55249071	C	T	96	91		142
+TCGA-L9-A50W-01	Lung Adenocarcinoma	T790M	Missense_Mutation	7	55249071	55249071	C	T	55	45		55
+TCGA-38-4627-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	15	108		128
+TCGA-49-4490-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	45	67		86
+TCGA-49-4494-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	94	119		160
+TCGA-50-5944-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	24	59		96
+TCGA-55-8096-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	192	224		219
+TCGA-55-8506-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	66	74		142
+TCGA-62-8394-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	84	118		165
+TCGA-64-1681-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	39	83		108
+TCGA-67-3770-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	81	237		176
+TCGA-67-3772-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	133	371		480
+TCGA-67-6217-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	14	82		96
+TCGA-71-8520-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	103	92		109
+TCGA-86-8055-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	345	147		195
+TCGA-86-8075-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	63	83		254
+TCGA-86-8668-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	27	151		160
+TCGA-91-6835-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	11	97		104
+TCGA-97-8177-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	53	221		92
+TCGA-97-A4M1-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	16	122		126
+TCGA-97-A4M7-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	18	121		177
+TCGA-L9-A50W-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	39	61		56
+TCGA-MP-A4SW-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	150	114		128
+TCGA-MP-A4T9-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	60	156		112
+TCGA-17-Z047-01	Lung Adenocarcinoma	L858R	Missense_Mutation	7	55259515	55259515	T	G	27	311		276
+TCGA-05-5423-01	Lung Adenocarcinoma	L861Q	Missense_Mutation	7	55259524	55259524	T	A	17	59	1	62
+TCGA-78-7147-01	Lung Adenocarcinoma	L861Q	Missense_Mutation	7	55259524	55259524	T	A	98	65		90
+TCGA-93-A4JP-01	Lung Adenocarcinoma	L861Q	Missense_Mutation	7	55259524	55259524	T	A	13	119		192
+TCGA-66-2742-01	Lung Squamous Cell Carcinoma	L861Q	Missense_Mutation	7	55259524	55259524	T	A	51	131	1	139
+TCGA-70-6722-01	Lung Squamous Cell Carcinoma	L861Q	Missense_Mutation	7	55259524	55259524	T	A	185	110		114
+TCGA-50-6595-01	Lung Adenocarcinoma	G719A	Missense_Mutation	7	55241708	55241708	G	C	25	62		72
+TCGA-55-A48Z-01	Lung Adenocarcinoma	G719A	Missense_Mutation	7	55241708	55241708	G	C	35	90		77
+TCGA-44-A4SU-01	Lung Adenocarcinoma	G719C	Missense_Mutation	7	55241707	55241707	G	T	66	50		70
+TCGA-44-A4SU-01	Lung Adenocarcinoma	S768I	Missense_Mutation	7	55249005	55249005	G	T	131	101		155
+TCGA-50-6595-01	Lung Adenocarcinoma	S768I	Missense_Mutation	7	55249005	55249005	G	T	38	114		99
+TCGA-50-6591-01	Lung Adenocarcinoma	L833V	Missense_Mutation	7	55259439	55259439	T	G	323	27		108
+TCGA-05-5423-01	Lung Adenocarcinoma	L833F	Missense_Mutation	7	55259441	55259441	G	T	16	52		66
+TCGA-49-4501-01	Lung Adenocarcinoma	E746_A750del	In_Frame_Del	7	55242466	55242480	GAATTAAGAGAAGCA	-	37	98		55
+TCGA-55-8206-01	Lung Adenocarcinoma	E746_A750del	In_Frame_Del	7	55242466	55242480	GAATTAAGAGAAGCA	-	13	47		92
+TCGA-62-A46U-01	Lung Adenocarcinoma	E746_A750del	In_Frame_Del	7	55242466	55242480	GAATTAAGAGAAGCA	-	9	69		57
+TCGA-97-8552-01	Lung Adenocarcinoma	E746_A750del	In_Frame_Del	7	55242466	55242480	GAATTAAGAGAAGCA	-	17	67		89
+TCGA-J2-8192-01	Lung Adenocarcinoma	E746_A750del	In_Frame_Del	7	55242466	55242480	GAATTAAGAGAAGCA	-	41	80		98
+TCGA-38-4628-01	Lung Adenocarcinoma	E746_A750del	In_Frame_Del	7	55242465	55242479	GGAATTAAGAGAAGC	-	34	59		87
+TCGA-38-6178-01	Lung Adenocarcinoma	E746_A750del	In_Frame_Del	7	55242465	55242479	GGAATTAAGAGAAGC	-	87	70		108
+TCGA-62-8402-01	Lung Adenocarcinoma	E746_A750del	In_Frame_Del	7	55242465	55242479	GGAATTAAGAGAAGC	-	24	37		92
+TCGA-75-6207-01	Lung Adenocarcinoma	E746_A750del	In_Frame_Del	7	55242465	55242479	GGAATTAAGAGAAGC	-	15	44		104
+TCGA-75-7025-01	Lung Adenocarcinoma	E746_A750del	In_Frame_Del	7	55242465	55242479	GGAATTAAGAGAAGC	-	27	51		81
+TCGA-86-8074-01	Lung Adenocarcinoma	E746_A750del	In_Frame_Del	7	55242465	55242479	GGAATTAAGAGAAGC	-	11	92		103
+TCGA-86-8280-01	Lung Adenocarcinoma	E746_A750del	In_Frame_Del	7	55242465	55242479	GGAATTAAGAGAAGC	-	27	76		87
+TCGA-97-8171-01	Lung Adenocarcinoma	E746_A750del	In_Frame_Del	7	55242465	55242479	GGAATTAAGAGAAGC	-	43	37		94
+TCGA-97-8547-01	Lung Adenocarcinoma	E746_A750del	In_Frame_Del	7	55242465	55242479	GGAATTAAGAGAAGC	-	47	81		74
+TCGA-97-A4M6-01	Lung Adenocarcinoma	E746_A750del	In_Frame_Del	7	55242465	55242479	GGAATTAAGAGAAGC	-	11	64		73
+TCGA-17-Z032-01	Lung Adenocarcinoma	E746_A750del	In_Frame_Del	7	55242465	55242479	GGAATTAAGAGAAGC	-	19	46		108
+TCGA-85-A50M-01	Lung Squamous Cell Carcinoma	E746_A750del	In_Frame_Del	7	55242465	55242479	GGAATTAAGAGAAGC	-	21	27		75
+TCGA-55-7573-01	Lung Adenocarcinoma	L747_E749del	In_Frame_Del	7	55242466	55242474	GAATTAAGA	-	11	46		72
+TCGA-55-6980-01	Lung Adenocarcinoma	E709_T710delinsD	In_Frame_Del	7	55241679	55241681	AAC	-	19	53		65
+TCGA-69-7760-01	Lung Adenocarcinoma	E709_T710delinsD	In_Frame_Del	7	55241679	55241681	AAC	-	77	73		57
+TCGA-86-A4P7-01	Lung Adenocarcinoma	E709_T710delinsD	In_Frame_Del	7	55241679	55241681	AAC	-	11	80		101
+TCGA-55-6981-01	Lung Adenocarcinoma	L747_T751del	In_Frame_Del	7	55242468	55242482	ATTAAGAGAAGCAAC	-	100	68		144
+TCGA-55-A57B-01	Lung Adenocarcinoma	L747_T751del	In_Frame_Del	7	55242468	55242482	ATTAAGAGAAGCAAC	-	15	77		55
+TCGA-50-6591-01	Lung Adenocarcinoma	K754_I759del	In_Frame_Del	7	55242490	55242507	AAAGCCAACAAGGAAATC	-	167	43		54
+TCGA-05-4402-01	Lung Adenocarcinoma	T751_I759delinsN	In_Frame_Del	7	55242482	55242506	CATCTCCGAAAGCCAACAAGGAAAT	A	47	82		56
+TCGA-75-6212-01	Lung Adenocarcinoma	L747_A750delinsP	In_Frame_Del	7	55242469	55242478	TTAAGAGAAG	C	24	54		82
+TCGA-MP-A4T6-01	Lung Adenocarcinoma	L747_A750delinsP	In_Frame_Del	7	55242469	55242478	TTAAGAGAAG	C	29	75		67
+TCGA-GM-A2DD-01	Breast Invasive Ductal Carcinoma	S768I	Missense_Mutation	7	55249005	55249005	G	T	4	11		26
+TCGA-17-Z048-01	Lung Adenocarcinoma	D770_N771insGL	In_Frame_Ins	7	55249012	55249013	-	GGGTTA	104	79		93
+TCGA-44-5645-01	Lung Adenocarcinoma	A767_V769dup	In_Frame_Ins	7	55248998	55248999	-	TGGCCAGCG	44	132		187
+TCGA-50-6673-01	Lung Adenocarcinoma	H773dup	In_Frame_Ins	7	55249017	55249018	-	CCA	133	140		131
+TCGA-OL-A97C-01	Breast Invasive Carcinoma, NOS	A289V	Missense_Mutation	7	55221822	55221822	C	T	33	36		49
+TCGA-55-7573-01	Lung Adenocarcinoma	K754E	Missense_Mutation	7	55242490	55242490	A	G	9	36		58
+TCGA-78-7155-01	Lung Adenocarcinoma	K754I	Missense_Mutation	7	55242491	55242491	A	T	37	50		57
+TCGA-38-4627-01	Lung Adenocarcinoma	L62R	Missense_Mutation	7	55210075	55210075	T	G	35	199		212
+TCGA-71-8520-01	Lung Adenocarcinoma	L62R	Missense_Mutation	7	55210075	55210075	T	G	90	91		101
+TCGA-05-4382-01	Lung Adenocarcinoma	R222L	Missense_Mutation	7	55220275	55220275	G	T	86	418	1	119
+TCGA-70-6722-01	Lung Squamous Cell Carcinoma	V843L	Missense_Mutation	7	55259469	55259469	G	T	209	95		123
+TCGA-55-6968-01	Lung Adenocarcinoma	E866K	Missense_Mutation	7	55259538	55259538	G	A	7	88		61
+TCGA-A2-A4S3-01	Breast Invasive Ductal Carcinoma	D314G	Missense_Mutation	7	55223574	55223574	A	G	26	65		75
+TCGA-A8-A094-01	Breast Invasive Ductal Carcinoma	E282K	Missense_Mutation	7	55221800	55221800	G	A	12	42		96
+TCGA-D8-A1JF-01	Breast Invasive Ductal Carcinoma	E114K	Missense_Mutation	7	55211097	55211097	G	A	25	24		50
+TCGA-13-0912-01	Serous Ovarian Cancer	E114K	Missense_Mutation	7	55211097	55211097	G	A	30	481		554
+TCGA-22-4609-01	Lung Squamous Cell Carcinoma	S229C	Missense_Mutation	7	55220295	55220295	A	T	71	115	1	499
+TCGA-05-4410-01	Lung Adenocarcinoma	R377S	Missense_Mutation	7	55224350	55224350	G	T	34	74		86
+TCGA-78-7147-01	Lung Adenocarcinoma	L387M	Missense_Mutation	7	55224477	55224477	C	A	39	33	1	89
+TCGA-95-7947-01	Lung Adenocarcinoma	I91V	Missense_Mutation	7	55211028	55211028	A	G	40	110		132
+TCGA-46-3769-01	Lung Squamous Cell Carcinoma	P589L	Missense_Mutation	7	55233016	55233016	C	T	21	242		50
+TCGA-60-2698-01	Lung Squamous Cell Carcinoma	X210_splice	Splice_Site	7	55220237	55220237	A	G	63	1484		497
+TCGA-43-A56U-01	Lung Squamous Cell Carcinoma	P192R	Missense_Mutation	7	55219002	55219002	C	G	9	84		118
+TCGA-55-7570-01	Lung Adenocarcinoma	V300M	Missense_Mutation	7	55223531	55223531	G	A	17	63		83
+TCGA-56-8304-01	Lung Squamous Cell Carcinoma	G87C	Missense_Mutation	7	55211016	55211016	G	T	42	76		96
+TCGA-BH-A18U-01	Breast Invasive Ductal Carcinoma	E257K	Missense_Mutation	7	55221725	55221725	G	A	27	612		297
+TCGA-AO-A12G-01	Breast Invasive Carcinoma, NOS	T273A	Missense_Mutation	7	55221773	55221773	A	G	19	40		44
+TCGA-B6-A0RQ-01	Breast Invasive Lobular Carcinoma	A1201V	Missense_Mutation	7	55273279	55273279	C	T	5	69		75
+TCGA-18-3417-01	Lung Squamous Cell Carcinoma	X297_splice	Splice_Region	7	55223520	55223520	C	T	73	66		122
+TCGA-05-4402-01	Lung Adenocarcinoma	I759N	Missense_Mutation	7	55242506	55242506	T	A	31	63		58
+TCGA-78-7155-01	Lung Adenocarcinoma	G901V	Missense_Mutation	7	55266410	55266410	G	T	22	202		98
+TCGA-24-1850-01	Serous Ovarian Cancer	K261N	Missense_Mutation	7	55221739	55221739	G	T	7	68		86
+TCGA-C8-A1HG-01	Breast Invasive Ductal Carcinoma	T847K	Missense_Mutation	7	55259482	55259482	C	A	11	103		117
+TCGA-05-4382-01	Lung Adenocarcinoma	E545Q	Missense_Mutation	7	55231427	55231427	G	C	17	196		65
+TCGA-69-7765-01	Lung Adenocarcinoma	Q486*	Nonsense_Mutation	7	55227989	55227989	C	T	5	40		37
+TCGA-78-7147-01	Lung Adenocarcinoma	D1083Efs*11	Frame_Shift_Del	7	55270296	55270296	C	-	9	18		24
+TCGA-78-7155-01	Lung Adenocarcinoma	Q432H	Missense_Mutation	7	55225444	55225444	A	T	37	74		47
+TCGA-78-7158-01	Lung Adenocarcinoma	L907M	Missense_Mutation	7	55266427	55266427	T	A	48	62		122
+TCGA-95-7039-01	Lung Adenocarcinoma	S921R	Missense_Mutation	7	55266471	55266471	C	A	14	99		96
+TCGA-95-7947-01	Lung Adenocarcinoma	R1052I	Missense_Mutation	7	55269468	55269468	G	T	56	186		220
+TCGA-22-4601-01	Lung Squamous Cell Carcinoma	P1019L	Missense_Mutation	7	55268990	55268990	C	T	68	43		199
+TCGA-60-2708-01	Lung Squamous Cell Carcinoma	S720C	Missense_Mutation	7	55241711	55241711	C	G	7	180		131
+TCGA-77-8156-01	Lung Squamous Cell Carcinoma	Y1138C	Missense_Mutation	7	55273090	55273090	A	G	31	86		74
+TCGA-97-8172-01	Lung Adenocarcinoma	G627*	Nonsense_Mutation	7	55233129	55233129	G	T	4	39		52
+TCGA-46-3765-01	Lung Squamous Cell Carcinoma	G627*	Nonsense_Mutation	7	55233129	55233129	G	T	4	38		41
+TCGA-AC-A23H-01	Breast Invasive Ductal Carcinoma	D1051N	Missense_Mutation	7	55269464	55269464	G	A	21	65		100
+TCGA-13-1501-01	Serous Ovarian Cancer	Q1164R	Missense_Mutation	7	55273168	55273168	A	G	72	173		422
+TCGA-24-2289-01	Serous Ovarian Cancer	K716R	Missense_Mutation	7	55241699	55241699	A	G	19	43		109
+TCGA-AR-A0TV-01	Breast Invasive Ductal Carcinoma	C526S	Missense_Mutation	7	55229270	55229270	G	C	21	60		74
+TCGA-A7-A6VX-01	Breast Invasive Ductal Carcinoma	A147T	Missense_Mutation	7	55214313	55214313	G	A	18	33		29
+TCGA-AO-A128-01	Breast Invasive Ductal Carcinoma	Y900=	Splice_Region	7	55260533	55260533	C	T	10	107		167
+TCGA-OL-A5RZ-01	Breast Invasive Ductal Carcinoma	E97Q	Missense_Mutation	7	55211046	55211046	G	C	4	60		66
+TCGA-S3-A6ZG-01	Breast Invasive Carcinoma, NOS	E928V	Missense_Mutation	7	55266491	55266491	A	T	7	18		42
+TCGA-17-Z026-01	Lung Adenocarcinoma	G721V	Missense_Mutation	7	55241714	55241714	G	T	5	21		46
+TCGA-50-5066-01	Lung Adenocarcinoma	L210=	Splice_Region	7	55220240	55220240	G	T	30	279		302
+TCGA-33-4566-01	Lung Squamous Cell Carcinoma	X1039_splice	Splice_Region	7	55269425	55269425	C	T	38	154		180
+TCGA-13-0889-01	Serous Ovarian Cancer	T1074Nfs*6	Frame_Shift_Ins	7	55270266	55270267	-	A	8	60		240
+TCGA-25-2404-01	Serous Ovarian Cancer	V461M	Missense_Mutation	7	55227914	55227914	G	A	15	57		91
+TCGA-04-1357-01	Serous Ovarian Cancer	Q1538*	Nonsense_Mutation	17	41226411	41226411	G	A	415	270		598
+TCGA-29-2427-01	Serous Ovarian Cancer	L431*	Nonsense_Mutation	17	41246256	41246256	A	C	63	50		169
+TCGA-42-2591-01	Serous Ovarian Cancer	M1?	Translation_Start_Site	17	41276113	41276113	T	C	148	11		201
+TCGA-20-1682-01	Serous Ovarian Cancer	Y655Vfs*18	Frame_Shift_Ins	17	41245586	41245587	-	T	95	82		256
+TCGA-04-1335-01	Serous Ovarian Cancer	I1108*	Frame_Shift_Del	17	41244226	41244226	T	-	39	81		82
+TCGA-09-2043-01	Serous Ovarian Cancer	W1718*	Nonsense_Mutation	17	41215390	41215390	C	T	77	19		103
+TCGA-23-2641-01	Serous Ovarian Cancer	D749Vfs*4	Frame_Shift_Del	17	41245302	41245302	T	-	110	126		235
+TCGA-24-1846-01	Serous Ovarian Cancer	D1156Cfs*2	Nonsense_Mutation	17	41244082	41244083	-	ATCTAACA	95	79		264
+TCGA-24-1847-01	Serous Ovarian Cancer	E111*	Nonsense_Mutation	17	41256249	41256249	C	A	60	55		178
+TCGA-29-1768-01	Serous Ovarian Cancer	D295Tfs*3	Frame_Shift_Del	17	41246666	41246666	T	-	55	164		87
+TCGA-29-1776-01	Serous Ovarian Cancer	R1188Efs*3	Frame_Shift_Del	17	41243985	41243986	CT	-	91	91		143
+TCGA-30-1857-01	Serous Ovarian Cancer	K800*	Nonsense_Mutation	17	41245150	41245150	T	A	166	118		288
+TCGA-36-2534-01	Serous Ovarian Cancer	X1760_splice	Splice_Site	17	41203135	41203135	C	A	367	35		347
+TCGA-36-2542-01	Serous Ovarian Cancer	N1268Tfs*3	Frame_Shift_Del	17	41243733	41243745	TTACTGCAGTCAT	-	51	56		265
+TCGA-36-2544-01	Serous Ovarian Cancer	C328*	Frame_Shift_Del	17	41246566	41246567	AT	-	99	62		156
+TCGA-61-1914-01	Serous Ovarian Cancer	L474*	Nonsense_Mutation	17	41246127	41246127	A	C	159	58		228
+TCGA-61-2096-01	Serous Ovarian Cancer	W1837L	Missense_Mutation	17	41197777	41197777	C	A	49	14		120
+TCGA-BH-A0WA-01	Invasive Breast Carcinoma	X1559_splice	Splice_Site	17	41223256	41223256	C	T	10	8		29
+TCGA-A1-A0SH-01	Breast Invasive Ductal Carcinoma	Q934*	Nonsense_Mutation	17	41244748	41244748	G	A	44	160		120
+TCGA-AN-A0XU-01	Breast Invasive Ductal Carcinoma	G1788V	Missense_Mutation	17	41201181	41201181	C	A	15	43		114
+TCGA-BH-A0DS-01	Breast Invasive Ductal Carcinoma	Q1811L	Missense_Mutation	17	41199695	41199695	T	A	23	126		79
+TCGA-LL-A8F5-01	Breast Invasive Ductal Carcinoma	Q1408*	Nonsense_Mutation	17	41234556	41234556	G	A	88	24		93
+TCGA-55-7281-01	Lung Adenocarcinoma	P1749S	Missense_Mutation	17	41209101	41209101	G	A	42	263		208
+TCGA-18-3421-01	Lung Squamous Cell Carcinoma	Q94*	Nonsense_Mutation	17	41256906	41256906	G	A	45	18		72
+TCGA-43-5668-01	Lung Squamous Cell Carcinoma	X1718_splice	Splice_Site	17	41215391	41215391	C	T	9	20		26
+TCGA-46-3769-01	Lung Squamous Cell Carcinoma	K1160*	Nonsense_Mutation	17	41244070	41244070	T	A	10	83		85
+TCGA-44-8117-01	Lung Adenocarcinoma	G535*	Nonsense_Mutation	17	41245945	41245945	C	A	13	32		47
+TCGA-55-8620-01	Lung Adenocarcinoma	E1214*	Nonsense_Mutation	17	41243908	41243908	C	A	55	47		68
+TCGA-77-8131-01	Lung Squamous Cell Carcinoma	R1028Vfs*20	Frame_Shift_Del	17	41244466	41244466	G	-	9	98		126
+TCGA-98-A53A-01	Lung Squamous Cell Carcinoma	E1257Gfs*9	Frame_Shift_Del	17	41243777	41243778	CT	-	85	221		192
+TCGA-A2-A25B-01	Breast Invasive Ductal Carcinoma	E720*	Nonsense_Mutation	17	41245390	41245390	C	A	32	8		80
+TCGA-E9-A1NC-01	Breast Invasive Carcinoma, NOS	Q139*	Nonsense_Mutation	17	41256165	41256165	G	A	51	157		140
+TCGA-A1-A0SO-01	Breast Invasive Ductal Carcinoma	X27_splice	Splice_Site	17	41276033	41276033	C	T	113	11		88
+TCGA-AR-A0U4-01	Breast Invasive Ductal Carcinoma	N1121Kfs*12	Frame_Shift_Ins	17	41244185	41244186	-	T	55	180		152
+TCGA-B6-A0X1-01	Breast Invasive Ductal Carcinoma	E23Sfs*8	Frame_Shift_Del	17	41276047	41276047	C	-	177	216		197
+TCGA-A7-A26H-01	Breast Invasive Ductal Carcinoma	T688Vfs*12	Frame_Shift_Del	17	41245484	41245487	TGTC	-	51	88		63
+TCGA-A7-A6VW-01	Breast Invasive Ductal Carcinoma	C903Wfs*97	Frame_Shift_Del	17	41244839	41244839	A	-	8	13		34
+TCGA-A8-A06X-01	Breast Invasive Ductal Carcinoma	E272*	Nonsense_Mutation	17	41246734	41246734	C	A	10	225		106
+TCGA-S3-AA15-01	Breast Invasive Ductal Carcinoma	E1329*	Nonsense_Mutation	17	41243563	41243563	C	A	4	75		135
+TCGA-17-Z042-01	Lung Adenocarcinoma	E1112*	Nonsense_Mutation	17	41244214	41244214	C	A	19	75		61
+TCGA-44-4112-01	Lung Adenocarcinoma	Q1144*	Nonsense_Mutation	17	41244118	41244118	G	A	13	107	1	88
+TCGA-64-5781-01	Lung Adenocarcinoma	X6_splice	Splice_Region	17	41276130	41276130	G	A	7	19		21
+TCGA-80-5611-01	Lung Adenocarcinoma	E143Q	Missense_Mutation	17	41256153	41256153	C	G	17	183		125
+TCGA-22-4613-01	Lung Squamous Cell Carcinoma	V1665L	Missense_Mutation	17	41219706	41219706	C	A	61	46		99
+TCGA-21-1079-01	Lung Squamous Cell Carcinoma	S1651F	Missense_Mutation	17	41222979	41222979	G	A	62	70		256
+TCGA-C8-A12T-01	Breast Invasive Ductal Carcinoma	D1344H	Missense_Mutation	17	41243518	41243518	C	G	37	89		224
+TCGA-LL-A5YP-01	Breast Invasive Ductal Carcinoma	D96H	Missense_Mutation	17	41256900	41256900	C	G	4	4		20
+TCGA-94-A4VJ-01	Lung Squamous Cell Carcinoma	A224S	Missense_Mutation	17	41247863	41247863	C	A	4	15		26
+TCGA-98-A538-01	Lung Squamous Cell Carcinoma	P871S	Missense_Mutation	17	41244937	41244937	G	A	36	105		213
+TCGA-PE-A5DE-01	Breast Invasive Lobular Carcinoma	E1419K	Missense_Mutation	17	41234523	41234523	C	T	12	67		70
+TCGA-77-A5G3-01	Lung Squamous Cell Carcinoma	L1439F	Missense_Mutation	17	41234463	41234463	G	A	31	141		199
+TCGA-05-4382-01	Lung Adenocarcinoma	V412L	Missense_Mutation	17	41246314	41246314	C	A	12	243		120
+TCGA-05-4424-01	Lung Adenocarcinoma	G1350A	Missense_Mutation	17	41243499	41243499	C	G	32	90		115
+TCGA-50-6593-01	Lung Adenocarcinoma	K175N	Missense_Mutation	17	41251814	41251814	C	A	34	186		203
+TCGA-55-6972-01	Lung Adenocarcinoma	T1548M	Missense_Mutation	17	41226380	41226380	G	A	7	69		86
+TCGA-21-5782-01	Lung Squamous Cell Carcinoma	R320T	Missense_Mutation	17	41246589	41246589	C	G	28	120		120
+TCGA-34-2600-01	Lung Squamous Cell Carcinoma	E1115Q	Missense_Mutation	17	41244205	41244205	C	G	9	185		289
+TCGA-39-5028-01	Lung Squamous Cell Carcinoma	W321C	Missense_Mutation	17	41246585	41246585	C	A	19	237		186
+TCGA-39-5037-01	Lung Squamous Cell Carcinoma	G778D	Missense_Mutation	17	41245215	41245215	C	T	150	220		273
+TCGA-66-2756-01	Lung Squamous Cell Carcinoma	E515V	Missense_Mutation	17	41246004	41246004	T	A	60	137	1	151
+TCGA-34-7107-01	Lung Squamous Cell Carcinoma	E902K	Missense_Mutation	17	41244844	41244844	C	T	47	47		79
+TCGA-44-8119-01	Lung Adenocarcinoma	E1527D	Missense_Mutation	17	41226442	41226442	C	A	29	37		67
+TCGA-4B-A93V-01	Lung Adenocarcinoma	G1371V	Missense_Mutation	17	41243034	41243034	C	A	7	10		24
+TCGA-55-7570-01	Lung Adenocarcinoma	E418D	Missense_Mutation	17	41246294	41246294	C	G	37	37		99
+TCGA-60-2714-01	Lung Squamous Cell Carcinoma	Q1135L	Missense_Mutation	17	41244144	41244144	T	A	28	208		274
+TCGA-77-6845-01	Lung Squamous Cell Carcinoma	V1654E	Missense_Mutation	17	41222970	41222970	A	T	110	18		58
+TCGA-85-8071-01	Lung Squamous Cell Carcinoma	H1244N	Missense_Mutation	17	41243818	41243818	G	T	36	78		129
+TCGA-91-8499-01	Lung Adenocarcinoma	R1649T	Missense_Mutation	17	41222985	41222985	C	G	70	67		142
+TCGA-92-8063-01	Lung Squamous Cell Carcinoma	S1466C	Missense_Mutation	17	41228593	41228593	T	A	23	35		67
+TCGA-MP-A4TF-01	Lung Adenocarcinoma	T1310I	Missense_Mutation	17	41243619	41243619	G	A	26	124		179
+TCGA-MP-A4TK-01	Lung Adenocarcinoma	R1645S	Missense_Mutation	17	41222996	41222996	C	A	17	117		131
+TCGA-NJ-A4YF-01	Lung Adenocarcinoma	G707R	Missense_Mutation	17	41245429	41245429	C	G	19	87	1	112
+TCGA-NJ-A4YQ-01	Lung Adenocarcinoma	M48I	Missense_Mutation	17	41258541	41258541	C	G	7	48		48
+TCGA-A1-A0SI-01	Breast Invasive Ductal Carcinoma	E9Q	Missense_Mutation	17	41276089	41276089	C	G	9	26		56
+TCGA-AO-A1KR-01	Breast Invasive Ductal Carcinoma	C644del	In_Frame_Del	17	41245615	41245617	AAC	-	10	20		42
+TCGA-E2-A1L9-01	Breast Invasive Ductal Carcinoma	S1027I	Missense_Mutation	17	41244468	41244468	C	A	18	64		117
+TCGA-EW-A2FR-01	Breast Invasive Ductal Carcinoma	D366N	Missense_Mutation	17	41246452	41246452	C	T	16	68		70
+TCGA-17-Z026-01	Lung Adenocarcinoma	D1813H	Missense_Mutation	17	41199690	41199690	C	G	8	131		78
+TCGA-AN-A046-01	Breast Invasive Ductal Carcinoma	L1098I	Missense_Mutation	17	41244256	41244256	G	T	60	233		265
+TCGA-E2-A1BD-01	Breast Invasive Ductal Carcinoma	D2E	Missense_Mutation	17	41276108	41276108	A	T	12	92		182
+TCGA-GM-A2D9-01	Breast Invasive Ductal Carcinoma	S915C	Missense_Mutation	17	41244804	41244804	G	C	11	50		68
+TCGA-AO-A0J4-01	Breast Invasive Ductal Carcinoma	V83F	Missense_Mutation	17	41256939	41256939	C	A	5	68		72
+TCGA-BH-A2L8-01	Breast Invasive Lobular Carcinoma	D1578H	Missense_Mutation	17	41223199	41223199	C	G	5	29		41
+TCGA-D8-A27M-01	Breast Invasive Ductal Carcinoma	R1589_A1615del	In_Frame_Del	17	41223086	41223166	AGCTGGACTCTGGGCAGATTCTGCAACTTTCAATTGGGGAACTTTCAATGCAGAGGTTGAAGATGGTATGTTGCCAACACG	-	5	55		44
+TCGA-97-7554-01	Lung Adenocarcinoma	G1422V	Missense_Mutation	17	41234513	41234513	C	A	25	67	1	75
+TCGA-04-1331-01	Serous Ovarian Cancer	C711*	Nonsense_Mutation	13	32910625	32910625	C	A	38	11		98
+TCGA-09-2050-01	Serous Ovarian Cancer	S1882*	Nonsense_Mutation	13	32914137	32914137	C	A	52	2		66
+TCGA-13-0885-01	Serous Ovarian Cancer	K1406Nfs*3	Frame_Shift_Del	13	32912708	32912711	AAAG	-	29	19		126
+TCGA-13-0890-01	Serous Ovarian Cancer	S1230Lfs*9	Frame_Shift_Del	13	32912178	32912178	T	-	54	88		206
+TCGA-13-1481-01	Serous Ovarian Cancer	S2697Kfs*31	Frame_Shift_Del	13	32937426	32937441	TGAGCGCAAATATATC	-	156	181		426
+TCGA-13-0889-01	Serous Ovarian Cancer	T2517Hfs*22	Frame_Shift_Ins	13	32930676	32930677	-	A	9	93		360
+TCGA-13-0889-01	Serous Ovarian Cancer	V3283Afs*2	Frame_Shift_Ins	13	32972497	32972498	-	C	10	99		418
+TCGA-29-1693-01	Serous Ovarian Cancer	L3172Afs*44	Frame_Shift_Del	13	32971045	32971048	TACT	-	172	29		346
+TCGA-29-1762-01	Serous Ovarian Cancer	E2906*	Nonsense_Mutation	13	32950890	32950890	G	T	12	4		35
+TCGA-A2-A0SU-01	Breast Invasive Ductal Carcinoma	Y3308*	Nonsense_Mutation	13	32972574	32972574	C	G	27	41		121
+TCGA-A2-A0T0-01	Breast Invasive Ductal Carcinoma	L2926*	Nonsense_Mutation	13	32953476	32953476	T	G	31	58		147
+TCGA-A8-A085-01	Breast Invasive Ductal Carcinoma	E260Sfs*15	Frame_Shift_Del	13	32905149	32905150	AG	-	16	8		26
+TCGA-A8-A08L-01	Breast Invasive Ductal Carcinoma	X2602_splice	Splice_Site	13	32932067	32932067	G	A	81	68		141
+TCGA-AR-A1AI-01	Breast Invasive Ductal Carcinoma	R2336C	Missense_Mutation	13	32921032	32921032	C	T	18	94		408
+TCGA-E2-A14W-01	Breast Invasive Ductal Carcinoma	S599*	Frame_Shift_Del	13	32907409	32907413	ATCTT	-	8	11		49
+TCGA-44-3919-01	Lung Adenocarcinoma	S3376*	Nonsense_Mutation	13	32972777	32972777	C	G	5	101		124
+TCGA-75-6211-01	Lung Adenocarcinoma	S2695*	Nonsense_Mutation	13	32937423	32937423	C	A	16	92		118
+TCGA-22-4595-01	Lung Squamous Cell Carcinoma	Q499*	Nonsense_Mutation	13	32907110	32907110	C	T	36	81	1	106
+TCGA-21-5782-01	Lung Squamous Cell Carcinoma	R2500Sfs*24	Frame_Shift_Del	13	32930628	32930628	G	-	31	89		107
+TCGA-33-A5GW-01	Lung Squamous Cell Carcinoma	S1099*	Nonsense_Mutation	13	32911788	32911788	C	G	30	16		58
+TCGA-58-A46L-01	Lung Squamous Cell Carcinoma	L1390Ffs*13	Frame_Shift_Ins	13	32912655	32912656	-	T	10	63		22
+TCGA-62-A46O-01	Lung Adenocarcinoma	K3015*	Nonsense_Mutation	13	32953976	32953976	A	T	4	10		31
+TCGA-77-7337-01	Lung Squamous Cell Carcinoma	X159_splice	Splice_Site	13	32900288	32900288	G	T	17	39		62
+TCGA-97-8172-01	Lung Adenocarcinoma	E1120*	Nonsense_Mutation	13	32911850	32911850	G	T	17	64		41
+TCGA-D8-A1JP-01	Breast Invasive Ductal Carcinoma	L1965Ffs*39	Frame_Shift_Del	13	32914385	32914385	C	-	11	21		43
+TCGA-E9-A1R2-01	Breast Invasive Ductal Carcinoma	V2151Ffs*17	Frame_Shift_Del	13	32914938	32914938	T	-	5	16		30
+TCGA-D8-A1XL-01	Breast Invasive Ductal Carcinoma	E1646Kfs*24	Frame_Shift_Del	13	32913428	32913428	G	-	15	9		11
+TCGA-E9-A3HO-01	Breast Invasive Lobular Carcinoma	K437Ifs*22	Frame_Shift_Del	13	32906916	32906919	AAAG	-	14	10		18
+TCGA-D8-A27V-01	Breast Invasive Lobular Carcinoma	K936Nfs*24	Frame_Shift_Del	13	32911298	32911298	A	-	4	31		37
+TCGA-17-Z023-01	Lung Adenocarcinoma	A565Hfs*5	Frame_Shift_Del	13	32907305	32907314	CCAGCCACCA	-	13	46		47
+TCGA-94-7033-01	Lung Squamous Cell Carcinoma	K230*	Nonsense_Mutation	13	32905062	32905062	A	T	8	11		17
+TCGA-73-4662-01	Lung Adenocarcinoma	C554F	Missense_Mutation	13	32907276	32907276	G	T	40	45		92
+TCGA-05-4382-01	Lung Adenocarcinoma	G1771C	Missense_Mutation	13	32913803	32913803	G	T	12	116		59
+TCGA-78-8662-01	Lung Adenocarcinoma	V1306F	Missense_Mutation	13	32912408	32912408	G	T	3	10		21
+TCGA-23-1030-01	Serous Ovarian Cancer	T1354M	Missense_Mutation	13	32912553	32912553	C	T	14	56		80
+TCGA-25-1320-01	Serous Ovarian Cancer	V3079I	Missense_Mutation	13	32954261	32954261	G	A	21	79		73
+TCGA-AN-A0AT-01	Breast Invasive Ductal Carcinoma	E2650Q	Missense_Mutation	13	32936802	32936802	G	C	57	114		310
+TCGA-D8-A27G-01	Breast Invasive Lobular Carcinoma	E2175Q	Missense_Mutation	13	32915015	32915015	G	C	10	30		38
+TCGA-85-7697-01	Lung Squamous Cell Carcinoma	E2175Q	Missense_Mutation	13	32915015	32915015	G	C	5	55		46
+TCGA-AN-A046-01	Breast Invasive Ductal Carcinoma	E3342K	Missense_Mutation	13	32972674	32972674	G	A	18	87		151
+TCGA-05-4397-01	Lung Adenocarcinoma	G2063R	Missense_Mutation	13	32914679	32914679	G	A	43	11	1	133
+TCGA-43-2576-01	Lung Squamous Cell Carcinoma	K1274N	Missense_Mutation	13	32912314	32912314	G	T	8	34		50
+TCGA-24-1103-01	Serous Ovarian Cancer	K1638E	Missense_Mutation	13	32913404	32913404	A	G	77	6		176
+TCGA-NC-A5HN-01	Lung Squamous Cell Carcinoma	E3309K	Missense_Mutation	13	32972575	32972575	G	A	13	58		47
+TCGA-A8-A07I-01	Breast Invasive Ductal Carcinoma	D1355Y	Missense_Mutation	13	32912555	32912555	G	T	19	58		98
+TCGA-A8-A08B-01	Breast Invasive Ductal Carcinoma	V1270del	In_Frame_Del	13	32912296	32912298	TGT	-	30	17		71
+TCGA-C8-A12T-01	Breast Invasive Ductal Carcinoma	E3177Q	Missense_Mutation	13	32971062	32971062	G	C	20	42		111
+TCGA-38-4631-01	Lung Adenocarcinoma	I2718V	Missense_Mutation	13	32937491	32937491	A	G	43	242		101
+TCGA-44-7670-01	Lung Adenocarcinoma	P2608S	Missense_Mutation	13	32936676	32936676	C	T	27	21		96
+TCGA-55-7907-01	Lung Adenocarcinoma	E3403Q	Missense_Mutation	13	32972857	32972857	G	C	12	36		34
+TCGA-78-7539-01	Lung Adenocarcinoma	H3117N	Missense_Mutation	13	32968918	32968918	C	A	7	30		53
+TCGA-91-7771-01	Lung Adenocarcinoma	I2149V	Missense_Mutation	13	32914937	32914937	A	G	5	24		50
+TCGA-97-7554-01	Lung Adenocarcinoma	A577S	Missense_Mutation	13	32907344	32907344	G	T	9	45		51
+TCGA-21-5787-01	Lung Squamous Cell Carcinoma	S2098T	Missense_Mutation	13	32914784	32914784	T	A	16	31		58
+TCGA-33-4583-01	Lung Squamous Cell Carcinoma	K2316R	Missense_Mutation	13	32920973	32920973	A	G	11	55		70
+TCGA-33-4583-01	Lung Squamous Cell Carcinoma	I2822T	Missense_Mutation	13	32944672	32944672	T	C	45	68		122
+TCGA-34-5231-01	Lung Squamous Cell Carcinoma	E1036K	Missense_Mutation	13	32911598	32911598	G	A	17	29		63
+TCGA-66-2767-01	Lung Squamous Cell Carcinoma	R2034H	Missense_Mutation	13	32914593	32914593	G	A	46	122		174
+TCGA-85-A4JC-01	Lung Squamous Cell Carcinoma	R2034H	Missense_Mutation	13	32914593	32914593	G	A	13	84		79
+TCGA-66-2768-01	Lung Squamous Cell Carcinoma	Y2660C	Missense_Mutation	13	32937318	32937318	A	G	70	79		103
+TCGA-66-2787-01	Lung Squamous Cell Carcinoma	W993C	Missense_Mutation	13	32911471	32911471	G	C	19	34		100
+TCGA-39-5034-01	Lung Squamous Cell Carcinoma	R212I	Missense_Mutation	13	32903583	32903583	G	T	7	17		39
+TCGA-43-A475-01	Lung Squamous Cell Carcinoma	P1133L	Missense_Mutation	13	32911890	32911890	C	T	23	56		58
+TCGA-44-7660-01	Lung Adenocarcinoma	S2243C	Missense_Mutation	13	32915220	32915220	C	G	11	211		248
+TCGA-49-AARE-01	Lung Adenocarcinoma	K2673E	Missense_Mutation	13	32937356	32937356	A	G	6	43	1	50
+TCGA-50-5946-01	Lung Adenocarcinoma	E764K	Missense_Mutation	13	32910782	32910782	G	A	34	49		83
+TCGA-50-8460-01	Lung Adenocarcinoma	N978S	Missense_Mutation	13	32911425	32911425	A	G	22	58		63
+TCGA-55-A48Y-01	Lung Adenocarcinoma	E2391K	Missense_Mutation	13	32929161	32929161	G	A	11	56		82
+TCGA-55-A4DF-01	Lung Adenocarcinoma	V290I	Missense_Mutation	13	32906483	32906483	G	A	25	26		46
+TCGA-56-8083-01	Lung Squamous Cell Carcinoma	A186S	Missense_Mutation	13	32900675	32900675	G	T	24	51		79
+TCGA-56-8304-01	Lung Squamous Cell Carcinoma	L2972W	Missense_Mutation	13	32953614	32953614	T	G	24	45		103
+TCGA-62-A46S-01	Lung Adenocarcinoma	S44C	Missense_Mutation	13	32893277	32893277	C	G	5	68		88
+TCGA-62-A46S-01	Lung Adenocarcinoma	S1685L	Missense_Mutation	13	32913546	32913546	C	T	9	27		39
+TCGA-77-6843-01	Lung Squamous Cell Carcinoma	S396C	Missense_Mutation	13	32906802	32906802	C	G	202	331		204
+TCGA-77-A5GF-01	Lung Squamous Cell Carcinoma	M2235L	Missense_Mutation	13	32915195	32915195	A	T	62	33		165
+TCGA-85-7699-01	Lung Squamous Cell Carcinoma	D1699G	Missense_Mutation	13	32913588	32913588	A	G	18	79		164
+TCGA-85-8070-01	Lung Squamous Cell Carcinoma	N2101K	Missense_Mutation	13	32914795	32914795	T	G	34	5		45
+TCGA-86-A4JF-01	Lung Adenocarcinoma	M2262T	Missense_Mutation	13	32915277	32915277	T	C	15	142		165
+TCGA-86-A4JF-01	Lung Adenocarcinoma	P3067S	Missense_Mutation	13	32954225	32954225	C	T	5	68		56
+TCGA-91-6848-01	Lung Adenocarcinoma	V2503F	Missense_Mutation	13	32930636	32930636	G	T	9	85	1	215
+TCGA-92-8064-01	Lung Squamous Cell Carcinoma	V2503L	Missense_Mutation	13	32930636	32930636	G	C	24	78		163
+TCGA-96-7544-01	Lung Squamous Cell Carcinoma	Y1716C	Missense_Mutation	13	32913639	32913639	A	G	12	20		50
+TCGA-99-8032-01	Lung Adenocarcinoma	K1541E	Missense_Mutation	13	32913113	32913113	A	G	10	35		56
+TCGA-MP-A4T8-01	Lung Adenocarcinoma	Y1749H	Missense_Mutation	13	32913737	32913737	T	C	29	20		68
+TCGA-MP-A4TH-01	Lung Adenocarcinoma	L833R	Missense_Mutation	13	32910990	32910990	T	G	15	60		116
+TCGA-NC-A5HI-01	Lung Squamous Cell Carcinoma	H1223Y	Missense_Mutation	13	32912159	32912159	C	T	12	33		56
+TCGA-NC-A5HR-01	Lung Squamous Cell Carcinoma	S497L	Missense_Mutation	13	32907105	32907105	C	T	34	77		106
+TCGA-AC-A23H-01	Breast Invasive Ductal Carcinoma	D687H	Missense_Mutation	13	32910551	32910551	G	C	10	30		63
+TCGA-AC-A23H-01	Breast Invasive Ductal Carcinoma	D1033H	Missense_Mutation	13	32911589	32911589	G	C	6	34		44
+TCGA-EW-A1PE-01	Breast Invasive Ductal Carcinoma	E1158Q	Missense_Mutation	13	32911964	32911964	G	C	10	23		36
+TCGA-EW-A1PE-01	Breast Invasive Ductal Carcinoma	K1191N	Missense_Mutation	13	32912065	32912065	G	C	8	25		39
+TCGA-AO-A124-01	Breast Invasive Carcinoma, NOS	C3304S	Missense_Mutation	13	32972561	32972561	G	C	84	15		122
+TCGA-BH-A0HF-01	Breast Invasive Ductal Carcinoma	S879F	Missense_Mutation	13	32911128	32911128	C	T	10	63		131
+TCGA-A2-A04P-01	Breast Invasive Ductal Carcinoma	Q3206E	Missense_Mutation	13	32971149	32971149	C	G	15	154		103
+TCGA-A8-A0A7-01	Breast Invasive Lobular Carcinoma	E3175K	Missense_Mutation	13	32971056	32971056	G	A	59	785		719
+TCGA-AN-A046-01	Breast Invasive Ductal Carcinoma	K985I	Missense_Mutation	13	32911446	32911446	A	T	5	26		44
+TCGA-AN-A0XW-01	Breast Invasive Ductal Carcinoma	P527T	Missense_Mutation	13	32907194	32907194	C	A	5	56		92
+TCGA-C8-A278-01	Breast Invasive Ductal Carcinoma	N2019K	Missense_Mutation	13	32914549	32914549	C	G	3	10		23
+TCGA-E9-A54Y-01	Breast Invasive Lobular Carcinoma	G2743D	Missense_Mutation	13	32937567	32937567	G	A	3	23		38
+TCGA-LD-A74U-01	Breast Invasive Carcinoma, NOS	E3167Q	Missense_Mutation	13	32969068	32969068	G	C	10	29		63
+TCGA-LL-A73Y-01	Breast Invasive Ductal Carcinoma	D596N	Missense_Mutation	13	32907401	32907401	G	A	10	50		51
+TCGA-S3-AA17-01	Breast Invasive Ductal Carcinoma	F3090_N3099delinsY	In_Frame_Del	13	32968838	32968864	TCGTCTATTTGTCAGACGAATGTTACA	-	26	71		80
+TCGA-05-4427-01	Lung Adenocarcinoma	R2824S	Missense_Mutation	13	32944679	32944679	A	T	21	62		82
+TCGA-17-Z022-01	Lung Adenocarcinoma	I2105L	Missense_Mutation	13	32914805	32914805	A	T	10	22		79
+TCGA-17-Z023-01	Lung Adenocarcinoma	S1961T	Missense_Mutation	13	32914374	32914374	G	C	7	55		62
+TCGA-17-Z025-01	Lung Adenocarcinoma	C1399R	Missense_Mutation	13	32912687	32912687	T	C	3	20		65
+TCGA-17-Z057-01	Lung Adenocarcinoma	K1649E	Missense_Mutation	13	32913437	32913437	A	G	13	22		45
+TCGA-55-A4DF-01	Lung Adenocarcinoma	S3241C	Missense_Mutation	13	32972372	32972372	C	G	13	131		137
+TCGA-MF-A522-01	Lung Squamous Cell Carcinoma	S3219F	Missense_Mutation	13	32972306	32972306	C	T	38	264		134
+TCGA-04-1356-01	Serous Ovarian Cancer	N1906I	Missense_Mutation	13	32914209	32914209	A	T	12	180	1	218
+TCGA-09-2044-01	Serous Ovarian Cancer	Q1934K	Missense_Mutation	13	32914292	32914292	C	A	6	61		79
+TCGA-61-1737-01	Serous Ovarian Cancer	T1225K	Missense_Mutation	13	32912166	32912166	C	A	8	80		212
+TCGA-61-1903-01	Serous Ovarian Cancer	N1910S	Missense_Mutation	13	32914221	32914221	A	G	62	17		180
+TCGA-A7-A4SC-01	Breast Invasive Lobular Carcinoma	R130Q	Missense_Mutation	10	89692905	89692905	G	A	18	71		94
+TCGA-AN-A046-01	Breast Invasive Ductal Carcinoma	R130Q	Missense_Mutation	10	89692905	89692905	G	A	89	220		356
+TCGA-AR-A5QQ-01	Breast Invasive Carcinoma, NOS	R130Q	Missense_Mutation	10	89692905	89692905	G	A	16	56		121
+TCGA-B6-A0WT-01	Breast Invasive Ductal Carcinoma	R130Q	Missense_Mutation	10	89692905	89692905	G	A	34	52		222
+TCGA-21-5783-01	Lung Squamous Cell Carcinoma	R130Q	Missense_Mutation	10	89692905	89692905	G	A	41	61		221
+TCGA-A1-A0SD-01	Breast Invasive Ductal Carcinoma	R130*	Nonsense_Mutation	10	89692904	89692904	C	T	15	252		210
+TCGA-AO-A128-01	Breast Invasive Ductal Carcinoma	R130*	Nonsense_Mutation	10	89692904	89692904	C	T	10	30		224
+TCGA-BH-A0H5-01	Breast Invasive Ductal Carcinoma	R130P	Missense_Mutation	10	89692905	89692905	G	C	26	183		209
+TCGA-A8-A09Z-01	Breast Invasive Lobular Carcinoma	K267Rfs*9	Frame_Shift_Del	10	89717770	89717770	A	-	98	196		262
+TCGA-D8-A1XK-01	Breast Invasive Ductal Carcinoma	K267Rfs*9	Frame_Shift_Del	10	89717770	89717770	A	-	31	83		43
+TCGA-85-A50Z-01	Lung Squamous Cell Carcinoma	X267_splice	Splice_Site	10	89717777	89717777	G	T	13	62		58
+TCGA-B6-A0IO-01	Breast Invasive Ductal Carcinoma	H93L	Missense_Mutation	10	89692794	89692794	A	T	66	42		262
+TCGA-56-8309-01	Lung Squamous Cell Carcinoma	C136R	Missense_Mutation	10	89692922	89692922	T	C	16	104		171
+TCGA-39-5024-01	Lung Squamous Cell Carcinoma	G129E	Missense_Mutation	10	89692902	89692902	G	A	45	97		90
+TCGA-68-7757-01	Lung Squamous Cell Carcinoma	G129E	Missense_Mutation	10	89692902	89692902	G	A	21	139		156
+TCGA-85-8353-01	Lung Squamous Cell Carcinoma	G129E	Missense_Mutation	10	89692902	89692902	G	A	30	168		184
+TCGA-44-7662-01	Lung Adenocarcinoma	M35I	Missense_Mutation	10	89653807	89653807	G	T	18	55		79
+TCGA-77-6842-01	Lung Squamous Cell Carcinoma	D24G	Missense_Mutation	10	89624297	89624297	A	G	10	61		89
+TCGA-98-A538-01	Lung Squamous Cell Carcinoma	C136F	Missense_Mutation	10	89692923	89692923	G	T	56	76		156
+TCGA-94-7033-01	Lung Squamous Cell Carcinoma	P38R	Missense_Mutation	10	89653815	89653815	C	G	13	22		60
+TCGA-98-8021-01	Lung Squamous Cell Carcinoma	P38T	Missense_Mutation	10	89653814	89653814	C	A	31	73		106
+TCGA-D8-A1J8-01	Breast Invasive Ductal Carcinoma	C124G	Missense_Mutation	10	89692886	89692886	T	G	68	59		101
+TCGA-LL-A5YP-01	Breast Invasive Ductal Carcinoma	A126G	Missense_Mutation	10	89692893	89692893	C	G	27	27		82
+TCGA-63-A5MH-01	Lung Squamous Cell Carcinoma	S170I	Missense_Mutation	10	89711891	89711891	G	T	37	5		68
+TCGA-BH-A0GZ-01	Breast Invasive Ductal Carcinoma	H93D	Missense_Mutation	10	89692793	89692793	C	G	45	113		289
+TCGA-63-A5MH-01	Lung Squamous Cell Carcinoma	S170R	Missense_Mutation	10	89711890	89711890	A	C	38	5		67
+TCGA-GM-A5PV-01	Breast Invasive Lobular Carcinoma	D92E	Missense_Mutation	10	89692792	89692792	C	G	25	40		42
+TCGA-77-8143-01	Lung Squamous Cell Carcinoma	D92H	Missense_Mutation	10	89692790	89692790	G	C	34	8		73
+TCGA-60-2707-01	Lung Squamous Cell Carcinoma	H61R	Missense_Mutation	10	89685287	89685287	A	G	10	29		42
+TCGA-17-Z031-01	Lung Adenocarcinoma	D92Y	Missense_Mutation	10	89692790	89692790	G	T	53	75		115
+TCGA-AR-A24Q-01	Breast Invasive Ductal Carcinoma	H123D	Missense_Mutation	10	89692883	89692883	C	G	14	50		77
+TCGA-73-4658-01	Lung Adenocarcinoma	H123Y	Missense_Mutation	10	89692883	89692883	C	T	12	172		161
+TCGA-61-1740-01	Serous Ovarian Cancer	H123Y	Missense_Mutation	10	89692883	89692883	C	T	63	316		370
+TCGA-18-3417-01	Lung Squamous Cell Carcinoma	K128Q	Missense_Mutation	10	89692898	89692898	A	C	76	120		188
+TCGA-43-2578-01	Lung Squamous Cell Carcinoma	Q171K	Missense_Mutation	10	89711893	89711893	C	A	121	138		335
+TCGA-AN-A0XW-01	Breast Invasive Ductal Carcinoma	K128N	Missense_Mutation	10	89692900	89692900	G	C	43	89		204
+TCGA-24-1550-01	Serous Ovarian Cancer	T131N	Missense_Mutation	10	89692908	89692908	C	A	161	90		380
+TCGA-56-8504-01	Lung Squamous Cell Carcinoma	N48K	Missense_Mutation	10	89653846	89653846	C	A	13	17		82
+TCGA-60-2704-01	Lung Squamous Cell Carcinoma	K128M	Missense_Mutation	10	89692899	89692899	A	T	14	63		82
+TCGA-BH-A1F8-01	Breast Invasive Ductal Carcinoma	N48I	Missense_Mutation	10	89653845	89653845	A	T	75	45		89
+TCGA-56-A49D-01	Lung Squamous Cell Carcinoma	Q214*	Nonsense_Mutation	10	89717615	89717615	C	T	34	51		60
+TCGA-EW-A2FV-01	Breast Invasive Carcinoma, NOS	V290*	Frame_Shift_Del	10	89720712	89720712	A	-	8	90		76
+TCGA-A2-A0CS-01	Breast Invasive Ductal Carcinoma	V166Sfs*14	Frame_Shift_Ins	10	89693002	89693003	-	A	73	118		60
+TCGA-22-5485-01	Lung Squamous Cell Carcinoma	V166Sfs*14	Frame_Shift_Ins	10	89693002	89693003	-	A	28	31		58
+TCGA-85-7844-01	Lung Squamous Cell Carcinoma	V166Sfs*14	Frame_Shift_Ins	10	89693002	89693003	-	A	14	60		73
+TCGA-A8-A06O-01	Breast Invasive Ductal Carcinoma	E288Rfs*7	Frame_Shift_Del	10	89720707	89720714	CTCAGAAA	-	80	173		292
+TCGA-A8-A06R-01	Breast Invasive Ductal Carcinoma	T319*	Frame_Shift_Del	10	89720799	89720802	TACT	-	22	123		300
+TCGA-AR-A24W-01	Breast Invasive Ductal Carcinoma	T319*	Frame_Shift_Del	10	89720799	89720802	TACT	-	12	42		48
+TCGA-AN-A0AK-01	Breast Invasive Ductal Carcinoma	X343_splice	Splice_Site	10	89725042	89725042	A	G	18	30		65
+TCGA-AR-A1AJ-01	Breast Invasive Ductal Carcinoma	S10R	Missense_Mutation	10	89624254	89624254	A	C	47	226		292
+TCGA-B6-A0IB-01	Breast Invasive Ductal Carcinoma	X165_splice	Splice_Site	10	89711873	89711873	A	G	43	27		122
+TCGA-63-A5MG-01	Lung Squamous Cell Carcinoma	X165_splice	Splice_Site	10	89711873	89711873	A	G	10	67		80
+TCGA-B6-A0WW-01	Breast Invasive Ductal Carcinoma	N48Tfs*6	Frame_Shift_Del	10	89653844	89653844	A	-	113	309		293
+TCGA-B6-A0WW-01	Breast Invasive Ductal Carcinoma	K266*	Nonsense_Mutation	10	89717771	89717771	A	T	63	180		246
+TCGA-BH-A0E9-01	Breast Invasive Lobular Carcinoma	X70_splice	Splice_Site	10	89685316	89685316	T	-	27	97		130
+TCGA-BH-A0HP-01	Breast Invasive Lobular Carcinoma	X212_splice	Splice_Site	10	89712018	89712018	T	C	46	102		78
+TCGA-C8-A12V-01	Breast Invasive Ductal Carcinoma	L146*	Nonsense_Mutation	10	89692953	89692953	T	A	14	128		145
+TCGA-BH-A2L8-01	Breast Invasive Lobular Carcinoma	S287*	Nonsense_Mutation	10	89720709	89720709	C	G	22	45		57
+TCGA-C8-A26Y-01	Breast Invasive Ductal Carcinoma	S287*	Nonsense_Mutation	10	89720709	89720709	C	G	30	19		40
+TCGA-D8-A13Z-01	Breast Invasive Ductal Carcinoma	F257Vfs*41	Frame_Shift_Ins	10	89717742	89717743	-	G	62	109		80
+TCGA-D8-A1JI-01	Breast Invasive Ductal Carcinoma	Y16*	Nonsense_Mutation	10	89624272	89624273	-	A	57	52		113
+TCGA-E2-A14Z-01	Breast Invasive Ductal Carcinoma	D252Rfs*42	Frame_Shift_Del	10	89717727	89717737	GTGATATCAAA	-	45	91		130
+TCGA-GM-A2DB-01	Breast Invasive Ductal Carcinoma	L140*	Nonsense_Mutation	10	89692935	89692935	T	G	17	60		48
+TCGA-34-8454-01	Lung Squamous Cell Carcinoma	T319Nfs*6	Frame_Shift_Ins	10	89720803	89720804	-	A	36	80		86
+TCGA-77-A5GB-01	Lung Squamous Cell Carcinoma	G127*	Nonsense_Mutation	10	89692895	89692895	G	T	23	131		115
+TCGA-63-A5MR-01	Lung Squamous Cell Carcinoma	G293*	Nonsense_Mutation	10	89720726	89720726	G	T	29	32		50
+TCGA-18-3421-01	Lung Squamous Cell Carcinoma	E235*	Nonsense_Mutation	10	89717678	89717678	G	T	41	25		77
+TCGA-91-8499-01	Lung Adenocarcinoma	Q245*	Nonsense_Mutation	10	89717708	89717708	C	T	82	17		101
+TCGA-34-2605-01	Lung Squamous Cell Carcinoma	Q245*	Nonsense_Mutation	10	89717708	89717708	C	T	57	111		220
+TCGA-43-3920-01	Lung Squamous Cell Carcinoma	Q245*	Nonsense_Mutation	10	89717708	89717708	C	T	32	27		58
+TCGA-66-2783-01	Lung Squamous Cell Carcinoma	Q245*	Nonsense_Mutation	10	89717708	89717708	C	T	68	114		215
+TCGA-NC-A5HI-01	Lung Squamous Cell Carcinoma	Q245*	Nonsense_Mutation	10	89717708	89717708	C	T	33	34		58
+TCGA-AO-A12G-01	Breast Invasive Carcinoma, NOS	N48Tfs*6	Frame_Shift_Del	10	89653842	89653842	G	-	109	217		281
+TCGA-78-7155-01	Lung Adenocarcinoma	G36*	Nonsense_Mutation	10	89653808	89653808	G	T	26	6		71
+TCGA-LL-A73Z-01	Breast Invasive Ductal Carcinoma	V290Sfs*8	Frame_Shift_Ins	10	89720711	89720712	-	A	16	51		56
+TCGA-AO-A0JA-01	Breast Invasive Ductal Carcinoma	Y88*	Nonsense_Mutation	10	89692780	89692780	T	A	84	76		238
+TCGA-S3-A6ZH-01	Breast Invasive Ductal Carcinoma	Q149*	Nonsense_Mutation	10	89692961	89692961	C	T	44	21	1	195
+TCGA-O2-A52V-01	Lung Squamous Cell Carcinoma	X343_splice	Splice_Site	10	89725042	89725042	A	T	10	25		24
+TCGA-56-5897-01	Lung Squamous Cell Carcinoma	S59*	Nonsense_Mutation	10	89685281	89685281	C	G	4	18		23
+TCGA-85-7698-01	Lung Squamous Cell Carcinoma	S59*	Nonsense_Mutation	10	89685281	89685281	C	G	2	12		14
+TCGA-22-4599-01	Lung Squamous Cell Carcinoma	A328Qfs*16	Frame_Shift_Del	10	89720828	89720828	A	-	92	201		259
+TCGA-77-8136-01	Lung Squamous Cell Carcinoma	X212_splice	Splice_Site	10	89717609	89717609	G	C	24	100		243
+TCGA-22-5489-01	Lung Squamous Cell Carcinoma	L320*	Nonsense_Mutation	10	89720808	89720808	T	A	26	88		120
+TCGA-33-4583-01	Lung Squamous Cell Carcinoma	Y346*	Nonsense_Mutation	10	89725055	89725055	C	G	27	11		43
+TCGA-17-Z031-01	Lung Adenocarcinoma	X55_splice	Splice_Site	10	89685269	89685269	G	T	5	19		38
+TCGA-33-4587-01	Lung Squamous Cell Carcinoma	F104*	Frame_Shift_Del	10	89692827	89692833	TTTGTGA	-	38	22		97
+TCGA-44-3398-01	Lung Adenocarcinoma	I8Dfs*3	Frame_Shift_Ins	10	89624246	89624247	-	G	20	89		123
+TCGA-44-7661-01	Lung Adenocarcinoma	D107N	Missense_Mutation	10	89692835	89692835	G	A	16	125		132
+TCGA-56-6546-01	Lung Squamous Cell Carcinoma	L247F	Missense_Mutation	10	89717716	89717716	A	C	17	55		83
+TCGA-56-7222-01	Lung Squamous Cell Carcinoma	K223Rfs*33	Frame_Shift_Del	10	89717642	89717642	A	-	28	59		68
+TCGA-6A-AB49-01	Lung Squamous Cell Carcinoma	V217Efs*20	Frame_Shift_Del	10	89717624	89717640	GTCTGCCAGCTAAAGGT	-	21	20		91
+TCGA-77-6844-01	Lung Squamous Cell Carcinoma	H141Gfs*32	Frame_Shift_Del	10	89692936	89692955	ACATCGGGGCAAATTTTTAA	-	37	52		101
+TCGA-77-7463-01	Lung Squamous Cell Carcinoma	N292Mfs*15	Frame_Shift_Del	10	89720721	89720721	A	-	13	26		49
+TCGA-85-7950-01	Lung Squamous Cell Carcinoma	L152Qfs*7	Frame_Shift_Del	10	89692971	89692971	T	-	30	51		85
+TCGA-85-8582-01	Lung Squamous Cell Carcinoma	D326H	Missense_Mutation	10	89720825	89720825	G	C	25	110		137
+TCGA-96-8170-01	Lung Squamous Cell Carcinoma	E201Gfs*4	Frame_Shift_Ins	10	89711976	89711977	-	ATGTTTGGAA	16	179		224
+TCGA-98-A53A-01	Lung Squamous Cell Carcinoma	Q171Efs*8	Frame_Shift_Del	10	89711889	89711890	CA	-	50	121		153
+TCGA-98-A53J-01	Lung Squamous Cell Carcinoma	F243Sfs*13	Frame_Shift_Del	10	89717702	89717702	T	-	20	48		73
+TCGA-NC-A5HD-01	Lung Squamous Cell Carcinoma	F21Sfs*3	Frame_Shift_Del	10	89624287	89624287	T	-	51	80		102
+TCGA-AC-A23C-01	Breast Invasive Ductal Carcinoma	K183Efs*6	Frame_Shift_Del	10	89711928	89711929	AA	-	41	46		50
+TCGA-AC-A62Y-01	Breast Invasive Lobular Carcinoma	N117Kfs*9	Frame_Shift_Ins	10	89692864	89692865	-	A	39	68		78
+TCGA-D8-A27L-01	Breast Invasive Ductal Carcinoma	Y16Lfs*28	Frame_Shift_Ins	10	89624271	89624272	-	T	34	85		80
+TCGA-D8-A27V-01	Breast Invasive Lobular Carcinoma	F347L	Missense_Mutation	10	89725058	89725058	C	A	19	75		57
+TCGA-E2-A1IH-01	Breast Invasive Lobular Carcinoma	E73Dfs*25	Frame_Shift_Del	10	89690810	89690813	GAAA	-	60	35		78
+TCGA-EW-A1OV-01	Breast Invasive Ductal Carcinoma	H259Qfs*7	Frame_Shift_Del	10	89717752	89717752	C	-	46	48		27
+TCGA-GM-A2DB-01	Breast Invasive Ductal Carcinoma	D19Gfs*25	Frame_Shift_Ins	10	89624279	89624280	-	G	28	83		106
+TCGA-13-1492-01	Serous Ovarian Cancer	R233Dfs*23	Frame_Shift_Del	10	89717672	89717672	C	-	246	249		1013
+TCGA-AN-A046-01	Breast Invasive Ductal Carcinoma	S59*	Nonsense_Mutation	10	89685281	89685281	C	A	46	150		239
+TCGA-BH-A0GZ-01	Breast Invasive Ductal Carcinoma	X85_splice	Splice_Site	10	89692748	89692785	TGAGGTTATCTTTTTACCACAGTTGCACAATATCCTTT	-	58	109		275
+TCGA-20-1687-01	Serous Ovarian Cancer	X212_splice	Splice_Site	10	89712017	89712017	G	T	9	176		380
+TCGA-E2-A10C-01	Breast Invasive Ductal Carcinoma	D324Tfs*8	Frame_Shift_Del	10	89720817	89720853	ATGATCTTGACAAAGCAAATAAAGACAAAGCCAACCG	-	19	28		117
+TCGA-BH-A1FN-01	Breast Invasive Ductal Carcinoma	X154_splice	Splice_Site	10	89692976	89693013	TTCTATGGGGAAGTAAGGACCAGAGACAAAAAGGTAAG	-	200	24		68
+TCGA-GM-A5PV-01	Breast Invasive Lobular Carcinoma	W274Gfs*2	Frame_Shift_Del	10	89720666	89720666	T	-	10	15		18
+TCGA-A2-A0CZ-01	Breast Invasive Ductal Carcinoma	V217A	Missense_Mutation	10	89717625	89717625	T	C	29	254		309
+TCGA-A7-A26F-01	Breast Invasive Carcinoma, NOS	E73*	Frame_Shift_Del	10	89690810	89690812	GAA	T	38	45		41
+TCGA-D8-A1JB-01	Breast Invasive Ductal Carcinoma	A137Tfs*39	Frame_Shift_Del	10	89692924	89692934	TGCATATTTAT	-	10	50		55
+TCGA-LL-A9Q3-01	Breast Invasive Lobular Carcinoma	I300Sfs*7	Frame_Shift_Del	10	89720745	89720745	A	-	20	38		132
+TCGA-OL-A66P-01	Breast Invasive Ductal Carcinoma	V217G	Missense_Mutation	10	89717625	89717625	T	G	9	30		51
+TCGA-S3-AA11-01	Breast Invasive Ductal Carcinoma	Y76*	Nonsense_Mutation	10	89690821	89690821	T	G	33	27		98
+TCGA-66-2788-01	Lung Squamous Cell Carcinoma	L193Hfs*6	Frame_Shift_Del	10	89711960	89711961	TG	A	44	116		137
+TCGA-61-1900-01	Serous Ovarian Cancer	X165_splice	Splice_Site	10	89711873	89711873	A	C	17	131		278
+TCGA-56-6546-01	Lung Squamous Cell Carcinoma	P248H	Missense_Mutation	10	89717718	89717718	C	A	18	57		81
+TCGA-A7-A26G-01	Breast Invasive Carcinoma, NOS	I135K	Missense_Mutation	10	89692920	89692920	T	A	8	50		55
+TCGA-10-0930-01	Serous Ovarian Cancer	V175L	Missense_Mutation	10	89711905	89711905	G	T	144	168	2	504
+TCGA-17-Z032-01	Lung Adenocarcinoma	V175E	Missense_Mutation	10	89711906	89711906	T	A	18	109		384
+TCGA-24-1550-01	Serous Ovarian Cancer	Y138S	Missense_Mutation	10	89692929	89692929	A	C	132	76		338
+TCGA-A2-A0SV-01	Breast Invasive Ductal Carcinoma	H64_Y65del	In_Frame_Del	10	89685293	89685298	ACCATT	-	28	35		107
+TCGA-43-A474-01	Lung Squamous Cell Carcinoma	F337I	Missense_Mutation	10	89720858	89720858	T	A	18	37		54
+TCGA-85-A53L-01	Lung Squamous Cell Carcinoma	R142P	Missense_Mutation	10	89692941	89692941	G	C	11	40		73
+TCGA-86-A4JF-01	Lung Adenocarcinoma	F278L	Missense_Mutation	10	89720683	89720683	C	G	4	33		56
+TCGA-AC-A2FF-01	Breast Invasive Lobular Carcinoma	M198K	Missense_Mutation	10	89711975	89711975	T	A	7	38		55
+TCGA-GM-A4E0-01	Breast Invasive Lobular Carcinoma	F258Y	Missense_Mutation	10	89717748	89717748	T	A	25	54		86
+TCGA-GM-A4E0-01	Breast Invasive Lobular Carcinoma	F258L	Missense_Mutation	10	89717749	89717749	C	A	25	55		85
+TCGA-AC-A3YJ-01	Breast Invasive Carcinoma, NOS	D116_H118delinsY	In_Frame_Del	10	89692862	89692868	GACAATC	T	21	74		128
+TCGA-17-Z022-01	Lung Adenocarcinoma	N334K	Missense_Mutation	10	89720851	89720851	C	G	29	63		312
+TCGA-04-1335-01	Serous Ovarian Cancer	Y188D	Missense_Mutation	10	89711944	89711944	T	G	10	11		8

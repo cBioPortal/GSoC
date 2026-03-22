@@ -1,0 +1,22 @@
+@import 'functionalImpact';
+
+.alphaMissense-pathogenic {
+    color: $high;
+    font-weight: bold;
+}
+.alphaMissense-ambiguous {
+    color: $low;
+    font-weight: bold;
+}
+.alphaMissense-benign {
+    color: $neutral;
+    font-weight: bold;
+}
+.alphaMissense-unknown {
+    display: none;
+}
+.alphaMissense-tooltip-table {
+    td:first-child {
+        padding-right: 5px;
+    }
+}

@@ -1,0 +1,56 @@
+[build.environment]
+  NODE_VERSION = "22.18.0"
+  YARN_VERSION = "1.22.22"
+  YARN_FLAGS = "--frozen-lockfile --ignore-engines"
+  BABEL_CACHE_FOLDER = "/opt/build/cache/"
+  BUILD_REPORT_ERRORS_ONLY = "true"
+  DISABLE_SOURCEMAP = "true"
+  NODE_OPTIONS="--openssl-legacy-provider"
+  TRANSPILE_ONLY="true"
+
+[[headers]]
+for = "/*.otf"
+	[headers.values]
+	Access-Control-Allow-Origin = "*"
+	Content-Type = "application/font-otf"
+
+[[headers]]
+for = "/*.ttf"
+	[headers.values]
+	Access-Control-Allow-Origin = "*"
+	Content-Type = "application/font-ttf"
+
+[[headers]]
+    for = "/*.json"
+    	[headers.values]
+    	Access-Control-Allow-Origin = "*"
+    	Content-Type = "application/json"
+
+[[headers]]
+for = "/*.ttc"
+	[headers.values]
+	Access-Control-Allow-Origin = "*"
+	Content-Type = "application/font-ttc"
+
+[[headers]]
+for = "/*.woff2"
+	[headers.values]
+	Access-Control-Allow-Origin = "*"
+	Content-Type = "application/font-woff2"
+
+[[headers]]
+for = "/*.woff"
+	[headers.values]
+	Access-Control-Allow-Origin = "*"
+	Content-Type = "application/font-woff"
+
+[[headers]]
+for = "/*.eot"
+	[headers.values]
+	Access-Control-Allow-Origin = "*"
+	Content-Type = "application/font-eot"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

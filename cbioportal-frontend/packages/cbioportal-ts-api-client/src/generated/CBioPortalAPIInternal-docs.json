@@ -1,0 +1,7312 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "contact": {
+      "email": "cbioportal@googlegroups.com",
+      "name": "cbioportal",
+      "url": "https://www.cbioportal.org"
+    },
+    "description": "A web service for supplying JSON formatted data to cBioPortal clients. Please note that this API is currently in beta and subject to change.",
+    "license": {
+      "name": "License",
+      "url": "https://github.com/cBioPortal/cbioportal/blob/master/LICENSE"
+    },
+    "title": "cBioPortal web Public API [Alpha]",
+    "version": "1.0 (beta). Backwards compatibility will be maintained (after 1.0 release)"
+  },
+  "paths": {
+    "/api/alteration-enrichments/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SAMPLE",
+            "description": "Type of the enrichment e.g. SAMPLE or PATIENT",
+            "enum": [
+              "SAMPLE",
+              "PATIENT"
+            ],
+            "in": "query",
+            "name": "enrichmentType",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "molecularProfileCasesGroupAndAlterationTypeFilter",
+            "schema": {
+              "$ref": "#/definitions/MolecularProfileCasesGroupAndAlterationTypeFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/AlterationEnrichment"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Alteration Enrichments"
+        ],
+        "operationId": "fetchAlterationEnrichmentsUsingPOST",
+        "summary": "Fetch alteration enrichments in molecular profiles"
+      }
+    },
+    "/api/cache": {
+      "delete": {
+        "produces": [
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "description": "Secret API key passed in HTTP header. The key is configured in application.properties of the portal instance.",
+            "in": "header",
+            "name": "X-API-KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": true,
+            "description": "Clear Spring-managed caches",
+            "in": "query",
+            "name": "springManagedCache",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "tags": [
+          "Cache"
+        ],
+        "operationId": "clearAllCachesUsingDELETE",
+        "summary": "Clear and reinitialize caches"
+      }
+    },
+    "/api/clinical-attributes/counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "clinicalAttributeCountFilter",
+            "schema": {
+              "$ref": "#/definitions/ClinicalAttributeCountFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalAttributeCount"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Clinical Attributes Count"
+        ],
+        "description": "Get counts for clinical attributes according to their data availability for selected samples/patients",
+        "operationId": "getClinicalAttributeCountsUsingPOST"
+      }
+    },
+    "/api/clinical-data-bin-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "DYNAMIC",
+            "description": "Method for data binning",
+            "enum": [
+              "STATIC",
+              "DYNAMIC"
+            ],
+            "in": "query",
+            "name": "dataBinMethod",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "clinicalDataBinCountFilter",
+            "schema": {
+              "$ref": "#/definitions/ClinicalDataBinCountFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalDataBin"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch clinical data bin counts by study view filter",
+        "operationId": "fetchClinicalDataBinCountsUsingPOST"
+      }
+    },
+    "/api/clinical-data-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "clinicalDataCountFilter",
+            "schema": {
+              "$ref": "#/definitions/ClinicalDataCountFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalDataCountItem"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch clinical data counts by study view filter",
+        "operationId": "fetchClinicalDataCountsUsingPOST"
+      }
+    },
+    "/api/clinical-data-density-plot/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Clinical Attribute ID of the X axis",
+            "in": "query",
+            "name": "xAxisAttributeId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": 50,
+            "description": "Number of the bins in X axis",
+            "format": "int32",
+            "in": "query",
+            "name": "xAxisBinCount",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Starting point of the X axis, if different than smallest value",
+            "in": "query",
+            "name": "xAxisStart",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "description": "Starting point of the X axis, if different than largest value",
+            "in": "query",
+            "name": "xAxisEnd",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "description": "Clinical Attribute ID of the Y axis",
+            "in": "query",
+            "name": "yAxisAttributeId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": 50,
+            "description": "Number of the bins in Y axis",
+            "format": "int32",
+            "in": "query",
+            "name": "yAxisBinCount",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Starting point of the Y axis, if different than smallest value",
+            "in": "query",
+            "name": "yAxisStart",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "description": "Starting point of the Y axis, if different than largest value",
+            "in": "query",
+            "name": "yAxisEnd",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "default": false,
+            "description": "Use log scale for X axis",
+            "in": "query",
+            "name": "xAxisLogScale",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "default": false,
+            "description": "Use log scale for Y axis",
+            "in": "query",
+            "name": "yAxisLogScale",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "in": "body",
+            "name": "studyViewFilter",
+            "schema": {
+              "$ref": "#/definitions/StudyViewFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/DensityPlotData"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch clinical data density plot bins by study view filter",
+        "operationId": "fetchClinicalDataDensityPlotUsingPOST"
+      }
+    },
+    "/api/clinical-data-enrichments/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "groupFilter",
+            "schema": {
+              "$ref": "#/definitions/GroupFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalDataEnrichment"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Clinical Data Enrichments"
+        ],
+        "description": "Fetch clinical data enrichments for the sample groups",
+        "operationId": "fetchClinicalEnrichmentsUsingPOST"
+      }
+    },
+    "/api/clinical-data-table/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": 0,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 1000000,
+            "minimum": 0,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list. Zero represents the first page.",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": "",
+            "description": "Search term to filter sample rows. Samples are returned with a partial match to the search term for any sample clinical attribute.",
+            "in": "query",
+            "name": "searchTerm",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "sampleId, patientId, or the ATTR_ID to sorted by",
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "studyViewFilter",
+            "schema": {
+              "$ref": "#/definitions/StudyViewFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SampleClinicalDataCollection"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch clinical data for the Clinical Tab of Study View",
+        "operationId": "fetchClinicalDataClinicalTableUsingPOST"
+      }
+    },
+    "/api/clinical-data-violin-plots/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Clinical Attribute ID of the categorical attribute",
+            "in": "query",
+            "name": "categoricalAttributeId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Clinical Attribute ID of the numerical attribute",
+            "in": "query",
+            "name": "numericalAttributeId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Starting point of the violin plot axis, if different than smallest value",
+            "in": "query",
+            "name": "axisStart",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "description": "Ending point  of the violin plot axis, if different than largest value",
+            "in": "query",
+            "name": "axisEnd",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "default": 100,
+            "description": "Number of points in the curve",
+            "in": "query",
+            "name": "numCurvePoints",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "default": false,
+            "description": "Use log scale for the numerical attribute",
+            "in": "query",
+            "name": "logScale",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "default": 1,
+            "description": "Sigma stepsize multiplier",
+            "in": "query",
+            "name": "sigmaMultiplier",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "studyViewFilter",
+            "schema": {
+              "$ref": "#/definitions/StudyViewFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ClinicalViolinPlotData"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch violin plot curves per categorical clinical data value, filtered by study view filter",
+        "operationId": "fetchClinicalDataViolinPlotsUsingPOST"
+      }
+    },
+    "/api/clinical-event-type-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "studyViewFilter",
+            "schema": {
+              "$ref": "#/definitions/StudyViewFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalEventTypeCount"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Get Counts of Clinical Event Types by Study View Filter",
+        "operationId": "getClinicalEventTypeCountsUsingPOST"
+      }
+    },
+    "/api/clinical-events-meta/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "clinicalEventAttributeRequest",
+            "schema": {
+              "$ref": "#/definitions/ClinicalEventAttributeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalEvent"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Clinical Events"
+        ],
+        "description": "Fetch clinical events meta",
+        "operationId": "fetchClinicalEventsMetaUsingPOST"
+      }
+    },
+    "/api/cna-genes/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "studyViewFilter",
+            "schema": {
+              "$ref": "#/definitions/StudyViewFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/CopyNumberCountByGene"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch CNA genes by study view filter",
+        "operationId": "fetchCNAGenesUsingPOST"
+      }
+    },
+    "/api/column-store/treatments/patient-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "Agent",
+            "enum": [
+              "Agent",
+              "AgentClass",
+              "AgentTarget"
+            ],
+            "in": "query",
+            "name": "tier",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "studyViewFilter",
+            "schema": {
+              "$ref": "#/definitions/StudyViewFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PatientTreatmentReport"
+            }
+          }
+        },
+        "tags": [
+          "columnar-store-study-view-controller"
+        ],
+        "description": "Get all patient level treatments",
+        "operationId": "fetchPatientTreatmentCountsUsingPOST"
+      }
+    },
+    "/api/column-store/treatments/sample-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "Agent",
+            "enum": [
+              "Agent",
+              "AgentClass",
+              "AgentTarget"
+            ],
+            "in": "query",
+            "name": "tier",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "studyViewFilter",
+            "schema": {
+              "$ref": "#/definitions/StudyViewFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SampleTreatmentReport"
+            }
+          }
+        },
+        "tags": [
+          "columnar-store-study-view-controller"
+        ],
+        "operationId": "fetchSampleTreatmentCountsUsingPOST"
+      }
+    },
+    "/api/custom-data-bin-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "DYNAMIC",
+            "description": "Method for data binning",
+            "enum": [
+              "STATIC",
+              "DYNAMIC"
+            ],
+            "in": "query",
+            "name": "dataBinMethod",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "clinicalDataBinCountFilter",
+            "schema": {
+              "$ref": "#/definitions/ClinicalDataBinCountFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalDataBin"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch custom data bin counts by study view filter",
+        "operationId": "fetchCustomDataBinCountsUsingPOST"
+      }
+    },
+    "/api/custom-data-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "clinicalDataCountFilter",
+            "schema": {
+              "$ref": "#/definitions/ClinicalDataCountFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalDataCountItem"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch custom data counts by study view filter",
+        "operationId": "fetchCustomDataCountsUsingPOST"
+      }
+    },
+    "/api/custom-driver-annotation-report/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "molecularProfileIds",
+            "required": true,
+            "schema": {
+              "description": "List of Molecular Profile Ids",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CustomDriverAnnotationReport"
+            }
+          }
+        },
+        "tags": [
+          "Custom driver annotations"
+        ],
+        "operationId": "fetchAlterationDriverAnnotationReportUsingPOST",
+        "summary": "Return availability of custom driver annotations for molecular profiles"
+      }
+    },
+    "/api/data-access-token": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "tags": [
+          "Data Access Tokens"
+        ],
+        "description": "Create a new data access token",
+        "operationId": "downloadDataAccessTokenUsingGET"
+      }
+    },
+    "/api/data-access-token/oauth2": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "tags": [
+          "Data Access Tokens"
+        ],
+        "operationId": "downloadOAuth2DataAccessTokenUsingGET"
+      }
+    },
+    "/api/data-access-tokens": {
+      "delete": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Data Access Tokens"
+        ],
+        "description": "Delete all data access tokens",
+        "operationId": "revokeAllDataAccessTokensUsingDELETE"
+      },
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/DataAccessToken"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Data Access Tokens"
+        ],
+        "description": "Retrieve all data access tokens",
+        "operationId": "getAllDataAccessTokensUsingGET"
+      },
+      "post": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/DataAccessToken"
+            }
+          }
+        },
+        "tags": [
+          "Data Access Tokens"
+        ],
+        "description": "Get all data access tokens",
+        "operationId": "createDataAccessTokenUsingPOST"
+      }
+    },
+    "/api/data-access-tokens/{token}": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "token",
+            "in": "path",
+            "name": "token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Data Access Tokens"
+        ],
+        "description": "Delete a data access token",
+        "operationId": "revokeDataAccessTokenUsingDELETE"
+      },
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "description": "token",
+            "in": "path",
+            "name": "token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/DataAccessToken"
+            }
+          }
+        },
+        "tags": [
+          "Data Access Tokens"
+        ],
+        "description": "Retrieve an existing data access token",
+        "operationId": "getDataAccessTokenUsingGET"
+      }
+    },
+    "/api/expression-enrichments/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SAMPLE",
+            "description": "Type of the enrichment e.g. SAMPLE or PATIENT",
+            "enum": [
+              "SAMPLE",
+              "PATIENT"
+            ],
+            "in": "query",
+            "name": "enrichmentType",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "groupsContainingSampleAndMolecularProfileIdentifiers",
+            "schema": {
+              "description": "List of groups containing sample and molecular profile identifiers",
+              "items": {
+                "$ref": "#/definitions/MolecularProfileCasesGroupFilter"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenomicEnrichment"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Enrichments"
+        ],
+        "description": "Fetch genomic enrichments in a molecular profile",
+        "operationId": "fetchGenomicEnrichmentsUsingPOST"
+      }
+    },
+    "/api/filtered-samples/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": false,
+            "description": "Whether to negate the study view filters",
+            "in": "query",
+            "name": "negateFilters",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "in": "body",
+            "name": "studyViewFilter",
+            "schema": {
+              "$ref": "#/definitions/StudyViewFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Sample"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch sample IDs by study view filter",
+        "operationId": "fetchFilteredSamplesUsingPOST"
+      }
+    },
+    "/api/generic-assay-binary-enrichments/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SAMPLE",
+            "description": "Type of the enrichment e.g. SAMPLE or PATIENT",
+            "enum": [
+              "SAMPLE",
+              "PATIENT"
+            ],
+            "in": "query",
+            "name": "enrichmentType",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "groupsContainingSampleAndMolecularProfileIdentifiers",
+            "schema": {
+              "description": "List of groups containing sample and molecular profile identifiers",
+              "items": {
+                "$ref": "#/definitions/MolecularProfileCasesGroupFilter"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenericAssayBinaryEnrichment"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Generic Assay Enrichment Data"
+        ],
+        "description": "Fetch generic assay binary data enrichments in a molecular profile",
+        "operationId": "fetchGenericAssayBinaryDataEnrichmentInMultipleMolecularProfilesUsingPOST"
+      }
+    },
+    "/api/generic-assay-categorical-enrichments/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SAMPLE",
+            "description": "Type of the enrichment e.g. SAMPLE or PATIENT",
+            "enum": [
+              "SAMPLE",
+              "PATIENT"
+            ],
+            "in": "query",
+            "name": "enrichmentType",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "groupsContainingSampleAndMolecularProfileIdentifiers",
+            "schema": {
+              "description": "List of groups containing sample and molecular profile identifiers",
+              "items": {
+                "$ref": "#/definitions/MolecularProfileCasesGroupFilter"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenericAssayCategoricalEnrichment"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Generic Assay Enrichment Data"
+        ],
+        "description": "Fetch generic assay categorical data enrichments in a molecular profile",
+        "operationId": "fetchGenericAssayCategoricalDataEnrichmentInMultipleMolecularProfilesUsingPOST"
+      }
+    },
+    "/api/generic-assay-data-bin-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "DYNAMIC",
+            "description": "Method for data binning",
+            "enum": [
+              "STATIC",
+              "DYNAMIC"
+            ],
+            "in": "query",
+            "name": "dataBinMethod",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "genericAssayDataBinCountFilter",
+            "schema": {
+              "$ref": "#/definitions/GenericAssayDataBinCountFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenericAssayDataBin"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch generic assay data bin counts by study view filter",
+        "operationId": "fetchGenericAssayDataBinCountsUsingPOST"
+      }
+    },
+    "/api/generic-assay-data-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "genericAssayDataCountFilter",
+            "schema": {
+              "$ref": "#/definitions/GenericAssayDataCountFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenericAssayDataCountItem"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch generic assay data counts by study view filter",
+        "operationId": "fetchGenericAssayDataCountsUsingPOST"
+      }
+    },
+    "/api/generic-assay-enrichments/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SAMPLE",
+            "description": "Type of the enrichment e.g. SAMPLE or PATIENT",
+            "enum": [
+              "SAMPLE",
+              "PATIENT"
+            ],
+            "in": "query",
+            "name": "enrichmentType",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "groupsContainingSampleAndMolecularProfileIdentifiers",
+            "schema": {
+              "description": "List of groups containing sample and molecular profile identifiers",
+              "items": {
+                "$ref": "#/definitions/MolecularProfileCasesGroupFilter"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenericAssayEnrichment"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Enrichments"
+        ],
+        "description": "Fetch generic assay enrichments in a molecular profile",
+        "operationId": "fetchGenericAssayEnrichmentsUsingPOST"
+      }
+    },
+    "/api/geneset-hierarchy/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Genetic Profile ID e.g. gbm_tcga_gsva_scores. The final hierarchy  will only include gene sets scored in the specified profile.",
+            "in": "query",
+            "name": "geneticProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": 75,
+            "description": "Percentile (for score calculation). Which percentile to use when determining the *representative score*",
+            "format": "int32",
+            "in": "query",
+            "maximum": 100,
+            "minimum": 1,
+            "name": "percentile",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0.4,
+            "description": "Gene set score threshold (for absolute score value). Filters out gene sets where the GSVA(like) *representative score* is under this threshold.",
+            "format": "double",
+            "in": "query",
+            "maximum": 1,
+            "minimum": 0,
+            "name": "scoreThreshold",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "default": 0.05,
+            "description": "p-value threshold. Filters out gene sets for which the score p-value is higher than this threshold.",
+            "format": "double",
+            "in": "query",
+            "maximum": 1,
+            "minimum": 0,
+            "name": "pvalueThreshold",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "description": "Identifier of pre-defined sample list with samples to query, e.g. brca_tcga_all",
+            "in": "query",
+            "name": "sampleListId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "fillThisOneIfYouWantToSpecifyASubsetOfSamples:Sampleids:CustomListOfSamplesOrPatientsToQuery,EG. [\"tcgaA1A0Sd01\", \"tcgaA1A0Se01\"]",
+            "schema": {
+              "description": "Fill this one if you want to specify a subset of samples: sampleIds: custom list of samples or patients to query, e.g. [\"TCGA-A1-A0SD-01\", \"TCGA-A1-A0SE-01\"]",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenesetHierarchyInfo"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Gene Set Hierarchy"
+        ],
+        "description": "Get gene set hierarchical organization information. I.e. how different gene sets relate to other gene sets, in a hierarchy",
+        "operationId": "fetchGenesetHierarchyInfoUsingPOST"
+      }
+    },
+    "/api/genesets": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 2147483647,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Geneset"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Gene Sets"
+        ],
+        "description": "Get all gene sets",
+        "operationId": "getAllGenesetsUsingGET"
+      }
+    },
+    "/api/genesets/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "genesetIds",
+            "required": true,
+            "schema": {
+              "description": "List of Geneset IDs",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Geneset"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Gene Sets"
+        ],
+        "description": "Fetch gene sets by ID",
+        "operationId": "fetchGenesetsUsingPOST"
+      }
+    },
+    "/api/genesets/version": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "tags": [
+          "Gene Sets"
+        ],
+        "description": "Get the geneset version",
+        "operationId": "getGenesetVersionUsingGET"
+      }
+    },
+    "/api/genesets/{genesetId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Gene set ID e.g. GNF2_ZAP70",
+            "in": "path",
+            "name": "genesetId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Geneset"
+            }
+          }
+        },
+        "tags": [
+          "Gene Sets"
+        ],
+        "description": "Get a gene set",
+        "operationId": "getGenesetUsingGET"
+      }
+    },
+    "/api/genesets/{genesetId}/expression-correlation/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Gene set ID, e.g. HINATA_NFKB_MATRIX.",
+            "in": "path",
+            "name": "genesetId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Genetic Profile ID e.g. gbm_tcga_gsva_scores",
+            "in": "query",
+            "name": "geneticProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": 0.3,
+            "description": "Correlation threshold (for absolute correlation value, Spearman correlation)",
+            "format": "double",
+            "in": "query",
+            "maximum": 1,
+            "minimum": 0,
+            "name": "correlationThreshold",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "description": "Identifier of pre-defined sample list with samples to query, e.g. brca_tcga_all",
+            "in": "query",
+            "name": "sampleListId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "fillThisOneIfYouWantToSpecifyASubsetOfSamples:Sampleids:CustomListOfSamplesOrPatientsToQuery,EG. [\"tcgaA1A0Sd01\", \"tcgaA1A0Se01\"]",
+            "schema": {
+              "description": "Fill this one if you want to specify a subset of samples: sampleIds: custom list of samples or patients to query, e.g. [\"TCGA-A1-A0SD-01\", \"TCGA-A1-A0SE-01\"]",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenesetCorrelation"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Gene Set Correlation"
+        ],
+        "description": "Get the genes in a gene set that have expression correlated to the gene set scores (calculated using Spearman's correlation)",
+        "operationId": "fetchCorrelatedGenesUsingPOST"
+      }
+    },
+    "/api/genetic-profiles/{geneticProfileId}/geneset-genetic-data/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Genetic profile ID, e.g. gbm_tcga_gsva_scores",
+            "in": "path",
+            "name": "geneticProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "genesetDataFilterCriteria",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenesetDataFilterCriteria"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenesetMolecularData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Gene Set Scores"
+        ],
+        "description": "Fetch gene set \"genetic data\" items (gene set scores) by profile Id, gene set ids and sample ids",
+        "operationId": "fetchGeneticDataItemsUsingPOST"
+      }
+    },
+    "/api/genomic-data-bin-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "DYNAMIC",
+            "description": "Method for data binning",
+            "enum": [
+              "STATIC",
+              "DYNAMIC"
+            ],
+            "in": "query",
+            "name": "dataBinMethod",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "genomicDataBinCountFilter",
+            "schema": {
+              "$ref": "#/definitions/GenomicDataBinCountFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenomicDataBin"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch genomic data bin counts by study view filter",
+        "operationId": "fetchGenomicDataBinCountsUsingPOST"
+      }
+    },
+    "/api/genomic-data-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "genomicDataCountFilter",
+            "schema": {
+              "$ref": "#/definitions/GenomicDataCountFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenomicDataCountItem"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch genomic data counts by GenomicDataCountFilter",
+        "operationId": "fetchGenomicDataCountsUsingPOST"
+      }
+    },
+    "/api/molecular-profile-sample-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "studyViewFilter",
+            "schema": {
+              "$ref": "#/definitions/StudyViewFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenomicDataCount"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch sample counts by study view filter",
+        "operationId": "fetchMolecularProfileSampleCountsUsingPOST"
+      }
+    },
+    "/api/molecular-profiles/co-expressions/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Molecular Profile ID from the Genetic Entity referenced in the co-expression filter e.g. acc_tcga_rna_seq_v2_mrna",
+            "in": "query",
+            "name": "molecularProfileIdA",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Molecular Profile ID (can be the same as molecularProfileIdA) e.g. acc_tcga_rna_seq_v2_mrna",
+            "in": "query",
+            "name": "molecularProfileIdB",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": 0.3,
+            "description": "Threshold",
+            "format": "double",
+            "in": "query",
+            "name": "threshold",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "coExpressionFilter",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CoExpressionFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/CoExpression"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Co-Expressions"
+        ],
+        "description": "Calculates correlations between a genetic entity from a specific profile and another profile from the same study",
+        "operationId": "fetchCoExpressionsUsingPOST"
+      }
+    },
+    "/api/molecular-profiles/{molecularProfileId}/discrete-copy-number-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Molecular Profile ID e.g. acc_tcga_gistic",
+            "in": "path",
+            "name": "molecularProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "copyNumberCountIdentifiers",
+            "required": true,
+            "schema": {
+              "description": "List of copy number count identifiers",
+              "items": {
+                "$ref": "#/definitions/CopyNumberCountIdentifier"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/CopyNumberCount"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Discrete Copy Number Alteration Counts"
+        ],
+        "description": "Get counts of specific genes and alterations within a CNA molecular profile",
+        "operationId": "fetchCopyNumberCountsUsingPOST"
+      }
+    },
+    "/api/molecular-profiles/{molecularProfileId}/mrna-percentile/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Molecular Profile ID e.g. acc_tcga_rna_seq_v2_mrna",
+            "in": "path",
+            "name": "molecularProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Sample ID e.g. TCGA-OR-A5J2-01",
+            "in": "query",
+            "name": "sampleId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "entrezGeneIds",
+            "required": true,
+            "schema": {
+              "description": "List of Entrez Gene IDs",
+              "items": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/MrnaPercentile"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "mRNA Percentile"
+        ],
+        "description": "Get mRNA expression percentiles for list of genes for a sample",
+        "operationId": "fetchMrnaPercentileUsingPOST"
+      }
+    },
+    "/api/molecular-profiles/{molecularProfileId}/mutation-spectrums/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Molecular Profile ID e.g. acc_tcga_mutations",
+            "in": "path",
+            "name": "molecularProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "mutationSpectrumFilter",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MutationSpectrumFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/MutationSpectrum"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Mutation Spectrums"
+        ],
+        "description": "Fetch mutation spectrums in a molecular profile",
+        "operationId": "fetchMutationSpectrumsUsingPOST"
+      }
+    },
+    "/api/molecular-profiles/{molecularProfileId}/variant-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Molecular Profile ID e.g. acc_tcga_mutations",
+            "in": "path",
+            "name": "molecularProfileId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "variantCountIdentifiers",
+            "required": true,
+            "schema": {
+              "description": "List of variant count identifiers",
+              "items": {
+                "$ref": "#/definitions/VariantCountIdentifier"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/VariantCount"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Variant Counts"
+        ],
+        "description": "Get counts of specific variants within a mutation molecular profile",
+        "operationId": "fetchVariantCountsUsingPOST"
+      }
+    },
+    "/api/mutated-genes/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "studyViewFilter",
+            "schema": {
+              "$ref": "#/definitions/StudyViewFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/AlterationCountByGene"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch mutated genes by study view filter",
+        "operationId": "fetchMutatedGenesUsingPOST"
+      }
+    },
+    "/api/mutation-counts-by-position/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "mutationPositionIdentifiers",
+            "required": true,
+            "schema": {
+              "description": "List of Mutation Position Identifiers",
+              "items": {
+                "$ref": "#/definitions/MutationPositionIdentifier"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/MutationCountByPosition"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Mutations Count"
+        ],
+        "description": "Fetch mutation counts in all studies by gene and position",
+        "operationId": "fetchMutationCountsByPositionUsingPOST"
+      }
+    },
+    "/api/mutation-data-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "genomicDataCountFilter",
+            "schema": {
+              "$ref": "#/definitions/GenomicDataCountFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GenomicDataCountItem"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch mutation data counts by GenomicDataCountFilter",
+        "operationId": "fetchMutationDataCountsUsingPOST"
+      }
+    },
+    "/api/namespace-attributes/counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "namespaceAttributeCountFilter",
+            "schema": {
+              "$ref": "#/definitions/NamespaceAttributeCountFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/NamespaceAttributeCount"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Namespace Attributes Count"
+        ],
+        "description": "Get counts for namespace attributes according to their data availability for selected samples/patients",
+        "operationId": "getNamespaceAttributeCountsUsingPOST"
+      }
+    },
+    "/api/namespace-data-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "namespaceDataCountFilter",
+            "schema": {
+              "$ref": "#/definitions/NamespaceDataCountFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/NamespaceDataCountItem"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch namespace data counts by study view filter",
+        "operationId": "fetchNamespaceDataCountsUsingPOST"
+      }
+    },
+    "/api/namespace-data/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "namespaceComparisonFilter",
+            "schema": {
+              "$ref": "#/definitions/NamespaceComparisonFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/NamespaceData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Namespace Data"
+        ],
+        "description": "Get namespace data for comparison page for the selected samples and values",
+        "operationId": "getNamespaceDataForComparisonUsingPOST"
+      }
+    },
+    "/api/reference-genome-genes/{genomeName}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Name of Reference Genome hg19",
+            "in": "path",
+            "name": "genomeName",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ReferenceGenomeGene"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Reference Genome Genes"
+        ],
+        "description": "Get all reference genes",
+        "operationId": "getAllReferenceGenomeGenesUsingGET"
+      }
+    },
+    "/api/reference-genome-genes/{genomeName}/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Name of Reference Genome hg19",
+            "in": "path",
+            "name": "genomeName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "geneIds",
+            "required": true,
+            "schema": {
+              "description": "List of Gene IDs",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ReferenceGenomeGene"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Reference Genome Genes"
+        ],
+        "description": "Fetch genes of reference genome of interest",
+        "operationId": "fetchReferenceGenomeGenesUsingPOST"
+      }
+    },
+    "/api/reference-genome-genes/{genomeName}/{geneId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Name of Reference Genome hg19",
+            "in": "path",
+            "name": "genomeName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Entrez Gene ID 207",
+            "format": "int32",
+            "in": "path",
+            "name": "geneId",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReferenceGenomeGene"
+            }
+          },
+          "404": {
+            "description": "Reference genome or gene not found",
+            "schema": {
+              "$ref": "#/definitions/ResponseEntityReferenceGenomeGene"
+            }
+          }
+        },
+        "tags": [
+          "Reference Genome Genes"
+        ],
+        "description": "Get a gene of a reference genome of interest",
+        "operationId": "getReferenceGenomeGeneUsingGET"
+      }
+    },
+    "/api/resource-definitions/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "studyIds",
+            "required": true,
+            "schema": {
+              "description": "List of Study IDs",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ResourceDefinition"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Resource Definitions"
+        ],
+        "description": "Get all resource definitions for specified studies",
+        "operationId": "fetchResourceDefinitionsUsingPOST"
+      }
+    },
+    "/api/sample-lists-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "studyViewFilter",
+            "schema": {
+              "$ref": "#/definitions/StudyViewFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/CaseListDataCount"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch case list sample counts by study view filter",
+        "operationId": "fetchCaseListCountsUsingPOST"
+      }
+    },
+    "/api/structural-variant/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "structuralVariantFilter",
+            "schema": {
+              "$ref": "#/definitions/StructuralVariantFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/StructuralVariant"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Structural Variants"
+        ],
+        "description": "Fetch structural variants for entrezGeneIds and molecularProfileIds or sampleMolecularIdentifiers",
+        "operationId": "fetchStructuralVariantsUsingPOST"
+      }
+    },
+    "/api/structuralvariant-counts/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "studyViewFilter",
+            "schema": {
+              "$ref": "#/definitions/StudyViewFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/AlterationCountByStructuralVariant"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch structural variant genes by study view filter",
+        "operationId": "fetchStructuralVariantCountsUsingPOST"
+      }
+    },
+    "/api/structuralvariant-genes/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "studyViewFilter",
+            "schema": {
+              "$ref": "#/definitions/StudyViewFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/AlterationCountByGene"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Study View"
+        ],
+        "description": "Fetch structural variant genes by study view filter",
+        "operationId": "fetchStructuralVariantGenesUsingPOST"
+      }
+    },
+    "/api/studies/{studyId}/clinical-events": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. lgg_ucsf_2014",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "eventType",
+              "startNumberOfDaysSinceDiagnosis",
+              "endNumberOfDaysSinceDiagnosis"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalEvent"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Clinical Events"
+        ],
+        "description": "Get all clinical events in a study",
+        "operationId": "getAllClinicalEventsInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/patients/{patientId}/clinical-events": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. lgg_ucsf_2014",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Patient ID e.g. P01",
+            "in": "path",
+            "name": "patientId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "eventType",
+              "startNumberOfDaysSinceDiagnosis",
+              "endNumberOfDaysSinceDiagnosis"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalEvent"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Clinical Events"
+        ],
+        "description": "Get all clinical events of a patient in a study",
+        "operationId": "getAllClinicalEventsOfPatientInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/patients/{patientId}/resource-data": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Patient ID e.g. TCGA-OR-A5J2",
+            "in": "path",
+            "name": "patientId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Resource ID",
+            "in": "query",
+            "name": "resourceId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "ResourceId",
+              "url"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ResourceData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Resource Data"
+        ],
+        "description": "Get all resource data of a patient in a study",
+        "operationId": "getAllResourceDataOfPatientInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/resource-data": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Resource ID",
+            "in": "query",
+            "name": "resourceId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "ResourceId",
+              "url"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ResourceData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Resource Data"
+        ],
+        "description": "Get all resource data for a study",
+        "operationId": "getAllStudyResourceDataInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/resource-data-all": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Resource ID",
+            "in": "query",
+            "name": "resourceId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "ResourceId",
+              "url"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ResourceData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Resource Data"
+        ],
+        "description": "Get all resource data for for all patients and all samples within a study",
+        "operationId": "getAllStudyResourceDataInStudyPatientSampleUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/resource-definitions": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "resourceId",
+              "displayName",
+              "description",
+              "resourceType",
+              "priority",
+              "openByDefault",
+              "studyId",
+              "customMetaData"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ResourceDefinition"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Resource Definitions"
+        ],
+        "description": "Get all resource definitions in the specified study",
+        "operationId": "getAllResourceDefinitionsInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/resource-definitions/{resourceId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Resource ID",
+            "in": "path",
+            "name": "resourceId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResourceDefinition"
+            }
+          }
+        },
+        "tags": [
+          "Resource Definitions"
+        ],
+        "description": "Get specified resource definition",
+        "operationId": "getResourceDefinitionInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/samples/{sampleId}/resource-data": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Sample ID e.g. TCGA-OR-A5J2-01",
+            "in": "path",
+            "name": "sampleId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Resource ID",
+            "in": "query",
+            "name": "resourceId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "ResourceId",
+              "url"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ResourceData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Resource Data"
+        ],
+        "description": "Get all resource data of a sample in a study",
+        "operationId": "getAllResourceDataOfSampleInStudyUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/significant-copy-number-regions": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "chromosome",
+              "cytoband",
+              "widePeakStart",
+              "widePeakEnd",
+              "qValue",
+              "amp"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Gistic"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Significant Copy Number Regions"
+        ],
+        "description": "Get significant copy number alteration regions in a study",
+        "operationId": "getSignificantCopyNumberRegionsUsingGET"
+      }
+    },
+    "/api/studies/{studyId}/significantly-mutated-genes": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Study ID e.g. acc_tcga",
+            "in": "path",
+            "name": "studyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "SUMMARY",
+            "description": "Level of detail of the response",
+            "enum": [
+              "ID",
+              "SUMMARY",
+              "DETAILED",
+              "META"
+            ],
+            "in": "query",
+            "name": "projection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 10000000,
+            "description": "Page size of the result list",
+            "format": "int32",
+            "in": "query",
+            "maximum": 10000000,
+            "minimum": 1,
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 0,
+            "description": "Page number of the result list",
+            "format": "int32",
+            "in": "query",
+            "minimum": 0,
+            "name": "pageNumber",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Name of the property that the result list is sorted by",
+            "enum": [
+              "entrezGeneId",
+              "hugoGeneSymbol",
+              "rank",
+              "numberOfMutations",
+              "pValue",
+              "qValue"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Direction of the sort",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/MutSig"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Significantly Mutated Genes"
+        ],
+        "description": "Get significantly mutated genes in a study",
+        "operationId": "getSignificantlyMutatedGenesUsingGET"
+      }
+    },
+    "/api/survival-data/fetch": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "survivalRequest",
+            "schema": {
+              "$ref": "#/definitions/SurvivalRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ClinicalData"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Survival"
+        ],
+        "description": "Fetch survival data",
+        "operationId": "fetchSurvivalDataUsingPOST"
+      }
+    },
+    "/api/timestamps": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Timestamps"
+        ],
+        "description": "Get the last time each static resource was updated",
+        "operationId": "getAllTimestampsUsingGET"
+      }
+    },
+    "/api/treatments/display-patient": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "Agent",
+            "enum": [
+              "Agent",
+              "AgentClass",
+              "AgentTarget"
+            ],
+            "in": "query",
+            "name": "tier",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "studyIds",
+            "required": true,
+            "schema": {
+              "description": "List of Study IDs",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        },
+        "tags": [
+          "Treatments"
+        ],
+        "description": "Should patient level treatments be displayed",
+        "operationId": "getContainsTreatmentDataUsingPOST"
+      }
+    },
+    "/api/treatments/display-sample": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "Agent",
+            "enum": [
+              "Agent",
+              "AgentClass",
+              "AgentTarget"
+            ],
+            "in": "query",
+            "name": "tier",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "studyIds",
+            "required": true,
+            "schema": {
+              "description": "List of Study IDs",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        },
+        "tags": [
+          "Treatments"
+        ],
+        "description": "Should sample level treatments be displayed",
+        "operationId": "getContainsSampleTreatmentDataUsingPOST"
+      }
+    },
+    "/api/treatments/patient": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "Agent",
+            "enum": [
+              "Agent",
+              "AgentClass",
+              "AgentTarget"
+            ],
+            "in": "query",
+            "name": "tier",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "studyViewFilter",
+            "schema": {
+              "$ref": "#/definitions/StudyViewFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/PatientTreatmentRow"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Treatments"
+        ],
+        "description": "Get all patient level treatments",
+        "operationId": "getAllPatientTreatmentsUsingPOST"
+      }
+    },
+    "/api/treatments/sample": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": "Agent",
+            "enum": [
+              "Agent",
+              "AgentClass",
+              "AgentTarget"
+            ],
+            "in": "query",
+            "name": "tier",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "studyViewFilter",
+            "schema": {
+              "$ref": "#/definitions/StudyViewFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SampleTreatmentRow"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "Treatments"
+        ],
+        "description": "Get all sample level treatments",
+        "operationId": "getAllSampleTreatmentsUsingPOST"
+      }
+    }
+  },
+  "definitions": {
+    "AlterationCountByGene": {
+      "properties": {
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "entrezGeneIds": {
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        },
+        "hugoGeneSymbols": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "matchingGenePanelIds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "numberOfAlteredCases": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numberOfAlteredCasesOnPanel": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numberOfProfiledCases": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "qValue": {
+          "type": "number"
+        },
+        "totalCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "uniqueEventKey": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "AlterationCountByStructuralVariant": {
+      "properties": {
+        "entrezGeneIds": {
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "gene1EntrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gene1HugoGeneSymbol": {
+          "type": "string"
+        },
+        "gene2EntrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gene2HugoGeneSymbol": {
+          "type": "string"
+        },
+        "hugoGeneSymbols": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "matchingGenePanelIds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "numberOfAlteredCases": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numberOfAlteredCasesOnPanel": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numberOfProfiledCases": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "uniqueEventKey": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "AlterationEnrichment": {
+      "properties": {
+        "counts": {
+          "items": {
+            "$ref": "#/definitions/CountSummary"
+          },
+          "type": "array"
+        },
+        "cytoband": {
+          "type": "string"
+        },
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        },
+        "pValue": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "counts",
+        "entrezGeneId",
+        "hugoGeneSymbol"
+      ],
+      "type": "object"
+    },
+    "AlterationFilter": {
+      "properties": {
+        "copyNumberAlterationEventTypes": {
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "type": "object"
+        },
+        "includeDriver": {
+          "type": "boolean"
+        },
+        "includeGermline": {
+          "type": "boolean"
+        },
+        "includeSomatic": {
+          "type": "boolean"
+        },
+        "includeUnknownOncogenicity": {
+          "type": "boolean"
+        },
+        "includeUnknownStatus": {
+          "type": "boolean"
+        },
+        "includeUnknownTier": {
+          "type": "boolean"
+        },
+        "includeVUS": {
+          "type": "boolean"
+        },
+        "mutationEventTypes": {
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "type": "object"
+        },
+        "structuralVariants": {
+          "type": "boolean"
+        },
+        "tiersBooleanMap": {
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "AndedPatientTreatmentFilters": {
+      "properties": {
+        "filters": {
+          "items": {
+            "$ref": "#/definitions/OredPatientTreatmentFilters"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "AndedSampleTreatmentFilters": {
+      "properties": {
+        "filters": {
+          "items": {
+            "$ref": "#/definitions/OredSampleTreatmentFilters"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "BinsGeneratorConfig": {
+      "properties": {
+        "anchorValue": {
+          "type": "number"
+        },
+        "binSize": {
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "CaseListDataCount": {
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "label": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalAttribute": {
+      "properties": {
+        "clinicalAttributeId": {
+          "type": "string"
+        },
+        "datatype": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "patientAttribute": {
+          "type": "boolean"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "clinicalAttributeId",
+        "displayName",
+        "patientAttribute",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "ClinicalAttributeCount": {
+      "properties": {
+        "clinicalAttributeId": {
+          "type": "string"
+        },
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalAttributeCountFilter": {
+      "description": "List of SampleIdentifiers or Sample List ID",
+      "properties": {
+        "sampleIdentifiers": {
+          "items": {
+            "$ref": "#/definitions/SampleIdentifier"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "sampleListId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalData": {
+      "properties": {
+        "clinicalAttribute": {
+          "$ref": "#/definitions/ClinicalAttribute"
+        },
+        "clinicalAttributeId": {
+          "type": "string"
+        },
+        "patientAttribute": {
+          "type": "boolean"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "clinicalAttributeId",
+        "patientId",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "ClinicalDataBin": {
+      "properties": {
+        "attributeId": {
+          "type": "string"
+        },
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "end": {
+          "type": "number"
+        },
+        "specialValue": {
+          "type": "string"
+        },
+        "start": {
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalDataBinCountFilter": {
+      "description": "Clinical data bin count filter",
+      "properties": {
+        "attributes": {
+          "items": {
+            "$ref": "#/definitions/ClinicalDataBinFilter"
+          },
+          "type": "array"
+        },
+        "studyViewFilter": {
+          "$ref": "#/definitions/StudyViewFilter"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalDataBinFilter": {
+      "properties": {
+        "attributeId": {
+          "type": "string"
+        },
+        "binMethod": {
+          "enum": [
+            "MEDIAN",
+            "QUARTILE",
+            "CUSTOM",
+            "GENERATE"
+          ],
+          "type": "string"
+        },
+        "binsGeneratorConfig": {
+          "$ref": "#/definitions/BinsGeneratorConfig"
+        },
+        "customBins": {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        "disableLogScale": {
+          "type": "boolean"
+        },
+        "end": {
+          "type": "number"
+        },
+        "start": {
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalDataCount": {
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalDataCountFilter": {
+      "description": "Clinical data count filter",
+      "properties": {
+        "attributes": {
+          "items": {
+            "$ref": "#/definitions/ClinicalDataFilter"
+          },
+          "type": "array"
+        },
+        "studyViewFilter": {
+          "$ref": "#/definitions/StudyViewFilter"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalDataCountItem": {
+      "properties": {
+        "attributeId": {
+          "type": "string"
+        },
+        "counts": {
+          "items": {
+            "$ref": "#/definitions/ClinicalDataCount"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalDataEnrichment": {
+      "properties": {
+        "clinicalAttribute": {
+          "$ref": "#/definitions/ClinicalAttribute"
+        },
+        "method": {
+          "type": "string"
+        },
+        "pValue": {
+          "type": "number"
+        },
+        "score": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "clinicalAttribute",
+        "method",
+        "pValue",
+        "score"
+      ],
+      "type": "object"
+    },
+    "ClinicalDataFilter": {
+      "properties": {
+        "attributeId": {
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "$ref": "#/definitions/DataFilterValue"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalEvent": {
+      "properties": {
+        "attributes": {
+          "items": {
+            "$ref": "#/definitions/ClinicalEventData"
+          },
+          "type": "array"
+        },
+        "endNumberOfDaysSinceDiagnosis": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "eventType": {
+          "type": "string"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "startNumberOfDaysSinceDiagnosis": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventType",
+        "patientId",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "ClinicalEventAttributeRequest": {
+      "description": "clinical events Request",
+      "properties": {
+        "clinicalEventRequests": {
+          "items": {
+            "$ref": "#/definitions/ClinicalEventRequest"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "patientIdentifiers": {
+          "items": {
+            "$ref": "#/definitions/PatientIdentifier"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalEventData": {
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ],
+      "type": "object"
+    },
+    "ClinicalEventRequest": {
+      "properties": {
+        "attributes": {
+          "items": {
+            "$ref": "#/definitions/ClinicalEventData"
+          },
+          "type": "array"
+        },
+        "eventType": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventType"
+      ],
+      "type": "object"
+    },
+    "ClinicalEventRequestIdentifier": {
+      "properties": {
+        "clinicalEventRequests": {
+          "items": {
+            "$ref": "#/definitions/ClinicalEventRequest"
+          },
+          "maxItems": 10000000,
+          "minItems": 0,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "position": {
+          "enum": [
+            "FIRST",
+            "LAST"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "position"
+      ],
+      "type": "object"
+    },
+    "ClinicalEventSample": {
+      "properties": {
+        "patientId": {
+          "type": "string"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "timeTaken": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalEventTypeCount": {
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "eventType": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalViolinPlotBoxData": {
+      "properties": {
+        "median": {
+          "format": "double",
+          "type": "number"
+        },
+        "q1": {
+          "format": "double",
+          "type": "number"
+        },
+        "q3": {
+          "format": "double",
+          "type": "number"
+        },
+        "whiskerLower": {
+          "format": "double",
+          "type": "number"
+        },
+        "whiskerUpper": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalViolinPlotData": {
+      "properties": {
+        "axisEnd": {
+          "format": "double",
+          "type": "number"
+        },
+        "axisStart": {
+          "format": "double",
+          "type": "number"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/definitions/ClinicalViolinPlotRowData"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalViolinPlotIndividualPoint": {
+      "properties": {
+        "sampleId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "value": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "ClinicalViolinPlotRowData": {
+      "properties": {
+        "boxData": {
+          "$ref": "#/definitions/ClinicalViolinPlotBoxData"
+        },
+        "category": {
+          "type": "string"
+        },
+        "curveData": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "type": "array"
+        },
+        "individualPoints": {
+          "items": {
+            "$ref": "#/definitions/ClinicalViolinPlotIndividualPoint"
+          },
+          "type": "array"
+        },
+        "numSamples": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "CoExpression": {
+      "properties": {
+        "geneticEntityId": {
+          "type": "string"
+        },
+        "geneticEntityType": {
+          "enum": [
+            "GENE",
+            "GENESET",
+            "PHOSPHOPROTEIN",
+            "GENERIC_ASSAY"
+          ],
+          "type": "string"
+        },
+        "pValue": {
+          "type": "number"
+        },
+        "spearmansCorrelation": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "geneticEntityId",
+        "geneticEntityType"
+      ],
+      "type": "object"
+    },
+    "CoExpressionFilter": {
+      "description": "List of Sample IDs/Sample List ID and Entrez Gene ID/Gene set ID",
+      "properties": {
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "genesetId": {
+          "type": "string"
+        },
+        "sampleIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "sampleListId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ContentDisposition": {
+      "properties": {
+        "attachment": {
+          "type": "boolean"
+        },
+        "charset": {
+          "properties": {
+            "registered": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "creationDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "formData": {
+          "type": "boolean"
+        },
+        "inline": {
+          "type": "boolean"
+        },
+        "modificationDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "readDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "size": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "CopyNumberCount": {
+      "properties": {
+        "alteration": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "molecularProfileId": {
+          "type": "string"
+        },
+        "numberOfSamples": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numberOfSamplesWithAlterationInGene": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "alteration",
+        "entrezGeneId",
+        "molecularProfileId",
+        "numberOfSamples",
+        "numberOfSamplesWithAlterationInGene"
+      ],
+      "type": "object"
+    },
+    "CopyNumberCountByGene": {
+      "properties": {
+        "alteration": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "cytoband": {
+          "type": "string"
+        },
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "entrezGeneIds": {
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        },
+        "hugoGeneSymbols": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "matchingGenePanelIds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "numberOfAlteredCases": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numberOfAlteredCasesOnPanel": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numberOfProfiledCases": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "qValue": {
+          "type": "number"
+        },
+        "totalCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "uniqueEventKey": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "CopyNumberCountIdentifier": {
+      "properties": {
+        "alteration": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "CountSummary": {
+      "properties": {
+        "alteredCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "profiledCount": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "alteredCount",
+        "name",
+        "profiledCount"
+      ],
+      "type": "object"
+    },
+    "CustomDriverAnnotationReport": {
+      "properties": {
+        "hasBinary": {
+          "type": "boolean"
+        },
+        "tiers": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "type": "object"
+    },
+    "DataAccessToken": {
+      "properties": {
+        "creation": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "expiration": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "DataFilter": {
+      "properties": {
+        "values": {
+          "items": {
+            "$ref": "#/definitions/DataFilterValue"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "DataFilterValue": {
+      "properties": {
+        "end": {
+          "type": "number"
+        },
+        "start": {
+          "type": "number"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "DensityPlotBin": {
+      "properties": {
+        "binX": {
+          "type": "number"
+        },
+        "binY": {
+          "type": "number"
+        },
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "maxX": {
+          "type": "number"
+        },
+        "maxY": {
+          "type": "number"
+        },
+        "minX": {
+          "type": "number"
+        },
+        "minY": {
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "DensityPlotData": {
+      "properties": {
+        "bins": {
+          "items": {
+            "$ref": "#/definitions/DensityPlotBin"
+          },
+          "type": "array"
+        },
+        "pearsonCorr": {
+          "format": "double",
+          "type": "number"
+        },
+        "spearmanCorr": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "bins"
+      ],
+      "type": "object"
+    },
+    "GeneFilter": {
+      "properties": {
+        "geneQueries": {
+          "items": {
+            "items": {
+              "$ref": "#/definitions/GeneFilterQuery"
+            },
+            "type": "array"
+          },
+          "type": "array"
+        },
+        "molecularProfileIds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "type": "object"
+    },
+    "GeneFilterQuery": {
+      "properties": {
+        "alterations": {
+          "items": {
+            "enum": [
+              "AMP",
+              "GAIN",
+              "DIPLOID",
+              "HETLOSS",
+              "HOMDEL"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        },
+        "includeDriver": {
+          "type": "boolean"
+        },
+        "includeGermline": {
+          "type": "boolean"
+        },
+        "includeSomatic": {
+          "type": "boolean"
+        },
+        "includeUnknownOncogenicity": {
+          "type": "boolean"
+        },
+        "includeUnknownStatus": {
+          "type": "boolean"
+        },
+        "includeUnknownTier": {
+          "type": "boolean"
+        },
+        "includeVUS": {
+          "type": "boolean"
+        },
+        "tiersBooleanMap": {
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "GenericAssayBinaryEnrichment": {
+      "properties": {
+        "counts": {
+          "items": {
+            "$ref": "#/definitions/GenericAssayCountSummary"
+          },
+          "type": "array"
+        },
+        "genericEntityMetaProperties": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "groupsStatistics": {
+          "items": {
+            "$ref": "#/definitions/GroupStatistics"
+          },
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        },
+        "pValue": {
+          "type": "number"
+        },
+        "qValue": {
+          "type": "number"
+        },
+        "stableId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "counts",
+        "genericEntityMetaProperties",
+        "groupsStatistics",
+        "name",
+        "pValue",
+        "qValue",
+        "stableId"
+      ],
+      "type": "object"
+    },
+    "GenericAssayCategoricalEnrichment": {
+      "properties": {
+        "genericEntityMetaProperties": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "groupsStatistics": {
+          "items": {
+            "$ref": "#/definitions/GroupStatistics"
+          },
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        },
+        "pValue": {
+          "type": "number"
+        },
+        "qValue": {
+          "type": "number"
+        },
+        "stableId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "genericEntityMetaProperties",
+        "groupsStatistics",
+        "name",
+        "pValue",
+        "qValue",
+        "stableId"
+      ],
+      "type": "object"
+    },
+    "GenericAssayCountSummary": {
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "totalCount": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "name",
+        "totalCount"
+      ],
+      "type": "object"
+    },
+    "GenericAssayDataBin": {
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "end": {
+          "type": "number"
+        },
+        "profileType": {
+          "type": "string"
+        },
+        "specialValue": {
+          "type": "string"
+        },
+        "stableId": {
+          "type": "string"
+        },
+        "start": {
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "GenericAssayDataBinCountFilter": {
+      "description": "Generic assay data bin count filter",
+      "properties": {
+        "genericAssayDataBinFilters": {
+          "items": {
+            "$ref": "#/definitions/GenericAssayDataBinFilter"
+          },
+          "type": "array"
+        },
+        "studyViewFilter": {
+          "$ref": "#/definitions/StudyViewFilter"
+        }
+      },
+      "type": "object"
+    },
+    "GenericAssayDataBinFilter": {
+      "properties": {
+        "binMethod": {
+          "enum": [
+            "MEDIAN",
+            "QUARTILE",
+            "CUSTOM",
+            "GENERATE"
+          ],
+          "type": "string"
+        },
+        "binsGeneratorConfig": {
+          "$ref": "#/definitions/BinsGeneratorConfig"
+        },
+        "customBins": {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        "disableLogScale": {
+          "type": "boolean"
+        },
+        "end": {
+          "type": "number"
+        },
+        "profileType": {
+          "type": "string"
+        },
+        "stableId": {
+          "type": "string"
+        },
+        "start": {
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "GenericAssayDataCount": {
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GenericAssayDataCountFilter": {
+      "description": "Generic assay data count filter",
+      "properties": {
+        "genericAssayDataFilters": {
+          "items": {
+            "$ref": "#/definitions/GenericAssayDataFilter"
+          },
+          "type": "array"
+        },
+        "studyViewFilter": {
+          "$ref": "#/definitions/StudyViewFilter"
+        }
+      },
+      "type": "object"
+    },
+    "GenericAssayDataCountItem": {
+      "properties": {
+        "counts": {
+          "items": {
+            "$ref": "#/definitions/GenericAssayDataCount"
+          },
+          "type": "array"
+        },
+        "stableId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GenericAssayDataFilter": {
+      "properties": {
+        "profileType": {
+          "type": "string"
+        },
+        "stableId": {
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "$ref": "#/definitions/DataFilterValue"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "GenericAssayEnrichment": {
+      "properties": {
+        "genericEntityMetaProperties": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "groupsStatistics": {
+          "items": {
+            "$ref": "#/definitions/GroupStatistics"
+          },
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        },
+        "pValue": {
+          "type": "number"
+        },
+        "qValue": {
+          "type": "number"
+        },
+        "stableId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "genericEntityMetaProperties",
+        "groupsStatistics",
+        "name",
+        "pValue",
+        "qValue",
+        "stableId"
+      ],
+      "type": "object"
+    },
+    "Geneset": {
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "genesetId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "refLink": {
+          "type": "string"
+        },
+        "representativePvalue": {
+          "format": "double",
+          "type": "number"
+        },
+        "representativeScore": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "GenesetCorrelation": {
+      "properties": {
+        "correlationValue": {
+          "format": "double",
+          "type": "number"
+        },
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "expressionGeneticProfileId": {
+          "type": "string"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        },
+        "zScoreGeneticProfileId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GenesetDataFilterCriteria": {
+      "description": "Search criteria to return the values for a given set of samples and gene set items. genesetIds: The list of identifiers for the gene sets of interest, e.g. HINATA_NFKB_MATRIX. Use one of these if you want to specify a subset of samples:(1) sampleListId: Identifier of pre-defined sample list with samples to query, e.g. brca_tcga_all or (2) sampleIds: custom list of samples or patients to query, e.g. TCGA-BH-A1EO-01, TCGA-AR-A1AR-01",
+      "properties": {
+        "genesetIds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "sampleIds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "sampleListId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GenesetHierarchyInfo": {
+      "properties": {
+        "genesets": {
+          "items": {
+            "$ref": "#/definitions/Geneset"
+          },
+          "type": "array"
+        },
+        "nodeId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "nodeName": {
+          "type": "string"
+        },
+        "parentId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "parentNodeName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GenesetMolecularData": {
+      "properties": {
+        "geneset": {
+          "$ref": "#/definitions/Geneset"
+        },
+        "genesetId": {
+          "type": "string"
+        },
+        "geneticProfileId": {
+          "type": "string"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "stableId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "geneticProfileId",
+        "patientId",
+        "sampleId",
+        "studyId",
+        "value"
+      ],
+      "type": "object"
+    },
+    "GenomicDataBin": {
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "end": {
+          "type": "number"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        },
+        "profileType": {
+          "type": "string"
+        },
+        "specialValue": {
+          "type": "string"
+        },
+        "start": {
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "GenomicDataBinCountFilter": {
+      "description": "Genomic data bin count filter",
+      "properties": {
+        "genomicDataBinFilters": {
+          "items": {
+            "$ref": "#/definitions/GenomicDataBinFilter"
+          },
+          "type": "array"
+        },
+        "studyViewFilter": {
+          "$ref": "#/definitions/StudyViewFilter"
+        }
+      },
+      "type": "object"
+    },
+    "GenomicDataBinFilter": {
+      "properties": {
+        "binMethod": {
+          "enum": [
+            "MEDIAN",
+            "QUARTILE",
+            "CUSTOM",
+            "GENERATE"
+          ],
+          "type": "string"
+        },
+        "binsGeneratorConfig": {
+          "$ref": "#/definitions/BinsGeneratorConfig"
+        },
+        "customBins": {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        "disableLogScale": {
+          "type": "boolean"
+        },
+        "end": {
+          "type": "number"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        },
+        "profileType": {
+          "type": "string"
+        },
+        "start": {
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "GenomicDataCount": {
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "label": {
+          "type": "string"
+        },
+        "sampleIds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "uniqueCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GenomicDataCountFilter": {
+      "description": "Genomic data count filter",
+      "properties": {
+        "genomicDataFilters": {
+          "items": {
+            "$ref": "#/definitions/GenomicDataFilter"
+          },
+          "type": "array"
+        },
+        "studyViewFilter": {
+          "$ref": "#/definitions/StudyViewFilter"
+        }
+      },
+      "type": "object"
+    },
+    "GenomicDataCountItem": {
+      "properties": {
+        "counts": {
+          "items": {
+            "$ref": "#/definitions/GenomicDataCount"
+          },
+          "type": "array"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        },
+        "profileType": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GenomicDataFilter": {
+      "properties": {
+        "hugoGeneSymbol": {
+          "type": "string"
+        },
+        "profileType": {
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "$ref": "#/definitions/DataFilterValue"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "GenomicEnrichment": {
+      "properties": {
+        "cytoband": {
+          "type": "string"
+        },
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "groupsStatistics": {
+          "items": {
+            "$ref": "#/definitions/GroupStatistics"
+          },
+          "type": "array"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        },
+        "pValue": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "entrezGeneId",
+        "groupsStatistics",
+        "hugoGeneSymbol",
+        "pValue"
+      ],
+      "type": "object"
+    },
+    "Gistic": {
+      "properties": {
+        "amp": {
+          "type": "boolean"
+        },
+        "chromosome": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "cytoband": {
+          "type": "string"
+        },
+        "genes": {
+          "items": {
+            "$ref": "#/definitions/GisticToGene"
+          },
+          "type": "array"
+        },
+        "qValue": {
+          "type": "number"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "widePeakEnd": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "widePeakStart": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "amp",
+        "chromosome",
+        "cytoband",
+        "qValue",
+        "studyId",
+        "widePeakEnd",
+        "widePeakStart"
+      ],
+      "type": "object"
+    },
+    "GisticToGene": {
+      "properties": {
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "entrezGeneId",
+        "hugoGeneSymbol"
+      ],
+      "type": "object"
+    },
+    "Group": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "sampleIdentifiers": {
+          "items": {
+            "$ref": "#/definitions/SampleIdentifier"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "GroupFilter": {
+      "description": "List of altered and unaltered Sample/Patient IDs",
+      "properties": {
+        "groups": {
+          "items": {
+            "$ref": "#/definitions/Group"
+          },
+          "maxItems": 2147483647,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "GroupStatistics": {
+      "properties": {
+        "meanExpression": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "standardDeviation": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "meanExpression",
+        "name",
+        "standardDeviation"
+      ],
+      "type": "object"
+    },
+    "HttpMethod": {
+      "type": "object"
+    },
+    "HttpRange": {
+      "type": "object"
+    },
+    "HttpStatusCode": {
+      "properties": {
+        "error": {
+          "type": "boolean"
+        },
+        "is1xxInformational": {
+          "type": "boolean"
+        },
+        "is2xxSuccessful": {
+          "type": "boolean"
+        },
+        "is3xxRedirection": {
+          "type": "boolean"
+        },
+        "is4xxClientError": {
+          "type": "boolean"
+        },
+        "is5xxServerError": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "MediaType": {
+      "properties": {
+        "parameters": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "charset": {
+          "properties": {
+            "registered": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "concrete": {
+          "type": "boolean"
+        },
+        "qualityValue": {
+          "format": "double",
+          "type": "number"
+        },
+        "subtype": {
+          "type": "string"
+        },
+        "subtypeSuffix": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "wildcardSubtype": {
+          "type": "boolean"
+        },
+        "wildcardType": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "MolecularProfileCaseIdentifier": {
+      "properties": {
+        "caseId": {
+          "type": "string"
+        },
+        "molecularProfileId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "caseId",
+        "molecularProfileId"
+      ],
+      "type": "object"
+    },
+    "MolecularProfileCasesGroupAndAlterationTypeFilter": {
+      "description": "List of groups containing sample identifiers and list of Alteration Types",
+      "properties": {
+        "alterationEventTypes": {
+          "$ref": "#/definitions/AlterationFilter"
+        },
+        "molecularProfileCasesGroupFilter": {
+          "items": {
+            "$ref": "#/definitions/MolecularProfileCasesGroupFilter"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "MolecularProfileCasesGroupFilter": {
+      "properties": {
+        "molecularProfileCaseIdentifiers": {
+          "items": {
+            "$ref": "#/definitions/MolecularProfileCaseIdentifier"
+          },
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MrnaPercentile": {
+      "properties": {
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "molecularProfileId": {
+          "type": "string"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "percentile": {
+          "type": "number"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        },
+        "zScore": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "entrezGeneId",
+        "molecularProfileId",
+        "patientId",
+        "percentile",
+        "sampleId",
+        "studyId",
+        "zScore"
+      ],
+      "type": "object"
+    },
+    "MutSig": {
+      "properties": {
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        },
+        "numberOfMutations": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "pValue": {
+          "type": "number"
+        },
+        "qValue": {
+          "type": "number"
+        },
+        "rank": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "studyId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "entrezGeneId",
+        "hugoGeneSymbol",
+        "numberOfMutations",
+        "pValue",
+        "qValue",
+        "rank",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "MutationCountByPosition": {
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "proteinPosEnd": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "proteinPosStart": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "entrezGeneId",
+        "proteinPosEnd",
+        "proteinPosStart"
+      ],
+      "type": "object"
+    },
+    "MutationDataFilter": {
+      "properties": {
+        "categorization": {
+          "enum": [
+            "MUTATED",
+            "MUTATION_TYPE"
+          ],
+          "type": "string"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        },
+        "profileType": {
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "items": {
+              "$ref": "#/definitions/DataFilterValue"
+            },
+            "type": "array"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "categorization"
+      ],
+      "type": "object"
+    },
+    "MutationPositionIdentifier": {
+      "properties": {
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "proteinPosEnd": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "proteinPosStart": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "MutationSpectrum": {
+      "properties": {
+        "CtoA": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "CtoG": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "CtoT": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "TtoA": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "TtoC": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "TtoG": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "molecularProfileId": {
+          "type": "string"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "CtoA",
+        "CtoG",
+        "CtoT",
+        "TtoA",
+        "TtoC",
+        "TtoG",
+        "molecularProfileId",
+        "patientId",
+        "sampleId",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "MutationSpectrumFilter": {
+      "description": "List of Sample IDs/Sample List ID",
+      "properties": {
+        "sampleIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "sampleListId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "NamespaceAttribute": {
+      "properties": {
+        "innerKey": {
+          "type": "string"
+        },
+        "outerKey": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "NamespaceAttributeCount": {
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "innerKey": {
+          "type": "string"
+        },
+        "outerKey": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "NamespaceAttributeCountFilter": {
+      "description": "List of SampleIdentifiers and NamespaceAttributes",
+      "properties": {
+        "namespaceAttributes": {
+          "items": {
+            "$ref": "#/definitions/NamespaceAttribute"
+          },
+          "type": "array"
+        },
+        "sampleIdentifiers": {
+          "items": {
+            "$ref": "#/definitions/SampleIdentifier"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "NamespaceComparisonFilter": {
+      "description": "List of SampleIdentifiers, list of values and a NamespaceAttribute",
+      "properties": {
+        "namespaceAttribute": {
+          "$ref": "#/definitions/NamespaceAttribute"
+        },
+        "sampleIdentifiers": {
+          "items": {
+            "$ref": "#/definitions/SampleIdentifier"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "values": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "NamespaceData": {
+      "properties": {
+        "attrValue": {
+          "type": "string"
+        },
+        "innerKey": {
+          "type": "string"
+        },
+        "outerKey": {
+          "type": "string"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "innerKey",
+        "outerKey",
+        "sampleId",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "NamespaceDataCount": {
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "NamespaceDataCountFilter": {
+      "description": "Namespace data count filter",
+      "properties": {
+        "attributes": {
+          "items": {
+            "$ref": "#/definitions/NamespaceDataFilter"
+          },
+          "type": "array"
+        },
+        "studyViewFilter": {
+          "$ref": "#/definitions/StudyViewFilter"
+        }
+      },
+      "type": "object"
+    },
+    "NamespaceDataCountItem": {
+      "properties": {
+        "counts": {
+          "items": {
+            "$ref": "#/definitions/NamespaceDataCount"
+          },
+          "type": "array"
+        },
+        "innerKey": {
+          "type": "string"
+        },
+        "outerKey": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "NamespaceDataFilter": {
+      "properties": {
+        "innerKey": {
+          "type": "string"
+        },
+        "outerKey": {
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "items": {
+              "$ref": "#/definitions/DataFilterValue"
+            },
+            "type": "array"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "OredPatientTreatmentFilters": {
+      "properties": {
+        "filters": {
+          "items": {
+            "$ref": "#/definitions/PatientTreatmentFilter"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "OredSampleTreatmentFilters": {
+      "properties": {
+        "filters": {
+          "items": {
+            "$ref": "#/definitions/SampleTreatmentFilter"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "PatientIdentifier": {
+      "properties": {
+        "patientId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "PatientTreatment": {
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "treatment": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "PatientTreatmentFilter": {
+      "properties": {
+        "treatment": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "PatientTreatmentReport": {
+      "properties": {
+        "patientTreatments": {
+          "items": {
+            "$ref": "#/definitions/PatientTreatment"
+          },
+          "type": "array"
+        },
+        "totalPatients": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalSamples": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "PatientTreatmentRow": {
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "samples": {
+          "items": {
+            "$ref": "#/definitions/ClinicalEventSample"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "treatment": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ReferenceGenomeGene": {
+      "properties": {
+        "chromosome": {
+          "type": "string"
+        },
+        "cytoband": {
+          "type": "string"
+        },
+        "end": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        },
+        "referenceGenomeId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "start": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "entrezGeneId",
+        "referenceGenomeId"
+      ],
+      "type": "object"
+    },
+    "ResourceData": {
+      "properties": {
+        "patientId": {
+          "type": "string"
+        },
+        "resourceDefinition": {
+          "$ref": "#/definitions/ResourceDefinition"
+        },
+        "resourceId": {
+          "type": "string"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "resourceId",
+        "studyId",
+        "url"
+      ],
+      "type": "object"
+    },
+    "ResourceDefinition": {
+      "properties": {
+        "customMetaData": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "openByDefault": {
+          "type": "boolean"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "resourceId": {
+          "type": "string"
+        },
+        "resourceType": {
+          "enum": [
+            "STUDY",
+            "SAMPLE",
+            "PATIENT"
+          ],
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "displayName",
+        "resourceId",
+        "resourceType",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "ResponseEntityReferenceGenomeGene": {
+      "properties": {
+        "body": {
+          "$ref": "#/definitions/ReferenceGenomeGene"
+        },
+        "headers": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "properties": {
+            "host": {
+              "properties": {
+                "address": {
+                  "properties": {
+                    "address": {
+                      "format": "byte",
+                      "type": "string"
+                    },
+                    "anyLocalAddress": {
+                      "type": "boolean"
+                    },
+                    "canonicalHostName": {
+                      "type": "string"
+                    },
+                    "hostAddress": {
+                      "type": "string"
+                    },
+                    "hostName": {
+                      "type": "string"
+                    },
+                    "linkLocalAddress": {
+                      "type": "boolean"
+                    },
+                    "loopbackAddress": {
+                      "type": "boolean"
+                    },
+                    "mcglobal": {
+                      "type": "boolean"
+                    },
+                    "mclinkLocal": {
+                      "type": "boolean"
+                    },
+                    "mcnodeLocal": {
+                      "type": "boolean"
+                    },
+                    "mcorgLocal": {
+                      "type": "boolean"
+                    },
+                    "mcsiteLocal": {
+                      "type": "boolean"
+                    },
+                    "multicastAddress": {
+                      "type": "boolean"
+                    },
+                    "siteLocalAddress": {
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                },
+                "hostName": {
+                  "type": "string"
+                },
+                "hostString": {
+                  "type": "string"
+                },
+                "port": {
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "unresolved": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "accept": {
+              "items": {
+                "$ref": "#/definitions/MediaType"
+              },
+              "type": "array"
+            },
+            "acceptCharset": {
+              "items": {
+                "properties": {
+                  "registered": {
+                    "type": "boolean"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "acceptLanguage": {
+              "items": {
+                "properties": {
+                  "range": {
+                    "type": "string"
+                  },
+                  "weight": {
+                    "format": "double",
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "acceptLanguageAsLocales": {
+              "items": {
+                "properties": {
+                  "country": {
+                    "type": "string"
+                  },
+                  "displayCountry": {
+                    "type": "string"
+                  },
+                  "displayLanguage": {
+                    "type": "string"
+                  },
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "displayScript": {
+                    "type": "string"
+                  },
+                  "displayVariant": {
+                    "type": "string"
+                  },
+                  "extensionKeys": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array",
+                    "uniqueItems": true
+                  },
+                  "iso3Country": {
+                    "type": "string"
+                  },
+                  "iso3Language": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "string"
+                  },
+                  "script": {
+                    "type": "string"
+                  },
+                  "unicodeLocaleAttributes": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array",
+                    "uniqueItems": true
+                  },
+                  "unicodeLocaleKeys": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array",
+                    "uniqueItems": true
+                  },
+                  "variant": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "acceptPatch": {
+              "items": {
+                "$ref": "#/definitions/MediaType"
+              },
+              "type": "array"
+            },
+            "accessControlAllowCredentials": {
+              "type": "boolean"
+            },
+            "accessControlAllowHeaders": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "accessControlAllowMethods": {
+              "items": {
+                "$ref": "#/definitions/HttpMethod"
+              },
+              "type": "array"
+            },
+            "accessControlAllowOrigin": {
+              "type": "string"
+            },
+            "accessControlExposeHeaders": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "accessControlMaxAge": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "accessControlRequestHeaders": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "accessControlRequestMethod": {
+              "$ref": "#/definitions/HttpMethod"
+            },
+            "all": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "allow": {
+              "items": {
+                "$ref": "#/definitions/HttpMethod"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "basicAuth": {
+              "type": "string"
+            },
+            "bearerAuth": {
+              "type": "string"
+            },
+            "cacheControl": {
+              "type": "string"
+            },
+            "connection": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "contentDisposition": {
+              "$ref": "#/definitions/ContentDisposition"
+            },
+            "contentLanguage": {
+              "properties": {
+                "country": {
+                  "type": "string"
+                },
+                "displayCountry": {
+                  "type": "string"
+                },
+                "displayLanguage": {
+                  "type": "string"
+                },
+                "displayName": {
+                  "type": "string"
+                },
+                "displayScript": {
+                  "type": "string"
+                },
+                "displayVariant": {
+                  "type": "string"
+                },
+                "extensionKeys": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array",
+                  "uniqueItems": true
+                },
+                "iso3Country": {
+                  "type": "string"
+                },
+                "iso3Language": {
+                  "type": "string"
+                },
+                "language": {
+                  "type": "string"
+                },
+                "script": {
+                  "type": "string"
+                },
+                "unicodeLocaleAttributes": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array",
+                  "uniqueItems": true
+                },
+                "unicodeLocaleKeys": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array",
+                  "uniqueItems": true
+                },
+                "variant": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "contentLength": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "contentType": {
+              "$ref": "#/definitions/MediaType"
+            },
+            "date": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "empty": {
+              "type": "boolean"
+            },
+            "etag": {
+              "type": "string"
+            },
+            "expires": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "ifMatch": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "ifModifiedSince": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "ifNoneMatch": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "ifUnmodifiedSince": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "lastModified": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "location": {
+              "format": "uri",
+              "type": "string"
+            },
+            "origin": {
+              "type": "string"
+            },
+            "pragma": {
+              "type": "string"
+            },
+            "range": {
+              "items": {
+                "$ref": "#/definitions/HttpRange"
+              },
+              "type": "array"
+            },
+            "upgrade": {
+              "type": "string"
+            },
+            "vary": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "statusCode": {
+          "$ref": "#/definitions/HttpStatusCode"
+        },
+        "statusCodeValue": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "Sample": {
+      "properties": {
+        "copyNumberSegmentPresent": {
+          "type": "boolean"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "sampleType": {
+          "enum": [
+            "Primary Solid Tumor",
+            "Recurrent Solid Tumor",
+            "Primary Blood Tumor",
+            "Recurrent Blood Tumor",
+            "Metastatic",
+            "Blood Derived Normal",
+            "Solid Tissues Normal"
+          ],
+          "type": "string"
+        },
+        "sequenced": {
+          "type": "boolean"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "patientId",
+        "sampleId",
+        "studyId"
+      ],
+      "type": "object"
+    },
+    "SampleClinicalDataCollection": {
+      "properties": {
+        "byUniqueSampleKey": {
+          "additionalProperties": {
+            "items": {
+              "$ref": "#/definitions/ClinicalData"
+            },
+            "type": "array"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "SampleIdentifier": {
+      "properties": {
+        "sampleId": {
+          "type": "string"
+        },
+        "studyId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "SampleMolecularIdentifier": {
+      "properties": {
+        "molecularProfileId": {
+          "type": "string"
+        },
+        "sampleId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "SampleTreatmentFilter": {
+      "properties": {
+        "time": {
+          "enum": [
+            "Pre",
+            "Post"
+          ],
+          "type": "string"
+        },
+        "treatment": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "SampleTreatmentReport": {
+      "properties": {
+        "totalSamples": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "treatments": {
+          "items": {
+            "$ref": "#/definitions/SampleTreatmentRow"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "SampleTreatmentRow": {
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "samples": {
+          "items": {
+            "$ref": "#/definitions/ClinicalEventSample"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "time": {
+          "enum": [
+            "Pre",
+            "Post"
+          ],
+          "type": "string"
+        },
+        "treatment": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "StructuralVariant": {
+      "properties": {
+        "annotation": {
+          "type": "string"
+        },
+        "breakpointType": {
+          "type": "string"
+        },
+        "comments": {
+          "type": "string"
+        },
+        "connectionType": {
+          "type": "string"
+        },
+        "dnaSupport": {
+          "type": "string"
+        },
+        "driverFilter": {
+          "type": "string"
+        },
+        "driverFilterAnn": {
+          "type": "string"
+        },
+        "driverTiersFilter": {
+          "type": "string"
+        },
+        "driverTiersFilterAnn": {
+          "type": "string"
+        },
+        "eventInfo": {
+          "type": "string"
+        },
+        "length": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "molecularProfileId": {
+          "type": "string"
+        },
+        "namespaceColumns": {
+          "type": "object"
+        },
+        "ncbiBuild": {
+          "type": "string"
+        },
+        "normalPairedEndReadCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "normalReadCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "normalSplitReadCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "normalVariantCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "patientId": {
+          "type": "string"
+        },
+        "rnaSupport": {
+          "type": "string"
+        },
+        "sampleId": {
+          "type": "string"
+        },
+        "site1Chromosome": {
+          "type": "string"
+        },
+        "site1Contig": {
+          "type": "string"
+        },
+        "site1Description": {
+          "type": "string"
+        },
+        "site1EnsemblTranscriptId": {
+          "type": "string"
+        },
+        "site1EntrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "site1HugoSymbol": {
+          "type": "string"
+        },
+        "site1Position": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "site1Region": {
+          "type": "string"
+        },
+        "site1RegionNumber": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "site2Chromosome": {
+          "type": "string"
+        },
+        "site2Contig": {
+          "type": "string"
+        },
+        "site2Description": {
+          "type": "string"
+        },
+        "site2EffectOnFrame": {
+          "type": "string"
+        },
+        "site2EnsemblTranscriptId": {
+          "type": "string"
+        },
+        "site2EntrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "site2HugoSymbol": {
+          "type": "string"
+        },
+        "site2Position": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "site2Region": {
+          "type": "string"
+        },
+        "site2RegionNumber": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "studyId": {
+          "type": "string"
+        },
+        "svStatus": {
+          "type": "string"
+        },
+        "tumorPairedEndReadCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "tumorReadCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "tumorSplitReadCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "tumorVariantCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "uniquePatientKey": {
+          "type": "string"
+        },
+        "uniqueSampleKey": {
+          "type": "string"
+        },
+        "variantClass": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "StructuralVariantFilter": {
+      "description": "List of entrezGeneIds, structural variant queries and molecularProfileIds or sampleMolecularIdentifiers",
+      "properties": {
+        "entrezGeneIds": {
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "maxItems": 10000000,
+          "minItems": 0,
+          "type": "array"
+        },
+        "molecularProfileIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10000000,
+          "minItems": 0,
+          "type": "array"
+        },
+        "sampleMolecularIdentifiers": {
+          "items": {
+            "$ref": "#/definitions/SampleMolecularIdentifier"
+          },
+          "maxItems": 10000000,
+          "minItems": 0,
+          "type": "array"
+        },
+        "structuralVariantQueries": {
+          "items": {
+            "$ref": "#/definitions/StructuralVariantQuery"
+          },
+          "maxItems": 10000000,
+          "minItems": 0,
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "StructuralVariantFilterQuery": {
+      "properties": {
+        "gene1Query": {
+          "$ref": "#/definitions/StructuralVariantGeneSubQuery"
+        },
+        "gene2Query": {
+          "$ref": "#/definitions/StructuralVariantGeneSubQuery"
+        },
+        "includeDriver": {
+          "type": "boolean"
+        },
+        "includeGermline": {
+          "type": "boolean"
+        },
+        "includeSomatic": {
+          "type": "boolean"
+        },
+        "includeUnknownOncogenicity": {
+          "type": "boolean"
+        },
+        "includeUnknownStatus": {
+          "type": "boolean"
+        },
+        "includeUnknownTier": {
+          "type": "boolean"
+        },
+        "includeVUS": {
+          "type": "boolean"
+        },
+        "tiersBooleanMap": {
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "StructuralVariantGeneSubQuery": {
+      "properties": {
+        "entrezId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "hugoSymbol": {
+          "type": "string"
+        },
+        "specialValue": {
+          "enum": [
+            "ANY_GENE",
+            "NO_GENE"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "StructuralVariantQuery": {
+      "properties": {
+        "gene1": {
+          "$ref": "#/definitions/StructuralVariantGeneSubQuery"
+        },
+        "gene2": {
+          "$ref": "#/definitions/StructuralVariantGeneSubQuery"
+        }
+      },
+      "type": "object"
+    },
+    "StudyViewFilter": {
+      "description": "Study view filter",
+      "properties": {
+        "alterationFilter": {
+          "$ref": "#/definitions/AlterationFilter"
+        },
+        "caseLists": {
+          "items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "type": "array"
+        },
+        "clinicalDataFilters": {
+          "items": {
+            "$ref": "#/definitions/ClinicalDataFilter"
+          },
+          "type": "array"
+        },
+        "clinicalEventFilters": {
+          "items": {
+            "$ref": "#/definitions/DataFilter"
+          },
+          "type": "array"
+        },
+        "customDataFilters": {
+          "items": {
+            "$ref": "#/definitions/ClinicalDataFilter"
+          },
+          "type": "array"
+        },
+        "geneFilters": {
+          "items": {
+            "$ref": "#/definitions/GeneFilter"
+          },
+          "type": "array"
+        },
+        "genericAssayDataFilters": {
+          "items": {
+            "$ref": "#/definitions/GenericAssayDataFilter"
+          },
+          "type": "array"
+        },
+        "genomicDataFilters": {
+          "items": {
+            "$ref": "#/definitions/GenomicDataFilter"
+          },
+          "type": "array"
+        },
+        "genomicProfiles": {
+          "items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "type": "array"
+        },
+        "mutationDataFilters": {
+          "items": {
+            "$ref": "#/definitions/MutationDataFilter"
+          },
+          "type": "array"
+        },
+        "namespaceDataFilters": {
+          "items": {
+            "$ref": "#/definitions/NamespaceDataFilter"
+          },
+          "type": "array"
+        },
+        "patientTreatmentFilters": {
+          "$ref": "#/definitions/AndedPatientTreatmentFilters"
+        },
+        "patientTreatmentGroupFilters": {
+          "$ref": "#/definitions/AndedPatientTreatmentFilters"
+        },
+        "patientTreatmentTargetFilters": {
+          "$ref": "#/definitions/AndedPatientTreatmentFilters"
+        },
+        "sampleIdentifiers": {
+          "items": {
+            "$ref": "#/definitions/SampleIdentifier"
+          },
+          "maxItems": 2147483647,
+          "minItems": 1,
+          "type": "array"
+        },
+        "sampleTreatmentFilters": {
+          "$ref": "#/definitions/AndedSampleTreatmentFilters"
+        },
+        "sampleTreatmentGroupFilters": {
+          "$ref": "#/definitions/AndedSampleTreatmentFilters"
+        },
+        "sampleTreatmentTargetFilters": {
+          "$ref": "#/definitions/AndedSampleTreatmentFilters"
+        },
+        "structuralVariantFilters": {
+          "items": {
+            "$ref": "#/definitions/StudyViewStructuralVariantFilter"
+          },
+          "type": "array"
+        },
+        "studyIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 2147483647,
+          "minItems": 1,
+          "type": "array"
+        },
+        "uniqueStudyIds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "type": "object"
+    },
+    "StudyViewStructuralVariantFilter": {
+      "properties": {
+        "molecularProfileIds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "structVarQueries": {
+          "items": {
+            "items": {
+              "$ref": "#/definitions/StructuralVariantFilterQuery"
+            },
+            "type": "array"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "SurvivalRequest": {
+      "description": "Survival Data Request",
+      "properties": {
+        "attributeIdPrefix": {
+          "type": "string"
+        },
+        "censoredEventRequestIdentifier": {
+          "$ref": "#/definitions/ClinicalEventRequestIdentifier"
+        },
+        "endEventRequestIdentifier": {
+          "$ref": "#/definitions/ClinicalEventRequestIdentifier"
+        },
+        "patientIdentifiers": {
+          "items": {
+            "$ref": "#/definitions/PatientIdentifier"
+          },
+          "maxItems": 10000000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "startEventRequestIdentifier": {
+          "$ref": "#/definitions/ClinicalEventRequestIdentifier"
+        }
+      },
+      "required": [
+        "attributeIdPrefix"
+      ],
+      "type": "object"
+    },
+    "VariantCount": {
+      "properties": {
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "molecularProfileId": {
+          "type": "string"
+        },
+        "numberOfSamples": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numberOfSamplesWithKeyword": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numberOfSamplesWithMutationInGene": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "entrezGeneId",
+        "molecularProfileId",
+        "numberOfSamples",
+        "numberOfSamplesWithKeyword",
+        "numberOfSamplesWithMutationInGene"
+      ],
+      "type": "object"
+    },
+    "VariantCountIdentifier": {
+      "properties": {
+        "entrezGeneId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "keyword": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "externalDocs": {
+    "description": "SpringShop Wiki Documentation",
+    "url": "https://springshop.wiki.github.org/docs"
+  },
+  "x-components": {}
+}

@@ -1,0 +1,61 @@
+.civic-card {
+    margin: auto;
+    width: 500px;
+    font-size: 14px;
+    line-height: 18px;
+}
+.civic-card * {
+    border-collapse: collapse;
+    box-sizing: border-box;
+}
+.civic-card ul {
+    padding: 0;
+}
+.civic-card .disclaimer {
+    color: grey;
+    font-style: italic;
+    padding: 5px 10px;
+}
+.civic-card .footer {
+    width: 100%;
+    padding-top: 3px;
+    line-height: 32px;
+    height: 32px;
+    background: #333;
+}
+.civic-card .footer .civic-logo {
+    height: 32px;
+    margin-left: 10px;
+    margin-top: -3px;
+    vertical-align: top;
+}
+.civic-card .tip-header {
+    line-height: 22px;
+    font-size: 22px;
+    background-color: #8539b2;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+}
+.civic-card-content {
+    max-height: 400px;
+    overflow: auto;
+}
+.civic-card-gene,
+.civic-card-variant {
+    margin: 5px 9px;
+}
+.civic-card-variant-header {
+    margin-bottom: 1px;
+    padding: 3px 6px 3px;
+    background: #ece3f2;
+}
+.civic-card-variant-description {
+    padding: 3px 6px 3px;
+    background: #ece3f2;
+}
+.civic-card-gene-name a,
+.civic-card-variant-name a {
+    font-weight: bold;
+    color: #1974b8;
+}

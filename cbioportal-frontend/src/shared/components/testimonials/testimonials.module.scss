@@ -1,0 +1,44 @@
+.testimonial {
+    position: relative;
+
+    :global {
+        .testimonial-blockquote {
+            opacity: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            &.test-trans-enter {
+                opacity: 0.01;
+
+                &.test-trans-enter-active {
+                    opacity: 1;
+                    transition: opacity 2000ms ease-in;
+                }
+            }
+
+            &.test-trans-leave {
+                opacity: 1;
+
+                &.test-trans-leave-active {
+                    opacity: 0.01;
+                    transition: opacity 2000ms ease-in;
+                }
+            }
+        }
+
+        .testimonial-links {
+            margin-top: 10px;
+
+            a:first-child {
+                float: left;
+            }
+
+            a:last-child {
+                float: right;
+            }
+        }
+    }
+}

@@ -1,0 +1,120 @@
+@import '../../globalStyles/mixins.scss';
+
+$selectHeight: 30px;
+$selectHeightInner: $selectHeight - 2px;
+
+.studyViewSummaryHeader {
+    .Select {
+        font-size: 14px;
+        width: 220px;
+        height: $selectHeight;
+
+        .Select-control {
+            height: $selectHeightInner;
+        }
+
+        .Select-input {
+            height: $selectHeightInner;
+            input {
+                padding: 0px 5px;
+                line-height: $selectHeightInner;
+            }
+        }
+
+        .Select-value {
+            line-height: $selectHeightInner !important;
+
+            .Select-value-label {
+                line-height: $selectHeightInner;
+            }
+        }
+
+        .Select-menu-outer {
+            width: 300px;
+            max-height: 400px;
+            z-index: 100;
+        }
+
+        .Select-placeholder {
+            line-height: $selectHeightInner;
+        }
+
+        .Select-menu {
+            max-height: 398px; // needs to be 2 less than Select-menu-outer height to not hide border. Irrelevant
+            //    as long as & > div > div:nth-child(2) max-height is less
+            overflow: hidden;
+
+            & > div > div:nth-child(2) {
+                max-height: 350px !important;
+                overflow-x: hidden !important;
+                overflow-y: scroll !important;
+            }
+        }
+
+        .Select-option {
+            line-height: 1.25;
+        }
+    }
+}
+
+.no-checkbox {
+    padding-left: 0px !important;
+}
+
+[data-mfb-label]:after {
+    background: rgba(0, 0, 0, 1) !important;
+    color: white !important;
+}
+
+.mfb-component__main-icon--active,
+.mfb-component__main-icon--resting,
+.mfb-component__child-icon {
+    line-height: 56px !important;
+    font-size: 18px !important;
+}
+
+#geneBoxValidationStatus > div,
+#wideGeneBoxValidationStatus > div {
+    white-space: normal;
+    width: 100%;
+}
+
+#wideGeneBoxValidationStatus > div {
+    max-width: 555px;
+}
+
+.studyFilterResult-enter-done {
+    transform: scale(1) !important; /* Standard syntax */
+}
+
+.studyViewAddChartOverlay.rc-tooltip-placement-bottomRight .rc-tooltip-arrow {
+    right: 7% !important;
+}
+
+iframe.mdacc-heatmap-iframe {
+    height: calc(100vh - 200px);
+    min-height: 700px;
+}
+
+.resourcesTab {
+    .resourcesSection {
+        @include dashed-border-section;
+        margin-bottom: 30px;
+
+        &:last-child {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+.violinPlotTableHeader {
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fixedHeaderTableRightJustified {
+    flex-direction: row-reverse;
+    display: flex;
+}

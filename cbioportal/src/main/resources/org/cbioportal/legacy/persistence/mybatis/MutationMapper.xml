@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cbioportal.legacy.persistence.mybatis.MutationMapper">
+
+    <sql id="select">
+        molecularProfileId,
+        sampleId,
+        patientId,
+        entrezGeneId,
+        studyId
+        <if test="projection == 'SUMMARY' || projection == 'DETAILED'">
+            ,
+            center,
+            mutationStatus,
+            validationStatus,
+            tumorAltCount,
+            tumorRefCount,
+            normalAltCount,
+            normalRefCount,
+            aminoAcidChange,
+            chr,
+            startPosition,
+            endPosition,
+            referenceAllele,
+            tumorSeqAllele,
+            proteinChange,
+            mutationType,
+            ncbiBuild,
+            variantType,
+            refseqMrnaId,
+            proteinPosStart,
+            proteinPosEnd,
+            keyword,
+            annotationJSON,
+            driverFilter,
+            driverFilterAnnotation,
+            driverTiersFilter,
+            driverTiersFilterAnnotation
+        </if>
+        <if test="projection == 'DETAILED'">
+            ,   
+            GENE.entrezGeneId,
+            GENE.hugoGeneSymbol,
+            GENE.type,
+            <include refid="getAlleleSpecificCopyNumber">
+                 <property name="prefix" value="alleleSpecificCopyNumber."/>
+            </include>          
+                                              
+        </if>
+    </sql>
+
+    <sql id="projectionAndLimitFilter">
+        <choose>
+            <when test="sortBy != null and projection != 'ID'">
+                ORDER BY "${sortBy}" ${direction}
+            </when>
+            <otherwise>
+                ORDER BY molecularProfileId ASC, sampleId ASC, entrezGeneId ASC, proteinChange ASC
+            </otherwise>
+        </choose>
+        
+        <if test="limit != null and limit != 0">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
+    </sql>
+
+    <sql id="from">
+        FROM mutation_derived
+    </sql>
+
+    <sql id="where">
+        <where>
+            molecularProfileId = #{molecularProfileId}
+            <if test="sampleIds != null and !sampleIds.isEmpty()">
+                AND sampleId IN
+                    <foreach item="item" collection="sampleIds" open="(" separator="," close=")">#{item}</foreach>
+            </if>
+            <if test="_parameter.containsKey('entrezGeneIds') and entrezGeneIds != null and !entrezGeneIds.isEmpty()">
+                AND entrezGeneId IN
+                    <foreach item="item" collection="entrezGeneIds" open="(" separator="," close=")">#{item}</foreach>
+            </if>
+            <if test="_parameter.containsKey('geneQueries') and geneQueries != null and !geneQueries.isEmpty()">
+                <include refid="whereWithGeneQueries"/>
+            </if>
+            <if test="snpOnly == true">
+                AND referenceAllele IN ('A','T','C','G')
+                AND tumorSeqAllele IN ('A','T','C','G')
+            </if>
+        </where>
+    </sql>
+
+    <sql id="whereBySampleListId">
+        <where>
+            molecularProfileId = #{molecularProfileId}
+            AND sampleInternalId IN
+            (
+                SELECT sample_list_list.sample_id FROM sample_list_list
+                INNER JOIN sample_list ON sample_list_list.list_id = sample_list.list_id
+                WHERE sample_list.stable_id = #{sampleListId}
+            )
+            <if test="entrezGeneIds != null and !entrezGeneIds.isEmpty()">
+                AND entrezGeneId IN
+                    <foreach item="item" collection="entrezGeneIds" open="(" separator="," close=")">#{item}</foreach>
+            </if>
+            <if test="snpOnly == true">
+                AND referenceAllele IN ('A','T','C','G')
+                AND tumorSeqAllele IN ('A','T','C','G')
+            </if>
+        </where>
+    </sql>
+
+    <sql id="whereInMultipleMolecularProfiles">
+        <where>
+            <if test="sampleIds != null and !sampleIds.isEmpty()">
+                sampleInternalId IN (
+                SELECT sample.internal_id FROM sample
+                INNER JOIN patient ON sample.patient_id = patient.internal_id
+                INNER JOIN genetic_profile ON patient.cancer_study_id = genetic_profile.cancer_study_id
+                WHERE
+                <if test="@java.util.Arrays@stream(molecularProfileIds.toArray()).distinct().count() == 1">
+                    <bind name="sampleArray" value="@org.cbioportal.legacy.persistence.mybatis.util.SqlUtils@listToArray(sampleIds)" />
+                    genetic_profile.stable_id = #{molecularProfileIds[0]} AND
+                    sample.stable_id IN (
+                        #{sampleArray, typeHandler=org.apache.ibatis.type.ArrayTypeHandler}
+                    )
+                </if>
+                <if test="@java.util.Arrays@stream(molecularProfileIds.toArray()).distinct().count() > 1">
+                    <bind name="sampleProfileKeys" value="@org.cbioportal.legacy.persistence.mybatis.util.SqlUtils@combineStudyAndEntityIds(sampleIds, molecularProfileIds)" />
+                    CONCAT(sample.stable_id, ':', genetic_profile.stable_id) IN (
+                        #{sampleProfileKeys, typeHandler=org.apache.ibatis.type.ArrayTypeHandler}
+                    )
+                    <bind name="profileArray" value="@org.cbioportal.legacy.persistence.mybatis.util.SqlUtils@listToArray(molecularProfileIds)" />
+                    AND genetic_profile.stable_id IN (
+                        #{profileArray, typeHandler=org.apache.ibatis.type.ArrayTypeHandler}
+                    )
+                </if>
+                )
+            </if>
+            <if test="sampleIds == null || sampleIds.isEmpty()">
+                molecularProfileId IN
+                    <foreach item="item" collection="molecularProfileIds" open="(" separator="," close=")">#{item}</foreach>
+            </if>
+            <if test="_parameter.containsKey('entrezGeneIds') and entrezGeneIds != null and !entrezGeneIds.isEmpty()">
+                AND entrezGeneId IN
+                    <foreach item="item" collection="entrezGeneIds" open="(" separator="," close=")">#{item}</foreach>
+            </if>
+            <if test="_parameter.containsKey('geneQueries') and geneQueries != null and !geneQueries.isEmpty()">
+                <include refid="whereWithGeneQueries"/>
+            </if>
+            <if test="snpOnly == true">
+                AND referenceAllele IN ('A','T','C','G')
+                AND tumorSeqAllele IN ('A','T','C','G')
+            </if>
+        </where>
+    </sql>
+
+    <sql id="whereWithGeneQueries">
+        <if test="(_parameter.containsKey('geneQueries') and geneQueries != null and !geneQueries.isEmpty())">
+            AND
+            <foreach item="geneFilterQuery" collection="geneQueries" open="(" separator=" OR " close=")">
+                ( mutation_derived.entrezGeneId = '${geneFilterQuery.getEntrezGeneId()}'
+                <bind name="allMutationStatusSelected" value="geneFilterQuery.getIncludeGermline() and geneFilterQuery.getIncludeSomatic() and geneFilterQuery.getIncludeUnknownStatus()" />
+                <bind name="noMutationStatusSelected" value="not geneFilterQuery.getIncludeGermline() and not geneFilterQuery.getIncludeSomatic() and not geneFilterQuery.getIncludeUnknownStatus()" />
+                <choose>
+                    <when test="not allMutationStatusSelected and not noMutationStatusSelected">
+                        <trim prefix="AND (" suffix=")" prefixOverrides="OR">
+                            <if test="geneFilterQuery.getIncludeGermline()">
+                                OR LOWER(mutation_derived.mutationStatus) = 'germline'
+                            </if>
+                            <if test="geneFilterQuery.getIncludeSomatic()">
+                                OR LOWER(mutation_derived.mutationStatus) = 'somatic'
+                            </if>
+                            <if test="geneFilterQuery.getIncludeUnknownStatus()">
+                                OR LOWER(mutation_derived.mutationStatus) NOT IN ('somatic', 'germline')
+                            </if>
+                        </trim>
+                    </when>
+                    <when test="noMutationStatusSelected">
+                        AND NULL
+                    </when>
+                    <otherwise>
+                        <!--when allMutationStatusSelected do not filter-->
+                    </otherwise>
+                </choose>
+                <bind name="allDriverAnnotationsSelected" value="geneFilterQuery.getIncludeDriver() and geneFilterQuery.getIncludeVUS() and geneFilterQuery.getIncludeUnknownOncogenicity()" />
+                <bind name="noDriverAnnotationsSelected" value="not geneFilterQuery.getIncludeDriver() and not geneFilterQuery.getIncludeVUS() and not geneFilterQuery.getIncludeUnknownOncogenicity()" />
+                <choose>
+                    <when test="not allDriverAnnotationsSelected and not noDriverAnnotationsSelected">
+                        <trim prefix="AND (" suffix=")" prefixOverrides="OR">
+                            <if test="geneFilterQuery.getIncludeDriver()">
+                                OR LOWER(driverFilter) = 'putative_driver'
+                            </if>
+                            <if test="geneFilterQuery.getIncludeVUS()">
+                                OR LOWER(driverFilter) = 'putative_passenger'
+                            </if>
+                            <if test="geneFilterQuery.getIncludeUnknownOncogenicity()">
+                                OR driverFilter IS NULL
+                                OR LOWER(driverFilter) IN ('unknown', 'na', '')
+                            </if>
+                        </trim>
+                    </when>
+                    <when test="noDriverAnnotationsSelected">
+                        AND NULL
+                    </when>
+                    <otherwise>
+                        <!--when allDriverAnnotationsSelected do not filter-->
+                    </otherwise>
+                </choose>
+                <bind name="allTierOptionsSelected" value="(geneFilterQuery.getSelectedTiers() != null and geneFilterQuery.getSelectedTiers().hasAll()) and geneFilterQuery.getIncludeUnknownTier()" />
+                <bind name="noTierOptionsSelected" value="(geneFilterQuery.getSelectedTiers() == null or geneFilterQuery.getSelectedTiers().hasNone()) and not geneFilterQuery.getIncludeUnknownTier()" />
+                <bind name="allExceptUnknownTierOptionsSelected" value="(geneFilterQuery.getSelectedTiers() != null and geneFilterQuery.getSelectedTiers().hasAll()) and not geneFilterQuery.getIncludeUnknownTier()" />
+                <choose>
+                    <when test="allExceptUnknownTierOptionsSelected">
+                        AND NOT driverTiersFilter IS NULL
+                        AND NOT LOWER(driverTiersFilter) IN ('', 'na', 'unknown')
+                    </when>
+                    <when test="not allTierOptionsSelected and not noTierOptionsSelected">
+                        <trim prefix="AND (" suffix=")" prefixOverrides="OR">
+                            <if test="geneFilterQuery.getSelectedTiers() != null and geneFilterQuery.getSelectedTiers().hasValues()">
+                                OR driverTiersFilter IN
+                                    <foreach item="item" collection="geneFilterQuery.getSelectedTiers()" open="(" separator="," close=")">#{item}</foreach>
+                            </if>
+                            <if test="geneFilterQuery.getIncludeUnknownTier()">
+                                OR driverTiersFilter IS NULL
+                                OR LOWER(driverTiersFilter) IN ('', 'na', 'unknown')
+                            </if>
+                        </trim>
+                    </when>
+                    <when test="noTierOptionsSelected">
+                        AND NULL
+                    </when>
+                    <otherwise>
+                        <!--when allTierOptionsSelected do not filter-->
+                    </otherwise>
+                </choose>
+                )
+            </foreach>
+        </if>
+    </sql>
+
+    <sql id="getAlleleSpecificCopyNumber">
+        alleleSpecificCopyNumber.ascnIntegerCopyNumber,
+        alleleSpecificCopyNumber.ascnMethod,
+        alleleSpecificCopyNumber.ccfExpectedCopiesUpper,
+        alleleSpecificCopyNumber.ccfExpectedCopies,
+        alleleSpecificCopyNumber.clonal,
+        alleleSpecificCopyNumber.minorCopyNumber,
+        alleleSpecificCopyNumber.expectedAltCopies,
+        alleleSpecificCopyNumber.totalCopyNumber
+    </sql>
+
+    <sql id="includeAlleleSpecificCopyNumber">
+--         LEFT JOIN allele_specific_copy_number ON mutation.mutation_event_id = allele_specific_copy_number.mutation_event_id
+--         AND mutation.genetic_profile_id = allele_specific_copy_number.genetic_profile_id
+--         AND mutation.sample_id = allele_specific_copy_number.sample_id
+    </sql>
+
+    <resultMap id="genomicDataCountItem" type="org.cbioportal.legacy.model.GenomicDataCountItem">
+        <id property="hugoGeneSymbol" column="hugoGeneSymbol"/>
+        <id property="profileType" column="profileType"/>
+        <collection property="counts" ofType="org.cbioportal.legacy.model.GenomicDataCount" resultMap="genomicDataCount"/>
+    </resultMap>
+
+    <resultMap id="genomicDataCount" type="org.cbioportal.legacy.model.GenomicDataCount">
+        <result property="label" column="label"/>
+        <result property="value" column="value"/>
+        <result property="count" column="count"/>
+        <result property="uniqueCount" column="uniqueCount"/>
+    </resultMap>
+
+
+    <select id="getMutationsBySampleListId" resultType="org.cbioportal.legacy.model.Mutation">
+        SELECT
+        <include refid="select"/>
+        <include refid="from"/>
+        <if test="projection == 'DETAILED'">
+
+        </if>
+        <include refid="whereBySampleListId"/>
+
+        <choose>    
+            <when test="sortBy != null and projection != 'ID'">
+                ORDER BY "${sortBy}" ${direction}
+            </when>
+            <otherwise>
+                ORDER BY molecularProfileId ASC, sampleId ASC, entrezGeneId ASC
+            </otherwise>
+        </choose>
+            
+        <if test="limit != null and limit != 0">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
+    </select>
+
+    <select id="getMetaMutationsBySampleListId" resultType="org.cbioportal.legacy.model.meta.MutationMeta">
+        SELECT
+        COUNT(*) AS "totalCount",
+        COUNT(DISTINCT(sampleId)) AS "sampleCount"
+        <include refid="from"/>
+        <include refid="whereBySampleListId"/>
+    </select>
+
+    <select id="getMutationsInMultipleMolecularProfiles" resultType="org.cbioportal.legacy.model.Mutation">
+        SELECT
+        <include refid="select"/>
+        <include refid="from"/>
+        <if test="projection == 'DETAILED'">
+            <include refid="includeAlleleSpecificCopyNumber"/>
+        </if>
+        <include refid="whereInMultipleMolecularProfiles"/>
+        <include refid="projectionAndLimitFilter"/>
+    </select>
+
+    <select id="getMutationsInMultipleMolecularProfilesByGeneQueries" resultType="org.cbioportal.legacy.model.Mutation">
+        SELECT
+        <include refid="select"/>
+        <include refid="from"/>
+        <if test="projection == 'DETAILED'">
+            <include refid="includeAlleleSpecificCopyNumber"/>
+        </if>
+        <include refid="whereInMultipleMolecularProfiles"/>
+        <include refid="projectionAndLimitFilter"/>
+    </select>
+
+    <select id="getMetaMutationsInMultipleMolecularProfiles" resultType="org.cbioportal.legacy.model.meta.MutationMeta">
+        SELECT
+        COUNT(*) AS "totalCount",
+        COUNT(DISTINCT(sampleId)) AS "sampleCount"
+        <include refid="from"/>
+        <include refid="whereInMultipleMolecularProfiles"/>
+    </select>
+
+    <select id="getMetaMutationsBySampleIds" resultType="org.cbioportal.legacy.model.meta.MutationMeta">
+        SELECT
+        COUNT(*) AS "totalCount",
+        COUNT(DISTINCT(sampleId)) AS "sampleCount"
+        <include refid="from"/>
+
+        <include refid="where"/>
+    </select>
+
+    <select id="getSampleCountByEntrezGeneIdsAndSampleIds" resultType="org.cbioportal.legacy.model.MutationCountByGene">
+        SELECT
+        entrezGeneId AS "entrezGeneId",
+        ANY_VALUE(GENE.hugoGeneSymbol) AS "hugoGeneSymbol",
+        COUNT(*) AS "totalCount",
+        COUNT(DISTINCT(sampleId)) AS "numberOfAlteredCases"
+        FROM mutation_derived
+        <include refid="where"/>
+        GROUP BY mutation_derived.entrezGeneId
+    </select>
+
+    <select id="getMutationCountByPosition" resultType="org.cbioportal.legacy.model.MutationCountByPosition">
+        <!-- this is a workaround for a problem in CH when column names must equal alias  -->
+        SELECT
+         #{entrezGeneId} AS "entrezGeneId",
+         #{proteinPosStart} AS "proteinPosStart",
+         #{proteinPosEnd} AS "proteinPosEnd",
+        count
+        FROM (
+            SELECT COUNT(entrezGeneId) AS "count"
+                FROM mutation_derived
+            WHERE entrezGeneId = #{entrezGeneId}
+                AND proteinPosStart >= #{proteinPosStart}
+                AND proteinPosEnd <![CDATA[ <= ]]> #{proteinPosEnd}
+        GROUP BY entrezGeneId
+        )
+    </select>
+
+    <select id="getMutationCountsByType" resultMap="genomicDataCountItem">
+        SELECT
+            ANY_VALUE(GENE.hugoGeneSymbol) as hugoGeneSymbol,
+            #{profileType} as profileType,
+            REPLACE(mutationType, '_', ' ') AS label,
+            mutationType AS value,
+            COUNT(*) AS count,
+            COUNT(DISTINCT(sampleInternalId)) AS uniqueCount
+        <include refid="from"/>
+        <include refid="whereInMultipleMolecularProfiles"/>
+        GROUP BY mutationType
+    </select>
+</mapper>

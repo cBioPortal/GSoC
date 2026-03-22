@@ -1,0 +1,63 @@
+{
+  "name": "oncoprintjs",
+  "version": "6.0.8",
+  "description": "A data visualization for cancer genomic data.",
+  "types": "./dist/js/oncoprint.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "typings": "dist/index.d.ts",
+  "styles": "dist/styles.css",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max-old-space-size=2048 yarn run rollup",
+    "start": "yarn run watch",
+    "watch": "yarn run rollup:watch",
+    "watchSSL": "yarn run watch",
+    "rollup": "rollup -c rollup.config.ts",
+    "rollup:watch": "rollup -c rollup.config.ts -w",
+    "prepare": "yarn run build",
+    "test": "cross-env jest $GREP --env=jsdom --runInBand --ci --reporters=default --reporters=jest-junit --passWithNoTests",
+    "test:watch": "yarn run test --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cBioPortal/oncoprintjs.git"
+  },
+  "keywords": [
+    "cancer",
+    "genomics",
+    "visualization",
+    "webgl"
+  ],
+  "author": {
+    "name": "Adam Abeshouse",
+    "email": "adamabeshouse@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "JJ Gao",
+      "email": "jianjiong.gao@gmail.com"
+    },
+    {
+      "name": "Gideon Dresdner",
+      "email": "oncoprintjs@gideonite.com"
+    },
+    {
+      "name": "Fedde Schaeffer",
+      "email": "fedde@thehyve.nl"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cBioPortal/oncoprintjs/issues"
+  },
+  "homepage": "https://github.com/cBioPortal/oncoprintjs",
+  "dependencies": {
+    "gl-matrix": "2.3.2",
+    "jquery": "^3.2.1",
+    "jstat": "^1.7.1",
+    "lodash": "^4.17.21",
+    "tayden-clusterfck": "^0.7.0",
+    "typescript": "4.0.3"
+  }
+}

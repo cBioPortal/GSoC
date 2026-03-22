@@ -1,0 +1,18 @@
+.main {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.text {
+    font-weight: bold;
+    margin: 0 5px;
+}
+
+.mostLeft {
+    margin-left: 0;
+}
+
+.mostRight {
+    margin-right: 0;
+}

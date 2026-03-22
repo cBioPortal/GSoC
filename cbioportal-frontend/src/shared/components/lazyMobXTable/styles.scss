@@ -1,0 +1,47 @@
+.lazyMobxTableSortArrowAsc {
+    padding-left: 5px;
+    position: relative;
+    top: 3px;
+}
+.lazyMobxTableSortArrowDesc {
+    padding-left: 5px;
+    position: relative;
+    top: -3px;
+}
+
+.cbioportal-frontend .table > thead > tr > th.multilineHeader {
+    vertical-align: top;
+    line-height: 1.1;
+    padding-bottom: 4px;
+}
+
+.topPagination {
+    .textBetweenButtons {
+        opacity: 1 !important;
+    }
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tableMainToolbar {
+    .form-group {
+        margin-bottom: 5px;
+    }
+}
+
+.cbioportal-frontend .table > tbody > tr > td.columnResizer,
+.cbioportal-frontend .table > thead > tr > td.columnResizer {
+    width: 2px;
+    border-right: #ccc 1px solid;
+    border-left: #ccc 1px solid;
+    padding: 0 !important;
+}
+
+.lazyMobXTableTruncatedCell {
+    max-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

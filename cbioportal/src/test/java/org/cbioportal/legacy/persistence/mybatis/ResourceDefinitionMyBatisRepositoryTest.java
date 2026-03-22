@@ -1,0 +1,92 @@
+package org.cbioportal.legacy.persistence.mybatis;
+
+import java.util.List;
+import org.cbioportal.legacy.AbstractLegacyTestcontainers;
+import org.cbioportal.legacy.model.ResourceDefinition;
+import org.cbioportal.legacy.model.ResourceType;
+import org.cbioportal.legacy.persistence.config.MyBatisLegacyConfig;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@Import({MyBatisLegacyConfig.class, ResourceDefinitionMyBatisRepository.class})
+@DataJpaTest
+@DirtiesContext
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ContextConfiguration(initializers = AbstractLegacyTestcontainers.Initializer.class)
+public class ResourceDefinitionMyBatisRepositoryTest {
+
+  @Autowired private ResourceDefinitionMyBatisRepository resourceDefinitionMyBatisRepository;
+
+  @Test
+  public void getResourceDefinition() throws Exception {
+
+    ResourceDefinition result =
+        resourceDefinitionMyBatisRepository.getResourceDefinition("study_tcga_pub", "HE");
+
+    Assert.assertEquals("H&E Slide", result.getDisplayName());
+    Assert.assertEquals("H&E Slide", result.getDescription());
+    Assert.assertEquals(ResourceType.SAMPLE, result.getResourceType());
+    Assert.assertEquals("1", result.getPriority());
+    Assert.assertEquals(true, result.getOpenByDefault());
+  }
+
+  @Test
+  public void fetchResourceDefinitionsIdProjection() throws Exception {
+
+    List<ResourceDefinition> result =
+        resourceDefinitionMyBatisRepository.fetchResourceDefinitions(
+            List.of("study_tcga_pub"), "ID", null, null, null, null);
+
+    Assert.assertEquals(2, result.size());
+    ResourceDefinition resourceDefinition = result.get(0);
+    Assert.assertEquals("HE", resourceDefinition.getResourceId());
+    Assert.assertEquals("H&E Slide", resourceDefinition.getDisplayName());
+    Assert.assertNull(resourceDefinition.getDescription());
+    Assert.assertNull(resourceDefinition.getResourceType());
+    Assert.assertNull(resourceDefinition.getPriority());
+    Assert.assertNull(resourceDefinition.getOpenByDefault());
+  }
+
+  @Test
+  public void fetchResourceDefinitionsSummaryProjection() throws Exception {
+
+    List<ResourceDefinition> result =
+        resourceDefinitionMyBatisRepository.fetchResourceDefinitions(
+            List.of("study_tcga_pub"), "SUMMARY", null, null, "resourceId", "ASC");
+
+    Assert.assertEquals(2, result.size());
+    ResourceDefinition resourceDefinition = result.get(0);
+    Assert.assertEquals("HE", resourceDefinition.getResourceId());
+    Assert.assertEquals("H&E Slide", resourceDefinition.getDisplayName());
+    Assert.assertEquals("H&E Slide", resourceDefinition.getDescription());
+    Assert.assertEquals(ResourceType.SAMPLE, resourceDefinition.getResourceType());
+    Assert.assertEquals("1", resourceDefinition.getPriority());
+    Assert.assertEquals(true, resourceDefinition.getOpenByDefault());
+  }
+
+  @Test
+  public void fetchResourceDefinitionsDetailedProjection() throws Exception {
+
+    List<ResourceDefinition> result =
+        resourceDefinitionMyBatisRepository.fetchResourceDefinitions(
+            List.of("study_tcga_pub"), "DETAILED", null, null, "resourceId", "ASC");
+
+    Assert.assertEquals(2, result.size());
+    ResourceDefinition resourceDefinition = result.get(0);
+    Assert.assertEquals("HE", resourceDefinition.getResourceId());
+    Assert.assertEquals("H&E Slide", resourceDefinition.getDisplayName());
+    Assert.assertEquals("H&E Slide", resourceDefinition.getDescription());
+    Assert.assertEquals(ResourceType.SAMPLE, resourceDefinition.getResourceType());
+    Assert.assertEquals("1", resourceDefinition.getPriority());
+    Assert.assertEquals(true, resourceDefinition.getOpenByDefault());
+  }
+}

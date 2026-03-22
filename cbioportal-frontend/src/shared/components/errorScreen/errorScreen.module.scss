@@ -1,0 +1,56 @@
+.errorScreen {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: $body-bg;
+    min-height: 300px;
+    padding: 100px;
+    text-align: center;
+    z-index: 10;
+
+    h4 {
+        margin: 30px 0;
+        font-size: 20px;
+    }
+
+    .errorLogo img {
+        height: 50px;
+    }
+
+    p {
+        width: 500px;
+        margin: auto;
+    }
+
+    textarea {
+        border: 1px solid $borderColor;
+        width: 500px !important;
+        padding: 10px !important;
+        height: 200px !important;
+        margin: 0 auto;
+    }
+}
+
+.errorAlert {
+    padding: 10px 30px 10px 10px;
+    background: $brand-danger;
+    color: #fff;
+    position: relative;
+
+    .dismissButton {
+        position: absolute;
+        right: 5px;
+        top: 10px;
+        cursor: pointer;
+
+        &:hover {
+            color: #eee;
+        }
+    }
+
+    p:last-of-type {
+        margin-bottom: 0 !important;
+    }
+}

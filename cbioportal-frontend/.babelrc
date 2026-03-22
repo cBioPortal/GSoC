@@ -1,0 +1,26 @@
+{
+    "presets": ["@babel/preset-env"],
+    "env": {
+        "development": {
+            "presets": ["@babel/preset-env"],
+            "plugins": ["@babel/plugin-syntax-dynamic-import"]
+        },
+        "production": {
+            "presets": [],
+            "plugins": ["@babel/plugin-syntax-dynamic-import"]
+        },
+        "test": {
+            "presets": [],
+            "compact": false,
+            "plugins": [
+                [
+                    "rewire",
+                    {
+                        "exclude": ["**/*.spec.js"]
+                    },
+                    "@babel/plugin-syntax-dynamic-import"
+                ]
+            ]
+        }
+    }
+}

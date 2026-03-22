@@ -1,0 +1,15 @@
+.oqlerror {
+    background: #a71111;
+    color: #fff !important;
+    display: flex;
+    align-items: center;
+    span {
+        margin-right: 4px;
+    }
+}
+
+.operations {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}

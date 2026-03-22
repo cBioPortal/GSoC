@@ -1,0 +1,123 @@
+.oncoprint__controls {
+    display: flex;
+
+    .rangeslider {
+        margin: 0;
+        .rangeslider__labels {
+            display: none;
+        }
+        .rangeslider__handle {
+            height: 10px;
+            width: 10px;
+            &:after {
+                display: none;
+            }
+        }
+    }
+
+    .checkbox,
+    .radio {
+        &:first-child {
+            margin-top: 0px;
+        }
+    }
+    .dropdown-menu {
+        width: 270px;
+        padding: 12px !important;
+        > *,
+        button {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        > :last-child {
+            margin-bottom: 0 !important;
+        }
+    }
+
+    .oncoprint__controls__heatmap_menu {
+        textarea {
+            width: 100%;
+            min-height: 50px;
+            border: 1px solid $borderColor;
+            resize: vertical;
+        }
+        > *,
+        button {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        > :last-child {
+            margin-bottom: 0 !important;
+        }
+
+        .generic-assay-selector {
+            button {
+                width: auto;
+                margin: 0;
+                padding: 5px 10px;
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .oncoprint__zoom-controls {
+        display: flex !important;
+        align-items: center;
+
+        > * {
+            margin-right: 10px;
+        }
+
+        > :last-child {
+            margin-right: 0;
+        }
+    }
+
+    .Select {
+        margin-right: 10px;
+
+        .Select-control {
+            height: 32px;
+        }
+
+        .Select-input {
+            height: 32px;
+        }
+    }
+
+    .clinical-track-selector {
+        .Select-control {
+            height: 33px;
+        }
+
+        .Select {
+            .Select-placeholder {
+                color: #000;
+            }
+
+            .Select-arrow {
+                border-color: #000 transparent transparent;
+            }
+
+            .Select-menu-outer {
+                max-height: 400px;
+            }
+
+            .Select-menu {
+                max-height: 398px; // needs to be 2 less than Select-menu-outer height to not hide border. Irrelevant
+                //    as long as & > div > div:nth-child(2) max-height is less
+                overflow: hidden;
+
+                & > div > div:nth-child(2) {
+                    max-height: 350px !important;
+                    overflow-x: hidden !important;
+                    overflow-y: scroll !important;
+                }
+            }
+        }
+    }
+
+    .clinical-track-selector .is-open .Select-control .Select-arrow {
+        border-color: transparent transparent #000;
+    }
+}

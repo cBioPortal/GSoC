@@ -1,0 +1,30 @@
+.quick-search .Select-control {
+    font-size: 18px;
+    border: 2px solid #3786c2 !important;
+    border-radius: 0px;
+    box-shadow: none !important;
+}
+
+.quick-search.is-focused {
+    box-shadow: 0 0 4px 4px rgba(0, 126, 255, 0.2);
+}
+
+.quick-search .Select-menu-outer {
+    max-height: 506px;
+}
+
+.quick-search .Select-menu {
+    max-height: 504px;
+}
+
+.quick-search-link a:hover {
+    text-decoration: none !important;
+}
+
+.quick-search-link .Select-option.is-focused {
+    color: #3786c2;
+}
+
+.quick-search .Select-control:hover {
+    cursor: text;
+}

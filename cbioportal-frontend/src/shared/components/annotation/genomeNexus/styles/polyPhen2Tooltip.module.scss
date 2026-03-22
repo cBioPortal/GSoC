@@ -1,0 +1,22 @@
+@import 'functionalImpact';
+
+.polyPhen2-probably_damaging {
+    color: $high;
+    font-weight: bold;
+}
+.polyPhen2-possibly_damaging {
+    color: $low;
+    font-weight: bold;
+}
+.polyPhen2-benign {
+    color: $neutral;
+    font-weight: bold;
+}
+.polyPhen2-unknown {
+    display: none;
+}
+.polyPhen2-tooltip-table {
+    td:first-child {
+        padding-right: 5px;
+    }
+}

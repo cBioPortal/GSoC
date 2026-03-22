@@ -1,0 +1,21 @@
+@import 'functionalImpact';
+
+.ma-high {
+    color: $high;
+    font-weight: bold;
+}
+
+.ma-medium {
+    color: $medium;
+    font-weight: bold;
+}
+
+.ma-low {
+    color: $low;
+    font-weight: bold;
+}
+
+.ma-neutral {
+    color: $neutral;
+    font-weight: bold;
+}

@@ -1,0 +1,18 @@
+@mixin textfield-appearance {
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+    background-color: white;
+    color: black;
+    border: 1px solid darkgray;
+    box-shadow: 1px 1px 1px 0 lightgray inset;
+    margin-top: 5px;
+    padding: 2px 3px;
+}
+
+.textfieldAppearanceWhenEditing:focus {
+    @include textfield-appearance;
+}
+
+.textfieldAppearance {
+    @include textfield-appearance;
+}

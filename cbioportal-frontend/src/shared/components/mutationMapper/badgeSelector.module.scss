@@ -1,0 +1,35 @@
+.driverAnnotationSetting {
+    visibility: hidden;
+}
+
+.legendPanel:hover .driverAnnotationSetting {
+    visibility: visible;
+}
+
+.driverVusBadgeLabel {
+    float: right;
+    text-align: end;
+}
+
+.proteinBadgeLabel {
+    float: right;
+    text-align: center;
+}
+
+.driverVusLabel {
+    text-align: center;
+}
+
+.driverAnnotationSettingsButton {
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    padding: 0px 4px 0px 4px !important;
+    height: 18px !important;
+}
+
+.driverAnnotationSettingsIcon {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,15 @@
+.Tooltip {
+    border-radius: 3px !important;
+
+    & > :global(.popover-content) {
+        padding: 8px 10px;
+    }
+}
+
+div:global(#MutationHeatmap) :global(.oncoprintjs__tooltip) {
+    border-radius: 3px !important;
+    padding: 8px 10px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    transform: translate(0px, -2px);
+}

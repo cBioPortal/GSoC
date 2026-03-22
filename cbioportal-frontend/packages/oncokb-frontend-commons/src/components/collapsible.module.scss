@@ -1,0 +1,18 @@
+@import '~oncokb-styles/scss/vars';
+
+$oncokb-collapsible-height: 30px;
+$oncokb-collapsible-header-color: white;
+
+.collapsible-header {
+    cursor: pointer;
+    min-height: $oncokb-collapsible-height;
+    line-height: $oncokb-collapsible-height;
+    padding: 0 10px;
+    background-color: $oncokb-collapsible-header-color;
+    border-bottom: 1px solid $oncokb-border-color;
+    border-top: 1px solid $oncokb-border-color;
+}
+
+.levels-collapse {
+    border-bottom: 1px solid $oncokb-border-color;
+}

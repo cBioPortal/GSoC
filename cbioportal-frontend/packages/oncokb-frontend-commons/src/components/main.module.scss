@@ -1,0 +1,69 @@
+@import '~oncokb-styles/scss/vars';
+
+.oncokb-card {
+    margin: auto;
+    width: 600px;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.tab-content {
+    max-height: 300px;
+    overflow-y: auto;
+}
+.tooltip-refs {
+    max-width: 400px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.disclaimer {
+    color: grey;
+    font-style: italic;
+}
+
+.blue-icon {
+    color: $oncokb-blue;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+}
+
+.oncokb-logo {
+    height: 16px;
+}
+
+.title {
+    line-height: 22px;
+    font-size: 22px;
+    background-color: $oncokb-blue;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+}
+
+.additional-info {
+    padding: 5px 10px;
+    line-height: 20px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.biological-info {
+    display: flex;
+    flex-direction: row;
+    background-color: $oncokb-dark-blue;
+    color: white;
+    padding: 10px 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.ellipsis-text-wrapper {
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}

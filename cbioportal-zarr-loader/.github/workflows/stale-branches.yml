@@ -1,0 +1,70 @@
+name: Stale Branches
+
+on:
+  schedule:
+    - cron: "0 9 * * 1" # Every Monday at 9am UTC
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  stale-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Find stale branches
+        run: |
+          echo "## Stale Branches Report" > report.md
+          echo "" >> report.md
+          echo "Branches with no commits in the last 90 days:" >> report.md
+          echo "" >> report.md
+
+          PROTECTED="main feature/feature-flags"
+          CUTOFF=$(date -d '90 days ago' +%s 2>/dev/null || date -v-90d +%s)
+          FOUND=0
+
+          for branch in $(git branch -r --format='%(refname:short)' | grep -v HEAD); do
+            name="${branch#origin/}"
+
+            # Skip protected and dependabot branches
+            skip=false
+            case "$name" in dependabot/*) skip=true ;; esac
+            for p in $PROTECTED; do
+              if [ "$name" = "$p" ]; then
+                skip=true
+                break
+              fi
+            done
+            if $skip; then continue; fi
+
+            last_commit=$(git log -1 --format='%ct' "$branch" 2>/dev/null)
+            if [ -n "$last_commit" ] && [ "$last_commit" -lt "$CUTOFF" ]; then
+              last_date=$(git log -1 --format='%ci' "$branch")
+              author=$(git log -1 --format='%an' "$branch")
+              echo "- \`$name\` — last commit $last_date by $author" >> report.md
+              FOUND=$((FOUND + 1))
+            fi
+          done
+
+          if [ "$FOUND" -eq 0 ]; then
+            echo "No stale branches found." >> report.md
+          fi
+
+          echo "Found $FOUND stale branch(es)"
+          cat report.md
+      - name: Create or update issue
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TITLE="Stale branches report"
+          EXISTING=$(gh issue list --state open --search "$TITLE" --json number --jq '.[0].number')
+
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body-file report.md
+          else
+            gh issue create --title "$TITLE" --body-file report.md --label "maintenance"
+          fi

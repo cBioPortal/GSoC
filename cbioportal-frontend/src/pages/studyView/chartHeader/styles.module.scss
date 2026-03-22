@@ -1,0 +1,82 @@
+$fontSize: 11px;
+$iconFontSize: 14px;
+
+.header {
+    display: flex;
+    align-items: center;
+    border-radius: $border-radius-base;
+    font-size: $fontSize;
+}
+
+.name {
+    flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center !important;
+    font-weight: bold;
+    background: #f5f5f5;
+    border-radius: $border-radius-base;
+}
+
+.draggable {
+    cursor: move;
+}
+
+.controls {
+    position: absolute;
+    border-radius: $border-radius-base;
+    right: -1px;
+    top: -1px;
+}
+
+.menuToggle {
+    padding: 1px !important;
+    line-height: 1 !important;
+    font-size: $iconFontSize - 1px !important;
+    margin-left: 4px;
+
+    i {
+        font-size: $iconFontSize;
+    }
+}
+
+.item {
+    margin-left: 4px;
+}
+
+.menuItemIcon {
+    margin-right: 5px;
+    width: 15px;
+}
+
+.disabledMenuItem {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.survivalIcon {
+    width: $fontSize - 1px;
+    height: $fontSize - 1px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.undo {
+    color: $brand-primary;
+}
+
+.downloadControl {
+    display: flex;
+    flex-direction: column;
+    button {
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
+}
+
+.dropdownHoverEffect:hover {
+    background-color: #f5f5f5;
+}

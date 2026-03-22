@@ -1,0 +1,31 @@
+$sample-color-primary: black;
+$sample-color-recurrence: orange;
+$sample-color-metastasis: red;
+$sample-color-cfdna: blue;
+$sample-color-xenograft: pink;
+$sample-color-organoid: paleVioletRed;
+$sample-color-plasma: gold;
+$sample-color-ctdna: lightblue;
+$sample-color-urine: yellow;
+$sample-color-exosome: purple;
+$sample-color-rna: grey;
+
+/* shared style and JS code variables */
+:export {
+    sampleColorPrimary: $sample-color-primary;
+    sampleColorRecurrence: $sample-color-recurrence;
+    sampleColorMetastasis: $sample-color-metastasis;
+    sampleColorCfdna: $sample-color-cfdna;
+    sampleColorXenograft: $sample-color-xenograft;
+    sampleColorOrganoid: $sample-color-organoid;
+    sampleColorPlasma: $sample-color-plasma;
+    sampleColorCtdna: $sample-color-ctdna;
+    sampleColorUrine: $sample-color-urine;
+    sampleColorExosome: $sample-color-exosome;
+    sampleColorRna: $sample-color-rna;
+}
+
+.clinical-spans {
+    display: inline-flex;
+    flex-wrap: wrap;
+}

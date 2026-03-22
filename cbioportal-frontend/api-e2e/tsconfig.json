@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "outDir": "./"
+  },
+  "types": [],
+  "files": ["./../src/shared/api/validation.ts"]
+}

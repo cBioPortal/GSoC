@@ -1,0 +1,103 @@
+@import '../featureTable/FunctionalImpact.scss';
+
+.header-annotation-container {
+    margin-top: 5px;
+    flex: 1;
+}
+
+.data-pills {
+    color: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+    margin-right: 5px;
+    margin-top: 2px;
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+
+.gene {
+    color: #1d75cd;
+}
+
+.default {
+}
+
+.mutation {
+}
+
+.hgvsg {
+    white-space: nowrap;
+    max-width: 320px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.oncogene,
+.oncogene a,
+.oncogene a:hover,
+.oncogene a:focus,
+.oncogene a:active,
+.oncogene a:visited {
+    color: $high;
+    text-decoration: none;
+}
+
+.tsg,
+.tsg a,
+.tsg a:hover,
+.tsg a:focus,
+.tsg a:active,
+.tsg a:visited {
+    color: $medium; // orange, same as loss-of-function
+    text-decoration: none;
+}
+
+.transcript-table-source {
+    font-size: 0.875rem;
+    text-decoration: none;
+    position: relative;
+}
+
+.transcript-table-source a,
+.transcript-table-source a:hover,
+.transcript-table-source a:focus,
+.transcript-table-source a:active {
+    color: rgb(44, 62, 80);
+}
+
+.header-annotation-pills {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.missense-mutation {
+    color: #008000;
+    font-weight: bold;
+}
+.trunc-mutation {
+    color: #000000;
+    font-weight: bold;
+}
+.inframe-mutation {
+    color: #8b4513;
+    font-weight: bold;
+}
+.other-mutation {
+    color: #cf58bc;
+    font-weight: bold;
+}
+.default-mutation {
+    color: #bb0000;
+    font-weight: bold;
+}
+.fusion {
+    color: #8b00c9;
+    font-weight: bold;
+}
+.splice {
+    color: #e5802b;
+    font-weight: bold;
+}

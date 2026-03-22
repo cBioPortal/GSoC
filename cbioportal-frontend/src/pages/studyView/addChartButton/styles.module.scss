@@ -1,0 +1,54 @@
+.modalHeader {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.addChart {
+    position: absolute;
+    z-index: 999;
+    opacity: 0.8;
+}
+
+.addChart:focus,
+.addChart:hover {
+    opacity: 1;
+}
+
+.child {
+    background-color: $brand-primary !important;
+    color: white !important;
+}
+
+.child:focus,
+.child:hover {
+    color: white !important;
+}
+
+.childContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.modalHeader {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.faCharC:before {
+    font-family: Arial; /* your font family here! */
+    font-weight: bold;
+    content: 'C';
+}
+
+.faCharG:before {
+    font-family: Arial; /* your font family here! */
+    font-weight: bold;
+    content: 'G';
+}
+
+.sharedChart {
+    background-color: #ffffaa !important;
+}

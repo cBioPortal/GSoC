@@ -1,0 +1,17 @@
+.error {
+    color: #fff;
+    display: inline-block;
+    margin: 2px 2px 2px 0;
+    padding: 5px 10px;
+    border-radius: 2px;
+    background: $redError;
+
+    span.icon {
+        color: #fff;
+        line-height: 17px;
+        margin: 0 5px 0 0;
+    }
+
+    .message {
+    }
+}

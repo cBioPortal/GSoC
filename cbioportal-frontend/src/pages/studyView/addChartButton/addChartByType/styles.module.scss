@@ -1,0 +1,55 @@
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+.operations {
+    display: flex;
+    justify-content: space-between;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+}
+
+.option {
+    margin-top: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.markedForDeletion {
+    color: #cccccc;
+    text-decoration: line-through black;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input {
+    margin-right: 5px !important;
+}
+
+.label {
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    font-weight: normal !important;
+    cursor: pointer;
+    display: flex !important;
+}
+
+.labelDisabled {
+    color: #cccccc;
+    cursor: default;
+}
+
+.sharedChart {
+    background-color: #ffffaa !important;
+}

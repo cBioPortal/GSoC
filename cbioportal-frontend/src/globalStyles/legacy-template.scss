@@ -1,0 +1,42 @@
+.isolateNetwork #tabs {
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.isolateNetwork #network {
+    display: block !important;
+}
+
+.isolateNetwork #tabs > .ui-tabs-nav {
+    display: none;
+}
+
+.isolateNetwork .main_smry {
+    display: none;
+}
+
+.isolateNetwork #footer {
+    display: none;
+}
+
+.isolateNetwork .ui-tabs-panel#network {
+    padding: 0 !important;
+    margin: 0;
+    height: auto;
+}
+
+.isolateNetwork #vis_content {
+    width: 827px;
+    border: none;
+}
+
+.isolateNetwork .pageTopContainer {
+    display: none;
+}
+
+body.isolateNetwork {
+    overflow: hidden;
+}

@@ -1,0 +1,23 @@
+.default-track-tooltip-table {
+    .rt-table .rt-tbody .rt-td {
+        padding: 4px 5px;
+    }
+
+    .-pagination {
+        font-size: 0.65rem;
+
+        .-center {
+            flex-grow: 6;
+        }
+
+        .-pageSizeOptions {
+            display: none;
+        }
+
+        .-pageJump {
+            input {
+                width: 3rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+#footer {
+    font-size: 12px;
+    border-top: 1px solid #ddd;
+    background: $main-bg;
+
+    .footer-layout {
+        display: flex;
+        text-align: left;
+        justify-content: space-between;
+        max-width: 1024px;
+        margin: auto;
+
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        h3 {
+            color: #666 !important;
+            font-size: 15px;
+        }
+
+        ul {
+            line-height: 20px;
+            color: #666 !important;
+            list-style: none;
+            padding-left: 0;
+        }
+    }
+}

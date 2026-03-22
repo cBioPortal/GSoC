@@ -1,0 +1,34 @@
+@import '../../../globalStyles/mixins';
+
+$wide: 10px;
+$regular: 5px;
+
+.main {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-size: 13px;
+    display: flex;
+    align-content: center;
+}
+
+.content {
+    margin: $regular $wide $regular $wide;
+}
+
+.delete {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: $regular;
+    margin: $regular $regular $regular 0;
+    border-left: 1px dashed white;
+    cursor: pointer;
+}
+.pending {
+    opacity: 0.4;
+    @include marching-ants();
+}
+.pendingDelete {
+    text-decoration: line-through;
+}

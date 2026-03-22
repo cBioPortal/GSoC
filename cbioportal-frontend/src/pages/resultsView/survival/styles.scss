@@ -1,0 +1,36 @@
+.RangeSliderContainer {
+    width: 300px;
+    margin-left: 10px;
+    margin-right: 10px;
+    .rangeslider {
+        margin: 0;
+        .rangeslider__handle {
+            height: 10px;
+            width: 10px;
+            &:after {
+                display: none;
+            }
+        }
+        .rangeslider__fill {
+            background-image: -webkit-linear-gradient(
+                top,
+                #89cdef 0,
+                #81bfde 100%
+            );
+            background-image: -o-linear-gradient(top, #89cdef 0, #81bfde 100%);
+            background-image: linear-gradient(
+                to bottom,
+                #89cdef 0,
+                #81bfde 100%
+            );
+            background-repeat: repeat-x;
+        }
+    }
+}
+
+.SurvivalPrefixTableVisibilityColumn {
+    .dropdown-menu {
+        width: 230px;
+        white-space: normal !important;
+    }
+}

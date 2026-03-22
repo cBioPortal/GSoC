@@ -1,0 +1,44 @@
+package org.cbioportal.legacy.model;
+
+import jakarta.validation.constraints.NotNull;
+import java.io.Serializable;
+
+public class MutationCountByPosition implements Serializable {
+
+  @NotNull private Integer entrezGeneId;
+  @NotNull private Integer proteinPosStart;
+  @NotNull private Integer proteinPosEnd;
+  @NotNull private Integer count;
+
+  public Integer getEntrezGeneId() {
+    return entrezGeneId;
+  }
+
+  public void setEntrezGeneId(Integer entrezGeneId) {
+    this.entrezGeneId = entrezGeneId;
+  }
+
+  public Integer getProteinPosStart() {
+    return proteinPosStart;
+  }
+
+  public void setProteinPosStart(Integer proteinPosStart) {
+    this.proteinPosStart = proteinPosStart;
+  }
+
+  public Integer getProteinPosEnd() {
+    return proteinPosEnd;
+  }
+
+  public void setProteinPosEnd(Integer proteinPosEnd) {
+    this.proteinPosEnd = proteinPosEnd;
+  }
+
+  public Integer getCount() {
+    return count;
+  }
+
+  public void setCount(Integer count) {
+    this.count = count;
+  }
+}

@@ -1,0 +1,2405 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This page shows how to use HTTP requests to access the Genome Nexus API. There are more high level clients available in Python, R, JavaScript, TypeScript and various other languages as well as a command line client to annotate MAF and VCF. See https://docs.genomenexus.org/api.\n\nAside from programmatic clients there are web based tools to annotate variants, see https://docs.genomenexus.org/tools.\n\n We currently only provide long-term support for the '/annotation' endpoint. The other endpoints might change.",
+    "version": "2.0",
+    "title": "Genome Nexus API",
+    "license": {
+      "name": "MIT License",
+      "url": "https://github.com/genome-nexus/genome-nexus/blob/master/LICENSE"
+    }
+  },
+  "tags": [
+    {
+      "name": "cross-reference-controller",
+      "description": "Cross Reference Controller"
+    },
+    {
+      "name": "signal-mutation-controller",
+      "description": "Signal Mutation Controller"
+    },
+    {
+      "name": "search-controller",
+      "description": "Search Controller"
+    },
+    {
+      "name": "cancer-hotspots-controller",
+      "description": "Cancer Hotspots Controller"
+    },
+    {
+      "name": "mutation-assessor-controller",
+      "description": "Mutation Assessor Controller"
+    },
+    {
+      "name": "annotation-summary-controller",
+      "description": "Annotation Summary Controller"
+    },
+    {
+      "name": "curious-cases-controller",
+      "description": "Curious Cases Controller"
+    },
+    {
+      "name": "signal-query-controller",
+      "description": "Signal Query Controller"
+    },
+    {
+      "name": "my-variant-info-controller",
+      "description": "My Variant Info Controller"
+    },
+    {
+      "name": "nucleotide-context-controller",
+      "description": "Nucleotide Context Controller"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/annotation/summary": {
+      "post": {
+        "tags": [
+          "annotation-summary-controller"
+        ],
+        "summary": "Retrieves VEP annotation summary for the provided list of variants",
+        "operationId": "fetchVariantAnnotationSummaryPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "variants",
+            "description": "List of variants. For example [\"X:g.66937331T>A\",\"17:g.41242962_41242963insGA\"] (GRCh37) or [\"1:g.182712A>C\", \"2:g.265023C>T\", \"3:g.319781del\", \"19:g.110753dup\", \"1:g.1385015_1387562del\"] (GRCh38)",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "isoformOverrideSource",
+            "in": "query",
+            "description": "Isoform override source. For example uniprot",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projection",
+            "in": "query",
+            "description": "Indicates whether to return summary for all transcripts or only for canonical transcript",
+            "required": false,
+            "type": "string",
+            "default": "ALL",
+            "enum": [
+              "ALL",
+              "CANONICAL"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/VariantAnnotationSummary"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/annotation/summary/{variant}": {
+      "get": {
+        "tags": [
+          "annotation-summary-controller"
+        ],
+        "summary": "Retrieves VEP annotation summary for the provided variant",
+        "operationId": "fetchVariantAnnotationSummaryGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "variant",
+            "in": "path",
+            "description": "Variant. For example 17:g.41242962_41242963insGA",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isoformOverrideSource",
+            "in": "query",
+            "description": "Isoform override source. For example uniprot",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projection",
+            "in": "query",
+            "description": "Indicates whether to return summary for all transcripts or only for canonical transcript",
+            "required": false,
+            "type": "string",
+            "default": "ALL",
+            "enum": [
+              "ALL",
+              "CANONICAL"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/VariantAnnotationSummary"
+            }
+          }
+        }
+      }
+    },
+    "/cancer_hotspots/genomic": {
+      "post": {
+        "tags": [
+          "cancer-hotspots-controller"
+        ],
+        "summary": "Retrieves hotspot annotations for the provided list of genomic locations",
+        "operationId": "fetchHotspotAnnotationByGenomicLocationPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "genomicLocations",
+            "description": "List of genomic locations.",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GenomicLocation"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AggregatedHotspots"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cancer_hotspots/genomic/{genomicLocation}": {
+      "get": {
+        "tags": [
+          "cancer-hotspots-controller"
+        ],
+        "summary": "Retrieves hotspot annotations for a specific genomic location",
+        "operationId": "fetchHotspotAnnotationByGenomicLocationGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "genomicLocation",
+            "in": "path",
+            "description": "A genomic location. For example 7,140453136,140453136,A,T",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Hotspot"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cancer_hotspots/hgvs": {
+      "post": {
+        "tags": [
+          "cancer-hotspots-controller"
+        ],
+        "summary": "Retrieves hotspot annotations for the provided list of variants",
+        "operationId": "fetchHotspotAnnotationByHgvsPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "variants",
+            "description": "List of variants. For example [\"7:g.140453136A>T\",\"12:g.25398285C>A\"]",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AggregatedHotspots"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cancer_hotspots/hgvs/{variant}": {
+      "get": {
+        "tags": [
+          "cancer-hotspots-controller"
+        ],
+        "summary": "Retrieves hotspot annotations for a specific variant",
+        "operationId": "fetchHotspotAnnotationByHgvsGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "variant",
+            "in": "path",
+            "description": "A variant. For example 7:g.140453136A>T",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Hotspot"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cancer_hotspots/proteinLocations": {
+      "post": {
+        "tags": [
+          "cancer-hotspots-controller"
+        ],
+        "summary": "Retrieves hotspot annotations for the provided list of transcript id, protein location and mutation type",
+        "operationId": "fetchHotspotAnnotationByProteinLocationsPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "proteinLocations",
+            "description": "List of transcript id, protein start location, protein end location, mutation type. \bThe mutation types are limited to 'Missense_Mutation', 'In_Frame_Ins', 'In_Frame_Del', 'Splice_Site', and 'Splice_Region'",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProteinLocation"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AggregatedHotspots"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cancer_hotspots/transcript": {
+      "post": {
+        "tags": [
+          "cancer-hotspots-controller"
+        ],
+        "summary": "Retrieves hotspot annotations for the provided list of transcript ID",
+        "operationId": "fetchHotspotAnnotationByTranscriptIdPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "transcriptIds",
+            "description": "List of transcript Id. For example [\"ENST00000288602\",\"ENST00000256078\"]",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AggregatedHotspots"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cancer_hotspots/transcript/{transcriptId}": {
+      "get": {
+        "tags": [
+          "cancer-hotspots-controller"
+        ],
+        "summary": "Retrieves hotspot annotations for the provided transcript ID",
+        "operationId": "fetchHotspotAnnotationByTranscriptIdGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "transcriptId",
+            "in": "path",
+            "description": "A Transcript Id. For example ENST00000288602",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Hotspot"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/curious_cases/{genomicLocation}": {
+      "get": {
+        "tags": [
+          "curious-cases-controller"
+        ],
+        "summary": "Retrieves Curious Cases info by a genomic location",
+        "operationId": "fetchCuriousCasesGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "genomicLocation",
+            "in": "path",
+            "description": "Genomic location, for example: 7,116411883,116411905,TTCTTTCTCTCTGTTTTAAGATC,-",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CuriousCases"
+            }
+          }
+        }
+      }
+    },
+    "/mutation_assessor": {
+      "post": {
+        "tags": [
+          "mutation-assessor-controller"
+        ],
+        "summary": "Retrieves mutation assessor information for the provided list of variants",
+        "operationId": "postMutationAssessor",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "variants",
+            "description": "List of variants. For example [\"7:g.140453136A>T\",\"12:g.25398285C>A\"]",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MutationAssessor"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mutation_assessor/{variant}": {
+      "get": {
+        "tags": [
+          "mutation-assessor-controller"
+        ],
+        "summary": "Retrieves mutation assessor information for the provided list of variants",
+        "operationId": "fetchMutationAssessorGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "variant",
+            "in": "path",
+            "description": "A variant. For example 7:g.140453136A>T",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MutationAssessor"
+            }
+          }
+        }
+      }
+    },
+    "/my_variant_info/variant": {
+      "post": {
+        "tags": [
+          "my-variant-info-controller"
+        ],
+        "summary": "Retrieves myvariant information for the provided list of variants",
+        "operationId": "postMyVariantInfoAnnotation",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "variants",
+            "description": "List of variants. For example [\"7:g.140453136A>T\",\"12:g.25398285C>A\"]",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MyVariantInfo"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/my_variant_info/variant/{variant}": {
+      "get": {
+        "tags": [
+          "my-variant-info-controller"
+        ],
+        "summary": "Retrieves myvariant information for the provided list of variants",
+        "operationId": "fetchMyVariantInfoAnnotationGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "variant",
+            "in": "path",
+            "description": ". For example 7:g.140453136A>T",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MyVariantInfo"
+            }
+          }
+        }
+      }
+    },
+    "/nucleotide_context": {
+      "post": {
+        "tags": [
+          "nucleotide-context-controller"
+        ],
+        "summary": "Retrieves nucleotide context information for the provided list of variants",
+        "operationId": "postNucleotideContextAnnotation",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "variants",
+            "description": "List of variants. For example [\"7:g.140453136A>T\",\"12:g.25398285C>A\"]",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NucleotideContext"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nucleotide_context/{variant}": {
+      "get": {
+        "tags": [
+          "nucleotide-context-controller"
+        ],
+        "summary": "Retrieves nucleotide context information for the provided list of variants",
+        "operationId": "fetchNucleotideContextAnnotationGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "variant",
+            "in": "path",
+            "description": "A variant. For example 7:g.140453136A>T",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/NucleotideContext"
+            }
+          }
+        }
+      }
+    },
+    "/search": {
+      "get": {
+        "tags": [
+          "search-controller"
+        ],
+        "summary": "Performs index search.",
+        "operationId": "searchAnnotationByKeywordGETUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "keyword. For example 13:g.32890665G>A, TP53 p.R273C, BRAF c.1799T>A",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Max number of matching results to return",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IndexSearch"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/signal/mutation": {
+      "get": {
+        "tags": [
+          "signal-mutation-controller"
+        ],
+        "summary": "Retrieves SignalDB mutations by Hugo Gene Symbol",
+        "operationId": "fetchSignalMutationsByHugoSymbolGETUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "hugoGeneSymbol",
+            "in": "query",
+            "description": "Hugo Symbol. For example BRCA1",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SignalMutation"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "signal-mutation-controller"
+        ],
+        "summary": "Retrieves SignalDB mutations by Mutation Filter",
+        "operationId": "fetchSignalMutationsByMutationFilterPOSTUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "mutationFilter",
+            "description": "List of Hugo Gene Symbols. For example [\"TP53\", \"PIK3CA\", \"BRCA1\"]",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SignalMutationFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SignalMutation"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/signal/mutation/hgvs/{variant}": {
+      "get": {
+        "tags": [
+          "signal-mutation-controller"
+        ],
+        "summary": "Retrieves SignalDB mutations by hgvgs variant",
+        "operationId": "fetchSignalMutationsByHgvsgGETUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "variant",
+            "in": "path",
+            "description": "A variant. For example 13:g.32890665G>A",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SignalMutation"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/signal/search": {
+      "get": {
+        "tags": [
+          "signal-query-controller"
+        ],
+        "summary": "Performs search by gene, protein change, variant or region.",
+        "operationId": "searchSignalByKeywordGETUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "keyword. For example BRCA; BRAF V600; 13:32906640-32906640; 13:g.32890665G>A",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Max number of matching results to return",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SignalQuery"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/xrefs/{accession}": {
+      "get": {
+        "tags": [
+          "cross-reference-controller"
+        ],
+        "summary": "Perform lookups of Ensembl identifiers and retrieve their external references in other databases",
+        "operationId": "fetchGeneXrefsGET_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "accession",
+            "in": "path",
+            "description": "Ensembl gene accession. For example ENSG00000169083",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GeneXref"
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    }
+  },
+  "definitions": {
+    "AggregatedHotspots": {
+      "type": "object",
+      "required": [
+        "genomicLocation",
+        "hotspots",
+        "variant"
+      ],
+      "properties": {
+        "genomicLocation": {
+          "description": "Genomic Location",
+          "$ref": "#/definitions/GenomicLocation"
+        },
+        "hotspots": {
+          "type": "array",
+          "description": "Hotspots",
+          "items": {
+            "$ref": "#/definitions/Hotspot"
+          }
+        },
+        "proteinLocation": {
+          "$ref": "#/definitions/ProteinLocation"
+        },
+        "transcriptId": {
+          "type": "string"
+        },
+        "variant": {
+          "type": "string",
+          "description": "HGVS notation"
+        }
+      }
+    },
+    "AlleleCount": {
+      "type": "object",
+      "required": [
+        "ac",
+        "ac_afr",
+        "ac_amr",
+        "ac_asj",
+        "ac_eas",
+        "ac_fin",
+        "ac_nfe",
+        "ac_oth",
+        "ac_sas"
+      ],
+      "properties": {
+        "ac": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ac_afr": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ac_amr": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ac_asj": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ac_eas": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ac_fin": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ac_nfe": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ac_oth": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ac_sas": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "AlleleFrequency": {
+      "type": "object",
+      "required": [
+        "af",
+        "af_afr",
+        "af_amr",
+        "af_asj",
+        "af_eas",
+        "af_fin",
+        "af_nfe",
+        "af_oth",
+        "af_sas"
+      ],
+      "properties": {
+        "af": {
+          "type": "number",
+          "format": "double"
+        },
+        "af_afr": {
+          "type": "number",
+          "format": "double"
+        },
+        "af_amr": {
+          "type": "number",
+          "format": "double"
+        },
+        "af_asj": {
+          "type": "number",
+          "format": "double"
+        },
+        "af_eas": {
+          "type": "number",
+          "format": "double"
+        },
+        "af_fin": {
+          "type": "number",
+          "format": "double"
+        },
+        "af_nfe": {
+          "type": "number",
+          "format": "double"
+        },
+        "af_oth": {
+          "type": "number",
+          "format": "double"
+        },
+        "af_sas": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "AlleleNumber": {
+      "type": "object",
+      "required": [
+        "an",
+        "an_afr",
+        "an_amr",
+        "an_asj",
+        "an_eas",
+        "an_fin",
+        "an_nfe",
+        "an_oth",
+        "an_sas"
+      ],
+      "properties": {
+        "an": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "an_afr": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "an_amr": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "an_asj": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "an_eas": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "an_fin": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "an_nfe": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "an_oth": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "an_sas": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Alleles": {
+      "type": "object",
+      "properties": {
+        "allele": {
+          "type": "string",
+          "description": "allele"
+        }
+      }
+    },
+    "AlphaMissense": {
+      "type": "object",
+      "properties": {
+        "pathogenicity": {
+          "type": "string"
+        },
+        "score": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "Cosmic": {
+      "type": "object",
+      "properties": {
+        "alt": {
+          "type": "string",
+          "description": "alt"
+        },
+        "chrom": {
+          "type": "string",
+          "description": "chrom"
+        },
+        "cosmicId": {
+          "type": "string",
+          "description": "cosmic_id"
+        },
+        "hg19": {
+          "description": "hg19",
+          "$ref": "#/definitions/Hg19"
+        },
+        "license": {
+          "type": "string",
+          "description": "_license"
+        },
+        "mutFreq": {
+          "type": "number",
+          "format": "double",
+          "description": "mut_freq"
+        },
+        "mutNt": {
+          "type": "string",
+          "description": "mut_nt"
+        },
+        "ref": {
+          "type": "string",
+          "description": "ref"
+        },
+        "tumorSite": {
+          "type": "string",
+          "description": "tumor_site"
+        }
+      }
+    },
+    "CountByTumorType": {
+      "type": "object",
+      "properties": {
+        "tumorType": {
+          "type": "string",
+          "description": "Tumor Type"
+        },
+        "tumorTypeCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Sample count for Tumor Type"
+        },
+        "variantCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Variant count for Tumor Type"
+        }
+      }
+    },
+    "CuriousCases": {
+      "type": "object",
+      "properties": {
+        "comment": {
+          "type": "string"
+        },
+        "genomicLocation": {
+          "type": "string"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        },
+        "pubmedIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "Dbsnp": {
+      "type": "object",
+      "properties": {
+        "_class": {
+          "type": "string",
+          "description": "class"
+        },
+        "alleleOrigin": {
+          "type": "string",
+          "description": "allele_origin"
+        },
+        "alleles": {
+          "type": "array",
+          "description": "alleles",
+          "items": {
+            "$ref": "#/definitions/Alleles"
+          }
+        },
+        "alt": {
+          "type": "string",
+          "description": "alt"
+        },
+        "chrom": {
+          "type": "string",
+          "description": "chrom"
+        },
+        "dbsnpBuild": {
+          "type": "integer",
+          "format": "int32",
+          "description": "dbsnp_build"
+        },
+        "flags": {
+          "type": "array",
+          "description": "flags",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hg19": {
+          "description": "hg19",
+          "$ref": "#/definitions/Hg19"
+        },
+        "license": {
+          "type": "string",
+          "description": "_license"
+        },
+        "ref": {
+          "type": "string",
+          "description": "ref"
+        },
+        "rsid": {
+          "type": "string",
+          "description": "rsid"
+        },
+        "validated": {
+          "type": "boolean",
+          "example": false,
+          "description": "validated"
+        },
+        "varSubtype": {
+          "type": "string",
+          "description": "var_subtype"
+        },
+        "vartype": {
+          "type": "string",
+          "description": "vartype"
+        }
+      }
+    },
+    "Gene": {
+      "type": "object",
+      "properties": {
+        "geneId": {
+          "type": "string",
+          "description": "geneid"
+        },
+        "symbol": {
+          "type": "string",
+          "description": "symbol"
+        }
+      }
+    },
+    "GeneXref": {
+      "type": "object",
+      "required": [
+        "db_display_name",
+        "dbname",
+        "description",
+        "display_id",
+        "primary_id",
+        "version"
+      ],
+      "properties": {
+        "db_display_name": {
+          "type": "string",
+          "description": "Database display name"
+        },
+        "dbname": {
+          "type": "string",
+          "description": "Database name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description"
+        },
+        "display_id": {
+          "type": "string",
+          "description": "Display id"
+        },
+        "ensemblGeneId": {
+          "type": "string"
+        },
+        "info_text": {
+          "type": "string",
+          "description": "Database info text"
+        },
+        "info_types": {
+          "type": "string",
+          "description": "Database info type"
+        },
+        "primary_id": {
+          "type": "string",
+          "description": "Primary id"
+        },
+        "synonyms": {
+          "type": "array",
+          "description": "Synonyms",
+          "items": {
+            "type": "string"
+          }
+        },
+        "version": {
+          "type": "string",
+          "description": "Version"
+        }
+      }
+    },
+    "GeneralPopulationStats": {
+      "type": "object",
+      "properties": {
+        "counts": {
+          "description": "Counts",
+          "$ref": "#/definitions/SignalPopulationStats"
+        },
+        "frequencies": {
+          "description": "Frequencies",
+          "$ref": "#/definitions/SignalPopulationStats"
+        }
+      }
+    },
+    "GenomicLocation": {
+      "type": "object",
+      "required": [
+        "chromosome",
+        "end",
+        "referenceAllele",
+        "start",
+        "variantAllele"
+      ],
+      "properties": {
+        "chromosome": {
+          "type": "string",
+          "description": "Chromosome"
+        },
+        "start": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Start Position"
+        },
+        "end": {
+          "type": "integer",
+          "format": "int32",
+          "description": "End Position"
+        },
+        "referenceAllele": {
+          "type": "string",
+          "description": "Reference Allele"
+        },
+        "variantAllele": {
+          "type": "string",
+          "description": "Variant Allele"
+        }
+      }
+    },
+    "Gnomad": {
+      "type": "object",
+      "properties": {
+        "alleleCount": {
+          "description": "ac",
+          "$ref": "#/definitions/AlleleCount"
+        },
+        "alleleFrequency": {
+          "description": "af",
+          "$ref": "#/definitions/AlleleFrequency"
+        },
+        "alleleNumber": {
+          "description": "an",
+          "$ref": "#/definitions/AlleleNumber"
+        },
+        "homozygotes": {
+          "description": "hom",
+          "$ref": "#/definitions/Homozygotes"
+        }
+      }
+    },
+    "Hg19": {
+      "type": "object",
+      "properties": {
+        "end": {
+          "type": "integer",
+          "format": "int32",
+          "description": "end"
+        },
+        "start": {
+          "type": "integer",
+          "format": "int32",
+          "description": "start"
+        }
+      }
+    },
+    "Hg38": {
+      "type": "object",
+      "properties": {
+        "end": {
+          "type": "string",
+          "description": "end"
+        },
+        "start": {
+          "type": "string",
+          "description": "start"
+        }
+      }
+    },
+    "Hgvs": {
+      "type": "object",
+      "properties": {
+        "coding": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "genomic": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "protein": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Homozygotes": {
+      "type": "object",
+      "required": [
+        "hom",
+        "hom_afr",
+        "hom_amr",
+        "hom_asj",
+        "hom_eas",
+        "hom_fin",
+        "hom_nfe",
+        "hom_oth",
+        "hom_sas"
+      ],
+      "properties": {
+        "hom": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hom_afr": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hom_amr": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hom_asj": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hom_eas": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hom_fin": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hom_nfe": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hom_oth": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hom_sas": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Hotspot": {
+      "type": "object",
+      "properties": {
+        "hugoSymbol": {
+          "type": "string",
+          "description": "Hugo gene symbol"
+        },
+        "inframeCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Inframe mutation count"
+        },
+        "missenseCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Missense mutation count"
+        },
+        "residue": {
+          "type": "string",
+          "description": "Hotspot residue"
+        },
+        "spliceCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Splice mutation count"
+        },
+        "transcriptId": {
+          "type": "string",
+          "description": "Ensembl Transcript Id"
+        },
+        "truncatingCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Truncation mutation count"
+        },
+        "tumorCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Tumor count"
+        },
+        "type": {
+          "type": "string",
+          "description": "Hotspot type"
+        }
+      }
+    },
+    "HrdScore": {
+      "type": "object",
+      "properties": {
+        "fractionLoh": {
+          "type": "number",
+          "format": "double",
+          "description": "Median HRD Fraction LOH"
+        },
+        "lst": {
+          "type": "number",
+          "format": "double",
+          "description": "Median HRD LST"
+        },
+        "ntelomericAi": {
+          "type": "number",
+          "format": "double",
+          "description": "Median HRD ntelomeric AI"
+        }
+      }
+    },
+    "Index": {
+      "type": "object",
+      "properties": {
+        "cdna": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hgvsc": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hgvsp": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hgvspShort": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hugoSymbol": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rsid": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "variant": {
+          "type": "string"
+        }
+      }
+    },
+    "IndexSearch": {
+      "type": "object",
+      "properties": {
+        "queryType": {
+          "type": "string",
+          "enum": [
+            "GENE_HGVSPSHORT",
+            "GENE_CDNA",
+            "GENE_HGVSP",
+            "HGVSG",
+            "HGVSC"
+          ]
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Index"
+          }
+        }
+      }
+    },
+    "IntegerRange": {
+      "type": "object",
+      "properties": {
+        "end": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "start": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "IntergenicConsequenceSummary": {
+      "type": "object",
+      "properties": {
+        "consequenceTerms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "impact": {
+          "type": "string"
+        },
+        "variantAllele": {
+          "type": "string"
+        },
+        "variantClassification": {
+          "type": "string"
+        }
+      }
+    },
+    "MutationAssessor": {
+      "type": "object",
+      "properties": {
+        "functionalImpactPrediction": {
+          "type": "string"
+        },
+        "functionalImpactScore": {
+          "type": "number",
+          "format": "double",
+          "description": "Functional impact score"
+        },
+        "hgvspShort": {
+          "type": "string"
+        },
+        "mav": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "msa": {
+          "type": "string"
+        },
+        "sv": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "uniprotId": {
+          "type": "string",
+          "description": "Uniprot protein accession ID"
+        }
+      }
+    },
+    "Mutdb": {
+      "type": "object",
+      "properties": {
+        "alt": {
+          "type": "string",
+          "description": "alt"
+        },
+        "chrom": {
+          "type": "string",
+          "description": "chrom"
+        },
+        "cosmicId": {
+          "type": "string",
+          "description": "cosmic_id"
+        },
+        "hg19": {
+          "description": "hg19",
+          "$ref": "#/definitions/Hg19"
+        },
+        "mutpredScore": {
+          "type": "number",
+          "format": "double",
+          "description": "mutpred_score"
+        },
+        "ref": {
+          "type": "string",
+          "description": "ref"
+        },
+        "rsid": {
+          "type": "string",
+          "description": "rsid"
+        },
+        "uniprotId": {
+          "type": "string",
+          "description": "uniprot_id"
+        }
+      }
+    },
+    "MyVariantInfo": {
+      "type": "object",
+      "properties": {
+        "clinVar": {
+          "description": "clinvar",
+          "$ref": "#/definitions/MyVariantInfoClinVar"
+        },
+        "cosmic": {
+          "description": "cosmic",
+          "$ref": "#/definitions/Cosmic"
+        },
+        "dbsnp": {
+          "description": "dbsnp",
+          "$ref": "#/definitions/Dbsnp"
+        },
+        "gnomadExome": {
+          "description": "gnomad_exome",
+          "$ref": "#/definitions/Gnomad"
+        },
+        "gnomadGenome": {
+          "description": "gnomad_genome",
+          "$ref": "#/definitions/Gnomad"
+        },
+        "hgvs": {
+          "type": "string",
+          "description": "hgvs"
+        },
+        "mutdb": {
+          "$ref": "#/definitions/Mutdb"
+        },
+        "query": {
+          "type": "string"
+        },
+        "snpeff": {
+          "description": "snpeff",
+          "$ref": "#/definitions/Snpeff"
+        },
+        "variant": {
+          "type": "string",
+          "description": "variant"
+        },
+        "vcf": {
+          "description": "vcf",
+          "$ref": "#/definitions/Vcf"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "version"
+        }
+      }
+    },
+    "MyVariantInfoClinVar": {
+      "type": "object",
+      "properties": {
+        "alleleId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "allele_id"
+        },
+        "alt": {
+          "type": "string",
+          "description": "alt"
+        },
+        "chrom": {
+          "type": "string",
+          "description": "chrom"
+        },
+        "cytogenic": {
+          "type": "string",
+          "description": "cytogenic"
+        },
+        "gene": {
+          "description": "gene",
+          "$ref": "#/definitions/Gene"
+        },
+        "hg19": {
+          "description": "hg19",
+          "$ref": "#/definitions/Hg19"
+        },
+        "hg38": {
+          "description": "hg38",
+          "$ref": "#/definitions/Hg38"
+        },
+        "hgvs": {
+          "description": "hgvs",
+          "$ref": "#/definitions/Hgvs"
+        },
+        "license": {
+          "type": "string",
+          "description": "license"
+        },
+        "rcv": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Rcv"
+          }
+        },
+        "variantId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "variant_id"
+        }
+      }
+    },
+    "NucleotideContext": {
+      "type": "object",
+      "required": [
+        "seq"
+      ],
+      "properties": {
+        "hgvs": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "molecule": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        },
+        "seq": {
+          "type": "string",
+          "description": "Nucleotide context sequence"
+        }
+      }
+    },
+    "ProteinLocation": {
+      "type": "object",
+      "required": [
+        "end",
+        "mutationType",
+        "start",
+        "transcriptId"
+      ],
+      "properties": {
+        "transcriptId": {
+          "type": "string",
+          "description": "Ensembl Transcript ID"
+        },
+        "start": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Start Position Residue"
+        },
+        "end": {
+          "type": "integer",
+          "format": "int32",
+          "description": "End Position Residue"
+        },
+        "mutationType": {
+          "type": "string",
+          "description": "Mutation Type e.g. Missense_Mutation"
+        }
+      }
+    },
+    "Rcv": {
+      "type": "object",
+      "properties": {
+        "accession": {
+          "type": "string",
+          "description": "accession"
+        },
+        "clinicalSignificance": {
+          "type": "string",
+          "description": "clinical_significance"
+        },
+        "origin": {
+          "type": "string",
+          "description": "origin"
+        },
+        "preferredName": {
+          "type": "string",
+          "description": "preferred_name"
+        }
+      }
+    },
+    "SignalMutation": {
+      "type": "object",
+      "properties": {
+        "biallelicCountsByTumorType": {
+          "type": "array",
+          "description": "Biallelic Counts by Tumor Type",
+          "items": {
+            "$ref": "#/definitions/CountByTumorType"
+          }
+        },
+        "chromosome": {
+          "type": "string",
+          "description": "Chromosome"
+        },
+        "countsByTumorType": {
+          "type": "array",
+          "description": "Counts by Tumor Type",
+          "items": {
+            "$ref": "#/definitions/CountByTumorType"
+          }
+        },
+        "endPosition": {
+          "type": "integer",
+          "format": "int64",
+          "description": "End Position"
+        },
+        "generalPopulationStats": {
+          "description": "General Population Stats",
+          "$ref": "#/definitions/GeneralPopulationStats"
+        },
+        "hugoGeneSymbol": {
+          "type": "string",
+          "description": "Hugo Gene Symbol"
+        },
+        "mskExperReview": {
+          "type": "boolean",
+          "example": false,
+          "description": "Msk Expert Review"
+        },
+        "mutationStatus": {
+          "type": "string",
+          "description": "Mutation Status"
+        },
+        "overallNumberOfGermlineHomozygous": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pathogenic": {
+          "type": "string",
+          "description": "Pathogenic"
+        },
+        "penetrance": {
+          "type": "string",
+          "description": "Penetrance"
+        },
+        "qcPassCountsByTumorType": {
+          "type": "array",
+          "description": "QC Pass Counts by Tumor Type",
+          "items": {
+            "$ref": "#/definitions/CountByTumorType"
+          }
+        },
+        "referenceAllele": {
+          "type": "string",
+          "description": "Reference Allele"
+        },
+        "startPosition": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Start Position"
+        },
+        "statsByTumorType": {
+          "type": "array",
+          "description": "Stats By Tumor Type",
+          "items": {
+            "$ref": "#/definitions/StatsByTumorType"
+          }
+        },
+        "variantAllele": {
+          "type": "string",
+          "description": "Variant Allele"
+        }
+      }
+    },
+    "SignalMutationFilter": {
+      "type": "object",
+      "properties": {
+        "hugoSymbols": {
+          "type": "array",
+          "description": "List of Hugo Symbols. For example [\"TP53\", \"PIK3CA\", \"BRCA1\"]",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "SignalPopulationStats": {
+      "type": "object",
+      "properties": {
+        "afr": {
+          "type": "number",
+          "format": "double",
+          "description": "African/African American"
+        },
+        "asj": {
+          "type": "number",
+          "format": "double",
+          "description": "Ashkenazi Jewish"
+        },
+        "asn": {
+          "type": "number",
+          "format": "double",
+          "description": "Asian"
+        },
+        "eur": {
+          "type": "number",
+          "format": "double",
+          "description": "European"
+        },
+        "impact": {
+          "type": "number",
+          "format": "double",
+          "description": "Impact"
+        },
+        "oth": {
+          "type": "number",
+          "format": "double",
+          "description": "Other"
+        }
+      }
+    },
+    "SignalQuery": {
+      "type": "object",
+      "properties": {
+        "alteration": {
+          "type": "string",
+          "description": "Matching Alteration (e.g: V600E)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional free-form text"
+        },
+        "hugoSymbol": {
+          "type": "string",
+          "description": "Matching Hugo Gene Symbol (e.g: BRCA2, BRAF)"
+        },
+        "matchType": {
+          "type": "string",
+          "description": "Match Type",
+          "enum": [
+            "EXACT",
+            "STARTS_WITH",
+            "PARTIAL",
+            "NO_MATCH"
+          ]
+        },
+        "queryType": {
+          "type": "string",
+          "description": "Query Type",
+          "enum": [
+            "GENE",
+            "ALTERATION",
+            "VARIANT",
+            "REGION"
+          ]
+        },
+        "region": {
+          "type": "string",
+          "description": "Matching Region (e.g: 13:32968940-32968940)"
+        },
+        "variant": {
+          "type": "string",
+          "description": "Matching HGVSG Variant (e.g: 17:g.37880220T>C)"
+        }
+      }
+    },
+    "Snpeff": {
+      "type": "object",
+      "properties": {
+        "license": {
+          "type": "string",
+          "description": "license"
+        }
+      }
+    },
+    "StatsByTumorType": {
+      "type": "object",
+      "properties": {
+        "ageAtDx": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Median Age at Dx"
+        },
+        "fBiallelic": {
+          "type": "number",
+          "format": "double",
+          "description": "Frequency Of Biallelic"
+        },
+        "fCancerTypeCount": {
+          "type": "number",
+          "format": "double",
+          "description": "Frequency Of Cancer Type Count"
+        },
+        "hrdScore": {
+          "description": "Hrd Score",
+          "$ref": "#/definitions/HrdScore"
+        },
+        "msiScore": {
+          "type": "number",
+          "format": "double",
+          "description": "Msi Score"
+        },
+        "nCancerTypeCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number Of Cancer Type Count"
+        },
+        "numberOfGermlineHomozygous": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number Of Germline Homozygous Per Tumor Type"
+        },
+        "numberWithSig": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of Variants with Signature"
+        },
+        "tmb": {
+          "type": "number",
+          "format": "double",
+          "description": "Median TMB"
+        },
+        "tumorType": {
+          "type": "string",
+          "description": "Tumor Type"
+        }
+      }
+    },
+    "TranscriptConsequenceSummary": {
+      "type": "object",
+      "required": [
+        "transcriptId"
+      ],
+      "properties": {
+        "alphaMissense": {
+          "$ref": "#/definitions/AlphaMissense"
+        },
+        "aminoAcidAlt": {
+          "type": "string",
+          "description": "Alt Amino Acid"
+        },
+        "aminoAcidRef": {
+          "type": "string",
+          "description": "Reference Amino Acid"
+        },
+        "aminoAcids": {
+          "type": "string",
+          "description": "Amino acids change"
+        },
+        "codonChange": {
+          "type": "string",
+          "description": "Codon change"
+        },
+        "consequenceTerms": {
+          "type": "string",
+          "description": "Consequence terms (comma separated)"
+        },
+        "entrezGeneId": {
+          "type": "string",
+          "description": "Entrez gene id"
+        },
+        "exon": {
+          "type": "string"
+        },
+        "hgvsc": {
+          "type": "string",
+          "description": "HGVSc"
+        },
+        "hgvsp": {
+          "type": "string",
+          "description": "HGVSp"
+        },
+        "hgvspShort": {
+          "type": "string",
+          "description": "HGVSp short"
+        },
+        "hugoGeneSymbol": {
+          "type": "string",
+          "description": "Hugo gene symbol"
+        },
+        "isVue": {
+          "type": "boolean"
+        },
+        "polyphenPrediction": {
+          "type": "string",
+          "description": "Polyphen Prediction"
+        },
+        "polyphenScore": {
+          "type": "number",
+          "format": "double",
+          "description": "Polyphen Score"
+        },
+        "proteinPosition": {
+          "description": "Protein position (start and end)",
+          "$ref": "#/definitions/IntegerRange"
+        },
+        "refSeq": {
+          "type": "string",
+          "description": "RefSeq id"
+        },
+        "siftPrediction": {
+          "type": "string",
+          "description": "Sift Prediction"
+        },
+        "siftScore": {
+          "type": "number",
+          "format": "double",
+          "description": "Sift Score"
+        },
+        "transcriptId": {
+          "type": "string",
+          "description": "Transcript id"
+        },
+        "uniprotId": {
+          "type": "string",
+          "description": "Uniprot ID"
+        },
+        "variantClassification": {
+          "type": "string",
+          "description": "Variant classification"
+        }
+      }
+    },
+    "VariantAnnotationSummary": {
+      "type": "object",
+      "required": [
+        "transcriptConsequenceSummaries",
+        "transcriptConsequenceSummary",
+        "transcriptConsequences",
+        "variant"
+      ],
+      "properties": {
+        "alphaMissense": {
+          "$ref": "#/definitions/AlphaMissense"
+        },
+        "assemblyName": {
+          "type": "string",
+          "description": "Assembly name"
+        },
+        "canonicalTranscriptId": {
+          "type": "string",
+          "description": "Canonical transcript id"
+        },
+        "genomicLocation": {
+          "description": "Genomic location",
+          "$ref": "#/definitions/GenomicLocation"
+        },
+        "intergenicConsequenceSummaries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IntergenicConsequenceSummary"
+          }
+        },
+        "strandSign": {
+          "type": "string",
+          "description": "Strand (- or +)"
+        },
+        "transcriptConsequenceSummaries": {
+          "type": "array",
+          "description": "All transcript consequence summaries",
+          "items": {
+            "$ref": "#/definitions/TranscriptConsequenceSummary"
+          }
+        },
+        "transcriptConsequenceSummary": {
+          "description": "Most impactful transcript consequence of canonical transcript or if non-existent any transcript",
+          "$ref": "#/definitions/TranscriptConsequenceSummary"
+        },
+        "transcriptConsequences": {
+          "type": "array",
+          "description": "(Deprecated) Transcript consequence summaries (list of one when using annotation/, multiple when using annotation/summary/",
+          "items": {
+            "$ref": "#/definitions/TranscriptConsequenceSummary"
+          }
+        },
+        "variant": {
+          "type": "string",
+          "description": "Variant key"
+        },
+        "variantType": {
+          "type": "string",
+          "description": "Variant type"
+        },
+        "vues": {
+          "$ref": "#/definitions/Vues"
+        }
+      }
+    },
+    "Vcf": {
+      "type": "object",
+      "properties": {
+        "alt": {
+          "type": "string",
+          "description": "alt"
+        },
+        "position": {
+          "type": "string",
+          "description": "position"
+        },
+        "ref": {
+          "type": "string",
+          "description": "ref"
+        }
+      }
+    },
+    "VueReference": {
+      "type": "object",
+      "properties": {
+        "pubmedId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "referenceText": {
+          "type": "string"
+        }
+      }
+    },
+    "Vues": {
+      "type": "object",
+      "properties": {
+        "comment": {
+          "type": "string"
+        },
+        "confirmed": {
+          "type": "boolean"
+        },
+        "context": {
+          "type": "string"
+        },
+        "defaultEffect": {
+          "type": "string"
+        },
+        "genomicLocation": {
+          "type": "string"
+        },
+        "genomicLocationDescription": {
+          "type": "string"
+        },
+        "hugoGeneSymbol": {
+          "type": "string"
+        },
+        "mutationOrigin": {
+          "type": "string"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VueReference"
+          }
+        },
+        "revisedProteinEffect": {
+          "type": "string"
+        },
+        "revisedVariantClassification": {
+          "type": "string"
+        },
+        "revisedVariantClassificationStandard": {
+          "type": "string"
+        },
+        "transcriptId": {
+          "type": "string"
+        },
+        "variant": {
+          "type": "string"
+        },
+        "vepPredictedProteinEffect": {
+          "type": "string"
+        },
+        "vepPredictedVariantClassification": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "end-to-end",
+  "version": "1.0.0",
+  "description": "Dependencies for running tests with webdriverio and browserstack",
+  "main": "index.js",
+  "scripts": {
+    "test-webdriver-manager": "npx wdio  ./shared/wdio/wdio.conf.js",
+    "test-webdriver-manager-local": "export TEST_TYPE=local && export MANAGER_MAX_INSTANCES=2 && yarn run test-webdriver-manager",
+    "test-webdriver-manager-remote": "export TEST_TYPE=remote && yarn run test-webdriver-manager",
+    "test-webdriver-manager-debug": "(DEBUG=true npx wdio ./shared/wdio/wdio.conf.js --inspect || bash shared/image-compare/upload_failed_screenshots.sh)",
+    "clean-local": "rm -rf undefined/ && rm results*.xml && rm customReport*",
+    "clear": "rm -rf remote/screenshots/screen/; rm -rf remote/screenshots/error/; rm -rf remote/screenshots/diff/; rm -rf remote/screenshots/junit/; rm -rf local/screenshots/screen/; rm -rf local/screenshots/diff/; rm -rf local/screenshots/error/; rm -rf local/screenshots/junit/;",
+    "wdio": "npx wdio ./shared/wdio/wdio.conf.js"
+  },
+  "author": "",
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "@wdio/cli": "7.35",
+    "@wdio/codemod": "^0.12.0",
+    "@wdio/devtools-service": "7.30.2",
+    "@wdio/junit-reporter": "7",
+    "browserstack-local": "1.3.0",
+    "clipboardy": "^2.0.0",
+    "fs-extra": "^9.0.1",
+    "node-ipc": "^9.1.3",
+    "wdio-browserstack-service": "0.1.4",
+    "wdio-errorshot-reporter": "^0.2.1",
+    "wdio-junit-reporter": "^0.3.1",
+    "wdio-novus-visual-regression-service": "^1.2.4",
+    "wdio-spec-reporter": "0.1.0",
+    "wdio-timeline-reporter": "^5.1.4"
+  },
+  "devDependencies": {
+    "@wdio/local-runner": "7",
+    "@wdio/mocha-framework": "7",
+    "@wdio/spec-reporter": "7",
+    "chromedriver": "^145.0.1",
+    "wdio-chromedriver-service": "7",
+    "wdio-json-reporter": "^2.0.0"
+  }
+}

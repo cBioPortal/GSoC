@@ -1,0 +1,19 @@
+.variantPage {
+    max-width: 1391px !important;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    padding: 0 20px;
+    .row {
+        display: block;
+    }
+}
+
+.loadingIndicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
+
+.pageBody {
+    font-size: 0.875rem;
+}

@@ -1,0 +1,53 @@
+.coexpression-plot-data-tooltip {
+    div {
+        font-size: 12px;
+    }
+    max-width: none !important; //override bootstrap
+}
+
+.coexpression-plot-toolbar-elt {
+    display: inline-block !important;
+    margin-right: 10px !important;
+}
+
+$coExpressionSelectProfileOuterHeight: 30px;
+$coExpressionSelectProfileGutter: 4px;
+$coExpressionSelectProfileInnerHeight: $coExpressionSelectProfileOuterHeight -
+    $coExpressionSelectProfileGutter;
+
+.coexpression-select-profile .Select-control {
+    height: $coExpressionSelectProfileOuterHeight;
+
+    .Select-value {
+        line-height: $coExpressionSelectProfileInnerHeight !important;
+
+        .Select-value-label {
+            line-height: $coExpressionSelectProfileInnerHeight;
+        }
+    }
+
+    .Select-input {
+        height: $coExpressionSelectProfileInnerHeight;
+    }
+}
+
+$coExpressionSelectTableModeOuterHeight: 30px;
+$coExpressionSelectTableModeGutter: 4px;
+$coExpressionSelectTableModeInnerHeight: $coExpressionSelectProfileOuterHeight -
+    $coExpressionSelectProfileGutter;
+
+.coexpression-select-table-mode .Select-control {
+    height: $coExpressionSelectTableModeOuterHeight;
+
+    .Select-value {
+        line-height: $coExpressionSelectTableModeInnerHeight !important;
+
+        .Select-value-label {
+            line-height: $coExpressionSelectTableModeInnerHeight;
+        }
+    }
+
+    .Select-input {
+        height: $coExpressionSelectTableModeInnerHeight;
+    }
+}

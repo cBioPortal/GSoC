@@ -1,0 +1,17 @@
+.lollipop_mutation_plot__controls {
+    .rangeslider {
+        margin: 0;
+        .rangeslider__handle {
+            height: 10px;
+            width: 10px;
+            &:after {
+                display: none;
+            }
+        }
+    }
+}
+
+.hide-svg {
+    position: absolute;
+    top: 0;
+}

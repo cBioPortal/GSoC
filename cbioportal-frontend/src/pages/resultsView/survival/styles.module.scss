@@ -1,0 +1,49 @@
+.SurvivalTable {
+    margin: 30px auto;
+    width: 70%;
+}
+
+.SurvivalTable table {
+    border-collapse: collapse !important;
+}
+
+.SurvivalTable td {
+    border: 1px solid black;
+    padding: 0 10px;
+    text-align: center;
+    font-size: 12px;
+    background-color: #f8f8f8;
+    white-space: nowrap;
+}
+
+.Tooltip {
+    div {
+        font-size: 12px;
+    }
+    max-width: none !important; //override bootstrap
+    white-space: nowrap;
+    div:last-child {
+        white-space: nowrap !important;
+    }
+}
+
+.NotAvailable {
+    font-size: 18px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.XmaxNumberInput {
+    margin-right: 5px;
+    cursor: auto !important;
+    border: 1px inset;
+    height: 18px;
+    padding: 0 5px 0 5px;
+    display: inline-block;
+}
+
+.paddingLeftTruncationCheckbox {
+    padding: 0px 10px;
+    background-color: white;
+    margin-bottom: 3px;
+}

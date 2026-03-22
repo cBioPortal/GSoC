@@ -1,0 +1,35 @@
+@import '../featureTable/FunctionalImpact.scss';
+
+// This module comes from cBioPortal-frontend
+
+.sift-deleterious {
+    background-color: $high;
+    font-weight: bold;
+    color: white !important;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+}
+
+.sift-deleterious_low_confidence {
+    background-color: $low;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+}
+
+.sift-tolerated_low_confidence,
+.sift-tolerated {
+    background-color: $neutral;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+}
+
+.sift-tooltip-table {
+    td:first-child {
+        padding-right: 5px;
+    }
+}

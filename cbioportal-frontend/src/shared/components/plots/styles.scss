@@ -1,0 +1,195 @@
+.lockIcon {
+    color: #000000;
+}
+
+.plotsTab {
+    .chartWrapper {
+        float: left;
+        overflow: hidden;
+    }
+
+    .leftColumn {
+        width: 304px;
+
+        margin-right: $standardMargin;
+
+        .Select {
+            width: 240px;
+        }
+
+        .Select.is-open.is-searchable {
+            .Select-value-label {
+                color: #aaaaaa !important;
+            }
+        }
+
+        /*.Select.data-source-id {
+      .Select-menu-outer {
+        width: 300px;
+      }
+    }*/
+
+        .swapAxes {
+            text-align: center;
+            padding: 0;
+        }
+
+        .axisBlock {
+            background: #eee;
+            border-radius: 4px;
+            padding: 10px;
+
+            form {
+                display: flex;
+            }
+
+            h4 {
+                writing-mode: vertical-lr;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 23px;
+                text-align: center;
+                transform: rotate(180deg);
+                position: relative;
+                left: -8px;
+            }
+        }
+
+        .label-text {
+            color: #333333;
+            margin-bottom: 5px;
+            padding: 0px;
+        }
+
+        .form-group-bspace {
+            margin-bottom: 5px;
+        }
+
+        .PlotsTab {
+            width: 120%;
+        }
+
+        .color-samples {
+            right: 10px;
+            bottom: 0;
+            position: absolute;
+        }
+
+        .btn.sort-order {
+            margin-right: 10px;
+            padding: 4px 9px;
+            margin-left: -20px;
+        }
+
+        i.horz-descending {
+            transform: rotate(-90deg) scaleY(-1) scaleX(-1);
+        }
+
+        i.horz-ascending {
+            transform: rotate(-90deg) scaleY(-1);
+        }
+
+        i.vert-descending {
+            transform: scaleX(-1);
+        }
+
+        .mutation-message {
+            color: red;
+            margin: 3px;
+        }
+    }
+
+    .coloring-menu {
+        margin-bottom: -20px;
+        margin-right: 50px; // to avoid the download button overlapping the menu
+
+        * {
+            vertical-align: middle;
+            margin: 0;
+        }
+
+        label {
+            padding: 0px;
+            margin: 0 0 0 8px;
+        }
+
+        .legend-label {
+            margin-right: 4px;
+        }
+
+        input[type='checkbox'] {
+            margin: 0 8px 1px 0;
+            padding: 0;
+            position: relative;
+        }
+
+        input[type='radio'] {
+            margin: 0px 8px 0px 2px;
+        }
+
+        .gene-select-background {
+            border-radius: 4px;
+            vertical-align: middle;
+            padding: 2px 2px 2px 2px;
+            margin-right: -10px;
+
+            label {
+                margin: 0 0 0 0;
+            }
+
+            .checkbox {
+                display: inline-block;
+                margin: 0;
+            }
+
+            // the styles below are applied when
+            // the gene select box is shown
+            &.gene-select-shown {
+                background-color: $main-bg;
+                margin-right: 2px;
+            }
+
+            .gene-select-container {
+                margin-left: 8px;
+
+                .gene-select {
+                    text-align: left;
+                    margin-right: 0;
+                    width: 350px;
+                }
+            }
+        }
+    }
+    strong.quickPlotsTitle {
+        margin-right: 5px;
+    }
+
+    .quickPlotsContainer {
+        display: flex;
+        margin-right: 5px;
+    }
+
+    .genericAssaySelectBox {
+        flex-grow: 1;
+        word-wrap: break-word;
+    }
+}
+
+.color-samples-toolbar-elt {
+    display: inline-block !important;
+    margin-right: 10px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.dataAvailabilityAlert {
+    margin-bottom: 10px !important;
+    background-color: #eee !important;
+    border: none !important;
+    display: flex;
+
+    > div {
+        padding-top: 1px;
+        padding-left: 4px;
+    }
+}

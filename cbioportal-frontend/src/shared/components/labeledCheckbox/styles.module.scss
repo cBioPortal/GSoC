@@ -1,0 +1,15 @@
+label.labeledCheckbox {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 0px;
+    min-height: 1.2em;
+    font-weight: normal;
+
+    > input[type='checkbox'] {
+        cursor: pointer;
+        margin: 1px 6px 0 0;
+        min-width: 1em;
+    }
+}

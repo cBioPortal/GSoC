@@ -1,0 +1,92 @@
+@import '../../globalStyles/mixins.scss';
+
+.patientPageHeader {
+    .cohortNav {
+        text-align: right;
+
+        .btn-group {
+            float: right !important;
+            display: flex;
+        }
+    }
+
+    position: relative;
+    padding-left: 45px;
+    display: flex;
+
+    td {
+        vertical-align: top;
+        padding-left: 10px;
+        padding-bottom: 4px;
+    }
+
+    .studyMetaBar {
+        text-align: right;
+        flex-grow: 1;
+
+        .studyMetaBar_studyName {
+            white-space: nowrap;
+            max-width: 400px;
+            text-overflow: ellipsis;
+            display: inline-block;
+            overflow: hidden;
+        }
+    }
+
+    .patientDataTable {
+        flex-grow: 1;
+    }
+
+    .patientIcon {
+        position: absolute;
+        left: 0;
+        font-size: 40px;
+    }
+
+    .patientSamples {
+        .patientSample {
+            display: inline-block;
+            background-color: #ddd;
+            padding: 1px 2px;
+            margin-right: 6px;
+            border-radius: 3px;
+            margin-bottom: 3px;
+            font-size: 11px;
+            height: 20px;
+            line-height: 20px;
+            vertical-align: middle;
+
+            svg {
+                position: relative;
+                top: 1px;
+            }
+        }
+    }
+}
+
+.vafPlot {
+    position: relative;
+    top: -10px;
+}
+
+.cbioportal-frontend .secondaryNavigation.vafVizNavTabs li a.tabAnchor {
+    //font-size: 17px !important;
+    //margin-right:30px !important;
+}
+
+.resourcesTab {
+    .resourcesSection {
+        @include dashed-border-section;
+        margin-bottom: 30px;
+
+        &:last-child {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+.patient-clinical-data-tab {
+    > div {
+        margin-bottom: 20px;
+    }
+}

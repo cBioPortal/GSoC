@@ -1,0 +1,40 @@
+.missenseMutation {
+    color: #008000;
+    font-weight: bold;
+}
+.truncMutation {
+    color: #000000;
+    font-weight: bold;
+}
+.inframeMutation {
+    color: #8b4513;
+    font-weight: bold;
+}
+.otherMutation {
+    color: #cf58bc;
+    font-weight: bold;
+}
+.defaultMutation {
+    color: #bb0000;
+    font-weight: bold;
+}
+.fusion {
+    color: #8b00c9;
+    font-weight: bold;
+}
+.splice {
+    color: #e5802b;
+    font-weight: bold;
+}
+
+.revueIcon {
+    visibility: hidden;
+}
+
+.mutationTypeCell {
+    display: block;
+}
+
+.mutationTypeCell:hover .revueIcon {
+    visibility: visible;
+}

@@ -1,0 +1,120 @@
+.group-name {
+    background-color: #f2f2f2;
+    font-size: 0.875rem;
+    font-weight: bold;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    max-width: 27%;
+    display: flex;
+    align-items: center;
+}
+
+.group-content {
+    display: flex;
+    align-items: center;
+}
+
+.data-content {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+
+.data-group-gap {
+    display: block;
+}
+
+.no-data {
+    font-size: 1rem;
+    margin-left: 15px;
+    color: black;
+}
+
+/* gnomad */
+.gnomad {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* dbsnp */
+.dbsnp {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* functional prediction */
+.functional-prediction-data {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.functional-prediction-no-data {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+// oncokb
+.oncokb {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+// redesign from here. remove some of classes above after complete
+.feature-table {
+    padding-top: 10px;
+    flex: 1;
+    p {
+        margin-bottom: 5px;
+    }
+    p:last-child {
+        margin-bottom: 0;
+    }
+    table th {
+        width: 25%;
+    }
+}
+
+.data-source {
+    flex: 0 0 25%;
+    button {
+        border: none;
+        text-align: left;
+    }
+}
+
+.data-source-without-linkout {
+    font-weight: 400;
+    color: #007bff;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+        color: #0056b3;
+    }
+}
+
+.feature-table-layout {
+    display: flex;
+}
+
+.data-with-link {
+    a {
+        color: black;
+        &:hover,
+        &:focus,
+        &:active,
+        &:visited {
+            color: black;
+        }
+    }
+    color: black;
+    flex: 1;
+}
+
+.logo-image {
+    display: flex;
+}

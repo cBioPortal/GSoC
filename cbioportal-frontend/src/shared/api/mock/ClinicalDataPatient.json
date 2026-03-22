@@ -1,0 +1,54 @@
+[
+    {
+        "clinicalAttribute": {
+            "displayName": "Diagnosis Age",
+            "description": "Age at which a condition or disease was first diagnosed.",
+            "datatype": "NUMBER",
+            "patientAttribute": true,
+            "priority": "1",
+            "clinicalAttributeId": "AGE"
+        },
+        "entityId": "P04",
+        "clinicalAttributeId": "AGE",
+        "value": "22"
+    },
+    {
+        "clinicalAttribute": {
+            "displayName": "Person Gender",
+            "description": "Patient gender.",
+            "datatype": "STRING",
+            "patientAttribute": true,
+            "priority": "1",
+            "clinicalAttributeId": "GENDER"
+        },
+        "entityId": "P04",
+        "clinicalAttributeId": "GENDER",
+        "value": "Male"
+    },
+    {
+        "clinicalAttribute": {
+            "displayName": "Overall Survival (Months)",
+            "description": "Overall survival in months since initial diagonosis.",
+            "datatype": "NUMBER",
+            "patientAttribute": true,
+            "priority": "1",
+            "clinicalAttributeId": "OS_MONTHS"
+        },
+        "entityId": "P04",
+        "clinicalAttributeId": "OS_MONTHS",
+        "value": "61"
+    },
+    {
+        "clinicalAttribute": {
+            "displayName": "Overall Survival Status",
+            "description": "Overall patient survival status.",
+            "datatype": "STRING",
+            "patientAttribute": true,
+            "priority": "1",
+            "clinicalAttributeId": "OS_STATUS"
+        },
+        "entityId": "P04",
+        "clinicalAttributeId": "OS_STATUS",
+        "value": "DECEASED"
+    }
+]

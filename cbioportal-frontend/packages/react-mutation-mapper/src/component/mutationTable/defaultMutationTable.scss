@@ -1,0 +1,16 @@
+.default-mutation-table {
+    font-size: 0.8rem;
+    min-width: 300px;
+
+    .rt-table .rt-tbody .rt-td {
+        padding: 5px 5px;
+    }
+
+    .-pagination {
+        font-size: 0.7rem;
+
+        .-center {
+            flex-grow: 5;
+        }
+    }
+}

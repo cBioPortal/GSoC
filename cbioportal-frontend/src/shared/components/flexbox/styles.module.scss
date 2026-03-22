@@ -1,0 +1,16 @@
+.padded.column {
+    > * {
+        margin-top: 8px;
+    }
+    > *:nth-child(1) {
+        margin-top: 0;
+    }
+}
+.padded.row {
+    > * {
+        margin-left: 8px;
+    }
+    > *:nth-child(1) {
+        margin-left: 0;
+    }
+}

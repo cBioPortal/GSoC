@@ -1,0 +1,3 @@
+.reactable-pagination {
+    display: none; /* hide the reactable library pagination interface, we have our own */
+}

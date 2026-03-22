@@ -1,0 +1,42 @@
+.globalSettingsDropdown {
+    width: 300px;
+
+    label {
+        font-size: 14px;
+    }
+
+    h5 {
+        display: inline-block;
+    }
+    i.fa-info-circle {
+        margin-left: 5px;
+    }
+    hr {
+        border-top-color: #dddddd;
+    }
+}
+
+.annotationFilterDropdown {
+    width: 270px;
+
+    i.fa-info-circle {
+        margin-left: 5px;
+    }
+    hr {
+        border-top-color: #dddddd;
+    }
+    .categoryCheckbox {
+        margin: 0 9px 0 0 !important;
+    }
+    .headerSection {
+        display: flex;
+        align-items: center;
+        margin-top: 15px;
+    }
+}
+
+p.headerSubsection {
+    font-size: 1.2em;
+    margin-top: 15px;
+    line-height: 7px;
+}

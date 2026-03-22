@@ -1,0 +1,55 @@
+.interactive-tour {
+    cursor: pointer;
+}
+
+.reactour__helper {
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.6);
+    padding: 20px 30px;
+    background: #f9fbf8;
+}
+
+.reactour__helper .step .title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.reactour__helper .step p {
+    margin: 0;
+}
+
+.reactour__helper .skip-all-btn,
+.reactour__helper .next-step-btn,
+.reactour__helper .finish-step-btn {
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    padding: 6px 10px;
+}
+
+.reactour__helper .skip-all-btn:hover,
+.reactour__helper .next-step-btn:hover,
+.reactour__helper .finish-step-btn:hover {
+    opacity: 0.8;
+}
+
+.reactour__helper .skip-all-btn {
+    background-color: #f0f0f4;
+    color: #666;
+}
+
+.reactour__helper .next-step-btn,
+.reactour__helper .finish-step-btn {
+    background-color: #e0f0e9;
+    color: #0c8918;
+}
+
+.reactour__helper div:nth-child(2) {
+    justify-content: space-between;
+}
+
+.reactour__helper .btn-class {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+}

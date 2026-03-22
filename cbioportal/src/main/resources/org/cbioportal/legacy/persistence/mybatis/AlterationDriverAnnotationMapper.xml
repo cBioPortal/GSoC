@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cbioportal.legacy.persistence.mybatis.AlterationDriverAnnotationMapper">
+
+    <select id="getAlterationDriverAnnotations" resultType="org.cbioportal.legacy.model.AlterationDriverAnnotation">
+        SELECT
+            alteration_driver_annotation.alteration_event_id as alterationEventId,
+            alteration_driver_annotation.genetic_profile_id as geneticProfileId,
+            alteration_driver_annotation.sample_id as sampleId,
+            alteration_driver_annotation.driver_filter as driverFilter,
+            alteration_driver_annotation.driver_filter_annotation as driverFilterAnnotation,
+            alteration_driver_annotation.driver_tiers_filter as driverTiersFilter,
+            alteration_driver_annotation.driver_tiers_filter_annotation as driverTiersFilterAnnotation
+        FROM alteration_driver_annotation
+        INNER JOIN genetic_profile ON
+        genetic_profile.genetic_profile_id = alteration_driver_annotation.genetic_profile_id
+        <where>
+            <if test="molecularProfileIds != null and !molecularProfileIds.isEmpty()">
+                genetic_profile.stable_id IN
+                    <foreach item="id" collection="molecularProfileIds" open="(" separator="," close=")">#{id}</foreach>
+            </if>
+        </where>
+    </select>
+
+</mapper>

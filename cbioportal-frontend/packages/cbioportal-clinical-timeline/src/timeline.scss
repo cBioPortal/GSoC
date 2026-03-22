@@ -1,0 +1,199 @@
+$width: 1200px;
+$borderColor: #ccc;
+$tl-fontsize: 12px;
+
+.tl-timeline-wrapper {
+    position: relative;
+
+    .tl-timeline-reset-buttons {
+        position: absolute;
+        top: -25px;
+        display: inline-block;
+        left: 50%;
+        font-size: $tl-fontsize;
+    }
+}
+
+.tl-timelineviewport {
+    border-top: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: inline-block;
+    width: $width;
+    flex-grow: 1;
+}
+
+.tl-viewport-pseudo-border {
+    width: 1px;
+    background: $borderColor;
+}
+
+.tl-timeline {
+    position: relative;
+
+    .tl-cursor {
+        position: absolute;
+        top: 0;
+        left: 0px;
+        border-left: 1px dashed #999;
+        width: 1px;
+        height: 1000px;
+        display: none;
+        z-index: 10;
+        overflow: visible;
+        pointer-events: none;
+
+        > div {
+            position: absolute;
+            background: #999;
+            color: #fff;
+            padding: 1px;
+            font-size: 9px;
+            white-space: nowrap;
+            width: 75px;
+            top: 0px;
+            left: -37.5px;
+            text-align: center;
+            opacity: 1;
+            border-radius: 4px;
+            display: none;
+        }
+    }
+
+    .tl-track {
+        // This allows sensing the pointer for the purpose of the hover effect
+        pointer-events: all;
+
+        // On mouse hover, another handler will turn .tl-track-highlight elements to opacity 1
+        line.tl-axis-grid-line.tl-track-highlight {
+            stroke: #aaa;
+            stroke-width: 1;
+            stroke-dasharray: 5 2;
+            opacity: 0;
+        }
+        rect.tl-track-highlight {
+            fill: #f2f2f2;
+            opacity: 0;
+        }
+    }
+}
+
+.tl-timeline-leftbar {
+    max-width: 150px;
+    .tl-timeline-tracklabels {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        font-size: 12.5px; // The first tooltip does not show up if the font-size is too small (<12px)
+        > div {
+            white-space: nowrap;
+            border-bottom: 1px dashed #eee;
+            padding-right: 15px;
+            padding-top: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            //max-width: 100%;
+        }
+    }
+}
+
+.tl-zoom-selectbox {
+    position: absolute;
+    height: 1000px;
+    background: #ccc;
+    left: 100px;
+    z-index: 100;
+    opacity: 0.3;
+    display: none;
+}
+
+.tl-zoom-selectbox-mask {
+    position: absolute;
+    z-index: 99;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+}
+
+.tl-timeline-tooltip {
+    //background-color: #000000 !important;
+    max-width: 480px !important;
+    min-width: 300px;
+
+    &:hover {
+        z-index: 1070 !important;
+    }
+
+    .popover-content {
+        padding: 2px 5px !important;
+        border: none;
+        //background-color: #000000;
+        //color: #fff;
+        font-size: 10px;
+
+        table {
+            vertical-align: top;
+
+            tr:nth-child(even) {
+                background: #eeeeee;
+            }
+        }
+
+        td:first-child {
+            font-weight: bold;
+        }
+
+        td,
+        th {
+            padding: 1px 5px;
+        }
+    }
+}
+
+.timeline-label:last-of-type {
+    display: none;
+}
+
+.tl-displaynone {
+    display: none;
+}
+
+.tl-hover-disabled {
+    background: none !important;
+
+    .tl-track-highlight {
+        display: none;
+    }
+}
+
+.tl-custom-track-header {
+    position: relative;
+}
+
+.tl-tracklegend {
+    z-index: 1000;
+    background: #f2f2f2;
+    border-radius: 4px 0 0 0;
+    transform: translateY(-100%);
+    right: 33px;
+    padding: 10px 15px;
+    font-size: $tl-fontsize;
+
+    &.hidden {
+        display: none !important;
+        visibility: hidden;
+        height: 0px;
+        width: 0px;
+    }
+
+    table {
+        td {
+            padding: 0 5px 0 0;
+        }
+        tr:last-child td {
+            padding-bottom: 0;
+        }
+    }
+}

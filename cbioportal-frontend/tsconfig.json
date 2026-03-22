@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "outDir": "./tsDist/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "useDefineForClassFields": true,
+        "module": "es6",
+        "target": "es6",
+        "jsx": "preserve",
+        "allowJs": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node",
+        "skipLibCheck": true,
+        "baseUrl": ".",
+        "paths": {
+            "pages/*": ["src/pages/*"],
+            "shared/*": ["src/shared/*"],
+            "config/*": ["src/config/*"],
+            "layout/*": ["src/layout/*"],
+            "rootStore": ["src/rootStore"],
+            "AppConfig": ["src/config/config.ts"],
+            "@deck.gl/*": ["typings/deckgl-stub"],
+            "@loaders.gl/*": ["typings/deckgl-stub"]
+        },
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "lib":["es2015", "es2016.array.include", "dom"]
+    },
+    "exclude": [
+        "./node_modules/*",
+    ],
+    "include": [
+        "./typings/**/*",
+        "./src/**/*"
+    ],
+    "compileOnSave": false
+}

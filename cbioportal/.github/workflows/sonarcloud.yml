@@ -1,0 +1,55 @@
+name: sonarcloud
+on:
+  push:
+    branches:
+      - master
+      - maintenance-v6
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  build:
+    name: sonarcloud
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Set up JDK 21
+        uses: actions/setup-java@v1
+        with:
+          java-version: 21
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: 'Create application.properties'
+        run: |
+          cp src/main/resources/application.properties.EXAMPLE src/main/resources/application.properties
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN:  de1b5cc660cd210dde840f492c371da6cc801763
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: mvn clean install verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+      - name: 'Add host.testcontainers.internal to /etc/hosts'
+        run: |
+            echo "127.0.0.1 host.testcontainers.internal" | sudo tee -a /etc/hosts
+#     TODO: decide if we want to keep this in the future, or remove it entirely
+#      - name: 'Run integration tests'
+#        run: |
+#          mvn verify -Pintegration-test
+#      - name: 'Run e2e tests'
+#        run: |
+#          mvn verify -Pe2e-test
+      - name: Code Coverage
+        env:
+          SONAR_TOKEN:  de1b5cc660cd210dde840f492c371da6cc801763
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: mvn sonar:sonar -Pcoverage

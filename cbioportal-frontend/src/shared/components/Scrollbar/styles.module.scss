@@ -1,0 +1,17 @@
+.scrollbar {
+    width: 100%;
+    background: #eee;
+    position: relative;
+    border-radius: 4px;
+    margin-bottom: 1px;
+}
+
+.handle {
+    border-radius: 4px;
+    width: 10%;
+    height: 5px;
+    background: #999;
+    &:hover {
+        background: #666;
+    }
+}

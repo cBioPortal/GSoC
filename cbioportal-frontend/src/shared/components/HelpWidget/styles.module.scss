@@ -1,0 +1,15 @@
+.widget-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 11px;
+    border-radius: 0 0 0 $border-radius-base;
+    padding: 0px 5px;
+    border-bottom: 1px solid $borderColor;
+    border-left: 1px solid $borderColor;
+
+    p {
+        margin: 0;
+        display: inline;
+    }
+}

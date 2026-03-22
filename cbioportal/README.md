@@ -1,0 +1,291 @@
+# cBioPortal
+
+[![Endpoint Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FcBioPortal%2Fcbioportal-test%2Frefs%2Fheads%2Fmain%2Fsecurity-status.json)](https://docs.cbioportal.org/development/security/)
+
+The cBioPortal for Cancer Genomics provides visualization, analysis, and download of large-scale cancer genomics data sets. For a short intro on cBioPortal, see [these introductory slides](https://docs.google.com/presentation/d/1hm0G77UklZnpQfFvywBfW2ZIsy8deKi5r1RfJarOPLg/edit?usp=sharing).
+
+If you would like to know how to setup a private instance of the portal and/or get set up for developing, see the [documentation](https://docs.cbioportal.org). For details on contributing code changes via pull requests, see our [Contributing document](https://github.com/cBioPortal/cbioportal/blob/master/CONTRIBUTING.md).
+
+If you are interested in coordinating the development of new features, please contact <cbioportal@cbioportal.org> or reach out on <https://slack.cbioportal.org>.
+
+## 🌳 Branching and Release Strategy
+
+cBioPortal is currently preparing for **v7**. The branching and release strategy has been updated as follows:
+
+- **`master` branch** is now the **pre-release branch for v7**. Pull requests targeting v7 should be opened against `master`.
+- **v7** introduces a **ClickHouse-only database**. This new database setup **is not compatible** with earlier portal settings, the traditional MySQL mode, or existing study importer tools.
+- To support existing deployments of v6, we have created a **`maintenance-v6` branch**:
+    - Only **important security fixes** will be merged into `maintenance-v6`.
+    - **No new bug fixes or feature development** will be done on v6.
+    - Users still running v6 should continue to track `maintenance-v6` for necessary security updates.
+
+See more details at [Versioning-and-Upgrades.md](docs/Versioning-and-Upgrades.md)
+
+## 📘 Documentation
+
+See [https://docs.cbioportal.org](https://docs.cbioportal.org)
+
+## 🤝 License
+
+See [LICENSE](./LICENSE)
+
+## 💻 Run Backend
+
+cBioPortal consists of several components, please read the [Architecture docs](https://docs.cbioportal.org/architecture-overview/) to figure out what repo would be relevant to edit. If you e.g. only want to make frontend changes, one can directly edit [the frontend repo](https://github.com/cbioportal/cbioportal-frontend) instead. Read the instructions in that repo for more info on how to do frontend development. This repo only contains the backend part. Before editing the backend, it's good to read the [backend code organization](docs/development/Backend-Code-Organization.md).
+
+### Local Development
+
+This section provides a summary. For Quick Start instructions, or for more additional information, please see [Deploy with Docker](https://docs.cbioportal.org/deployment/docker/)
+
+#### What database to use
+
+- **v7 (master)**: Uses **ClickHouse** as the sole database backend. cBioPortal production are using [ClickHouse Cloud](https://clickhouse.com/cloud)
+- **v6 (maintenance-v6)**: Continues to use the legacy MySQL database backend. We recommend to set up a MySQL database automatically using [Docker Compose](https://github.com/cBioPortal/cbioportal-docker-compose). It's useful to know how to do this as it allows you to import any dataset of your choice. For debugging production issues, we also have a database available with all the data on <https://cbioportal.org> that one can connect to directly. Please reach out on slack to get the credentials.
+
+#### Deploy your development image inside Docker Compose
+
+The easiest option is to deploy your development image directly into the [docker-compose](https://github.com/cBioPortal/cbioportal-docker-compose/blob/5da068f0eb9b4f42db52ab5e91321b26a1826d7a/docker-compose.yml#L6) file.
+
+1. From the cbioportal repo, build the image:
+
+```
+docker build -t cbioportal/cbioportal:my-dev-cbioportal-image -f docker/web-and-data/Dockerfile .
+```
+
+2. From the cbioportal-docker-compose repo, change the [env file](https://github.com/cBioPortal/cbioportal-docker-compose/blob/master/.env) to use your image (e.g. **cbioportal/cbioportal:my-dev-cbioportal-image**).
+
+3. Run the containers.
+
+```
+docker compose up
+```
+
+4. The app will be visible at <http://localhost:8080>.
+
+For more information, please see [Deploy with Docker](https://docs.cbioportal.org/deployment/docker/#building-cbioportal).
+
+#### Command Line
+
+If you want to instead run the cBioPortal web app from the command line please follow these instructions. First, we want to make sure that all ports are open for the services set up through [docker compose](https://github.com/cBioPortal/cbioportal-docker-compose) (i.e. not just accessible to other containers within the same Docker Compose file). To do so, in the [docker compose repo](https://github.com/cBioPortal/cbioportal-docker-compose) run:
+
+```
+docker compose -f docker-compose.yml -f dev/open-ports.yml up
+```
+
+This should open the ports. Now we are ready to run the cBioPortal web app locally. You can compile the backend code with:
+
+```
+
+java -Xms2g -Xmx4g \
+     -Dauthenticate=false \
+     -Dsession.service.url=http://localhost:5000/api/sessions/my_portal/ \
+     -Dsession.service.origin='*' \
+     -Dspring.datasource.username=cbio_user \
+     -Dspring.datasource.password=somepassword \
+     -Dspring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver \
+     -Dspring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect \
+     -Dspring.datasource.url='jdbc:mysql://cbio_user:somepassword@localhost:3306/cbioportal?useSSL=false&allowPublicKeyRetrieval=true' \
+     -Dshow.civic=true \
+     -Dskin.footer='' \
+     -Dapp.name='my-portal' \
+     -Ddbconnector=dbcp \
+     -cp "$PWD:$PWD/BOOT-INF/lib/*" \
+     org.cbioportal.PortalApplication
+```
+
+The app should now show up at <http://localhost:8080>.
+
+### Dev Database
+
+Note: internally we have a dev database available with the public data set that one can connect to directly. Please reach out on slack to get the credentials. It is usually best to use a small test dataset, but if a copy of the production database is necessary for e.g. fixing a bug specific to production data that can be useful.
+
+### 🕵️‍♀️ Debugging
+
+If you want to attach a debugger you can change the `docker-compose.yml` file to include the parameters: `-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005` (make sure to expose the debug port by adding `5005:5005` in the ports section of the cbioportal container). If you are running the java app outside of docker you can add the same parameters to the java command line arguments instead.
+
+You can then use a JAVA IDE to connect to that port. E.g. in [VSCode](https://code.visualstudio.com/), one would add the following configuration to `launch.json` to connect:
+
+```
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Attach)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 5005,
+            "projectName": "cbioportal"
+        }
+    ]
+}
+```
+
+## ✅ Testing Overview
+
+This project uses a layered testing strategy that separates **unit**, **integration**, and **end-to-end (E2E)** tests for better clarity and control.
+
+---
+
+### 🧪 Test Layers
+
+| Layer        | Purpose                                                   | Runs by Default? | Tools Used                  |
+|--------------|-----------------------------------------------------------|------------------|-----------------------------|
+| **Unit**     | Test isolated logic (e.g. services, utils)                | ✅ Yes           | JUnit, Mockito              |
+| **Integration** | Test Spring components (e.g. JPA, Repositories) using real databases | 🚫 No            | Spring Boot, Failsafe       |
+| **E2E**       | Test full HTTP endpoints via real HTTP calls             | 🚫 No            | Mocha, Chai, Axios |
+
+---
+
+### 📁 Directory Structure
+
+```
+src/test/java/             → Unit tests (default)
+src/integration/java/      → Integration tests (DB, Spring context)
+src/e2e/js/                → JavaScript/TypeScript E2E tests (Mocha)
+```
+
+---
+
+### 🟨 API Tests (e2e)
+
+API tests issue real HTTP requests to an instance of the cBioPortal web app running against
+a real database based on the public portal data set.  They allow us to:
+
+1. Test business logic embedded in MyBatis mappers, which cannot be tested except against a database.
+2. Test scenarios that are very difficult to reproduce with mock data, for example studies with specific data type combinations.
+
+API tests use **Mocha** and **Chai** and are located in `src/e2e/js/`.
+
+Note: please distinguish between these tests and the soon-to-be defunct api-test job which compares clickhouse api responses
+to legacy responses. 
+
+#### Prerequisites
+
+These tests require:
+- **Node.js** (v18 or higher recommended)
+- A **running cBioPortal instance** connected to the **`cgds_public_2025_06_24`** database
+- The portal should be accessible at `http://localhost:8080` (or set `CBIOPORTAL_URL` environment variable)
+
+#### Running JavaScript E2E Tests (test api requests)
+
+```bash
+# Navigate to the JS test directory
+cd src/e2e/js
+
+# Install dependencies (first time only)
+npm install
+
+# Run npm test all tests against default server (http://localhost:8080)
+
+
+# Run tests against a custom server URL
+CBIOPORTAL_URL={local cbioportal url} npm test
+
+# Run a specific test suite
+CBIOPORTAL_URL={local cbioportal url} npm test 'test/ColumnStoreStudyController/*.spec.ts'
+
+# Run with custom URL and specific pattern
+CBIOPORTAL_URL={local cbioportal url} npm test 'test/ColumnStoreMutationController/*.spec.ts'
+```
+
+
+#### Test Structure
+
+The JavaScript E2E tests follow these conventions:
+- Each test suite lives in its own directory: `test/[TestName]/`
+- Test files are named `[TestName].spec.ts`
+- Test data JSON files are co-located with their spec files
+- All tests use Lodash for data processing with inline logic and comprehensive comments
+- TypeScript types are derived from the official cBioPortal Swagger API documentation
+
+For more information on writing JavaScript E2E tests, see `src/e2e/js/CLAUDE.md`.
+
+---
+
+## 🔧 Configuration via Environment Variables
+
+All integration tests are **configured via environment variables** for test DBs. This avoids hardcoding credentials and allows flexible use in local dev or CI.
+
+### ✅ Supported Environment Variables
+
+| Variable                        | Description                          | Applies To          |
+|----------------------------------|--------------------------------------|---------------------|
+| `TEST_DB_MYSQL_URL`             | JDBC URL for test MySQL              | Integration         |
+| `TEST_DB_MYSQL_USERNAME`        | MySQL username                       | Integration         |
+| `TEST_DB_MYSQL_PASSWORD`        | MySQL password (🔒 required)         | Integration         |
+| `TEST_DB_MYSQL_DRIVER`          | Optional, defaults to MySQL driver   | Integration         |
+| `TEST_DB_CLICKHOUSE_URL`        | JDBC URL for test ClickHouse         | Integration   |
+| `TEST_DB_CLICKHOUSE_USERNAME`   | ClickHouse username                  | Integration   |
+| `TEST_DB_CLICKHOUSE_PASSWORD`   | ClickHouse password (🔒 required)    | Integration   |
+| `TEST_DB_CLICKHOUSE_DRIVER`     | Optional, defaults to ClickHouse driver | Integration |
+
+> If a variable is marked as required and not set, tests will fail with a helpful error.
+
+---
+
+### 🧪 Running Tests
+
+#### ✅ Run Unit Tests (default)
+
+```bash
+mvn test
+```
+
+---
+
+#### ✅ Run Integration Tests
+
+```bash
+# Set required env vars
+export TEST_DB_MYSQL_PASSWORD=...
+export TEST_DB_CLICKHOUSE_PASSWORD=...
+
+mvn verify -Pintegration-test
+```
+
+All integration tests (if needed) may use:
+
+```java
+public abstract class AbstractClickhouseIntegrationTest { ... }
+```
+
+These base classes:
+
+- Load the Spring context
+- Register dynamic properties from environment variables using `@DynamicPropertySource`
+- Share default behavior across test suites
+
+---
+
+### 📦 Maven Profile Summary
+
+| Profile          | Purpose               | Command                         |
+|------------------|-----------------------|---------------------------------|
+| *(default)*      | Unit tests only       | `mvn test`                      |
+| `integration-test` | Integration tests     | `mvn verify -Pintegration-test` |
+
+---
+
+## 🚀 Releases
+
+Release Notes on GitHub:
+
+<https://github.com/cBioPortal/cbioportal/releases>
+
+See also the cBioPortal News section for user focused release information:
+
+<https://www.cbioportal.org/news>
+
+Docker Images are available for each tag and branch:
+
+<https://hub.docker.com/repository/docker/cbioportal/cbioportal/tags>
+
+## 👉 Other Repos
+
+Read the [Architecture docs](https://docs.cbioportal.org/2.1-deployment/architecture-overview) to see how these relate:
+
+- <https://github.com/cBioPortal/cbioportal-frontend>
+- <https://github.com/cbioportal/session-service>
+- <https://github.com/cBioPortal/datahub/>
+- <https://github.com/cBioPortal/cbioportal-core>

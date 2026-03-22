@@ -1,0 +1,25 @@
+# Dispatch a custom cbioportal-frontend-package-update event to the cbioportal-publisher repo
+# if there is a change under packages directory.
+name: Repository Dispatch
+
+on:
+  push:
+    # branches to consider in the event; optional, defaults to all
+    branches:
+      - master
+    # only trigger the action if there is a change under packages directory
+    paths:
+      - "packages/**/*"
+
+jobs:
+  dispatch:
+    # do not attempt dispatching on forked repos, only trigger on the main repo
+    # also do not attempt dispatching if the actor is the bot account
+    if: github.repository == 'cBioPortal/cbioportal-frontend' && github.actor != 'cbioportal-devops'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.LERNA_PUBLISH_BOT_GITHUB_TOKEN }}
+          repository: cBioPortal/cbioportal-publisher
+          event-type: cbioportal-frontend-package-update

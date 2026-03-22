@@ -1,0 +1,44 @@
+@import '~oncokb-styles/scss/vars';
+
+.list-group-item {
+    border: 0;
+    padding: 5px 0;
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    a {
+        color: $oncokb-blue;
+    }
+}
+
+.list-group-item:not(:first-child) {
+    border-top: 1px solid $oncokb-border-color;
+}
+
+.list-group-item:last-child {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.list-group-item-title {
+    line-height: 16px;
+}
+
+.list-group-item-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.no-style-ul {
+    padding: 0;
+    margin-bottom: 0 !important;
+
+    li {
+        list-style-type: none;
+    }
+}

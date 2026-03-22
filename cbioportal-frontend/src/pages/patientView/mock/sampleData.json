@@ -1,0 +1,23 @@
+{
+  "order": ["string", "TCGA-24-2024-01", "TCGA-24-2024-01 (deliberately elongated id)"],
+  "labels": {
+    "string":"1",
+    "TCGA-24-2024-01":"2",
+    "TCGA-24-2024-01 (deliberately elongated id)":"3"
+  },
+  "colors": {
+    "string":"black",
+    "TCGA-24-2024-01":"red",
+    "TCGA-24-2024-01 (deliberately elongated id)":"red"
+  },
+  "tumorType": {
+    "string":"primary",
+    "TCGA-24-2024-01":"metastasis",
+    "TCGA-24-2024-01 (deliberately elongated id)":"metastasis"
+  },
+  "cancerType": {
+    "string":"Bladder",
+    "TCGA-24-2024-01":"Lung",
+    "TCGA-24-2024-01 (deliberately elongated id)":"Liver"
+  }
+}

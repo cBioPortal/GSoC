@@ -1,0 +1,12 @@
+.table-open {
+    transform: rotate(180deg);
+}
+
+.population {
+    padding-left: 1%;
+    font-weight: 400;
+    color: #007bff;
+    &:hover {
+        color: #0056b3;
+    }
+}

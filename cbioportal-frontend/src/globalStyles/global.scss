@@ -1,0 +1,879 @@
+@import './variables.scss';
+@import './custom-icons.scss';
+@import './header.scss';
+@import './mixins.scss';
+
+/* locks scroll bar on to prevent horizontal jump when content render */
+body {
+    overflow-y: scroll;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+.modal-header .close::before {
+    content: 'x' !important;
+}
+
+.scrollbarAlwaysVisible {
+    @include scrollbar-always-visible;
+}
+
+.hideScrollbar {
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+//get rid of blue border around active button
+button:active,
+button:focus,
+div:focus,
+div:active {
+    outline: none !important;
+}
+
+.text-white {
+    color: #fff;
+}
+
+.form-group {
+    margin-bottom: 5px;
+
+    label {
+        font-size: 12px;
+        margin-bottom: 2px;
+    }
+}
+
+.form-group-inline {
+    @extend .form-group;
+
+    label {
+        margin-right: 6px;
+    }
+}
+
+.posRelative {
+    position: relative;
+}
+
+/* importants are necessary for override of legacy style */
+.btn-default {
+    background-image: linear-gradient(to bottom, #fff 0, #eee 100%) !important;
+    color: $text-color !important;
+}
+
+.btn.noBorderRadius {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    &.underline {
+        text-decoration: underline;
+    }
+}
+
+.pipeSeperator {
+    margin: 0 8px;
+}
+
+/* Buttons */
+
+.cta {
+    // "Call To Action"
+    background: linear-gradient(to bottom, #1f8cc5 50%, #1982b8 100%);
+    border: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+    color: rgba(255, 255, 255, 1);
+    display: block;
+    text-align: center;
+    font: normal normal 500 11px/19px 'Helvetica Neue', Helvetica, Arial,
+        sans-serif;
+    padding: 5px 10px;
+
+    &:hover:not(:disabled) {
+        cursor: pointer;
+        background: linear-gradient(to bottom, #1982b8 50%, #1f8cc5 100%);
+        color: #fff;
+    }
+
+    &:disabled {
+        cursor: default;
+        background: $lightGrey;
+        border-bottom: 0;
+        color: $darkGrey;
+    }
+}
+
+/* Tables */
+th.reactable-header-sortable {
+    &:focus {
+        outline: 0;
+    }
+}
+
+th.reactable-header-sort-desc:after {
+    content: '\25B2';
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+th.reactable-header-sort-asc:after {
+    content: '\25BC';
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.table-border-top .reactable-column-header {
+    th {
+    }
+}
+
+#content {
+    margin-top: 8px;
+}
+
+/* override for rc-tooltip */
+
+.rc-tooltip {
+    border-radius: $border-radius-base;
+    box-shadow: $boxShadow;
+    padding: 0;
+    opacity: 1;
+
+    &.hideTooltipArrow {
+        .rc-tooltip-arrow {
+            display: none;
+        }
+    }
+
+    &.rc-tooltip-placement-topRight {
+        .rc-tooltip-arrow {
+            right: 5px !important;
+        }
+    }
+}
+
+.menuTabs {
+    ul.nav {
+        margin: 0 auto;
+        display: flex;
+        background: $main-bg;
+
+        a {
+            font-size: $font-size-small;
+            padding: 5px 8px;
+        }
+
+        li {
+            white-space: nowrap;
+            margin-bottom: -2px;
+        }
+    }
+
+    .tab-content {
+        min-height: 100px !important;
+        padding: 10px 0 10px 0 !important;
+
+        .msk-tab {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+            margin: 0 auto;
+        }
+    }
+}
+
+.secondaryNavigation {
+    > ul {
+        margin-top: -19px;
+        padding-left: 20px;
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+
+    > ul.nav {
+        border-bottom: 1px solid $borderColor;
+    }
+
+    li {
+        a {
+            font-size: $font-size-small;
+            padding: 8px 0px !important;
+            margin-right: 25px !important;
+            background: none !important;
+            border: none !important;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &.active a {
+            border-bottom: 2px solid $brand-primary !important;
+        }
+    }
+
+    .tab-content {
+        margin-top: $standardMargin;
+    }
+}
+
+.pillTabs {
+    > .nav.nav-pills {
+        margin-bottom: $standardMargin;
+
+        li {
+            margin-bottom: 2px;
+            padding-right: 8px;
+
+            a {
+                background: #eee;
+                border-top: none !important;
+            }
+
+            &.active a {
+                background: $brand-primary;
+                border-top: none !important;
+
+                &:hover {
+                    color: #fff !important;
+                }
+            }
+        }
+    }
+
+    li a {
+        font-size: 12px;
+        padding: 10px 6px !important;
+        cursor: pointer;
+        line-height: 0.8px;
+    }
+
+    .msk-tab {
+        margin-top: 10px;
+    }
+}
+
+.comparisonMutationMapperTabs {
+    height: 0;
+    padding-top: 5px;
+}
+
+.mainTabs {
+    > .nav {
+        @extend .portalWidth;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+
+        background: $main-bg !important;
+
+        display: flex;
+
+        > li {
+            white-space: nowrap;
+
+            &:not(.active) {
+                a:hover {
+                    background: none !important;
+                    border-color: transparent !important;
+                }
+            }
+        }
+
+        .active {
+            a {
+                border-top: 3px solid $brand-primary !important;
+                padding-top: 9px;
+                text-decoration: none !important;
+            }
+        }
+    }
+
+    > .tab-content {
+        padding: 20px 0 20px 0;
+        background: #fff;
+        border-top: 1px solid #ddd;
+        margin-top: -1px;
+        min-height: 50px;
+        position: relative;
+
+        .tabLoader {
+            position: relative;
+            left: 50%;
+            top: 50%;
+        }
+
+        hr {
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+        > .msk-tab {
+            @extend .portalWidth;
+            margin: 0 auto;
+        }
+    }
+}
+
+.urlError {
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+
+    i.fa-warning {
+        font-size: 80px;
+    }
+
+    h3 {
+        margin-bottom: 20px;
+    }
+
+    ul {
+        list-style: none;
+
+        li {
+            padding-bottom: 7px;
+        }
+    }
+}
+
+.queryInvalid {
+    width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.table tbody tr td {
+    padding: 3px 10px !important;
+    border-top: none;
+}
+
+.table {
+    margin-bottom: 5px;
+}
+
+.hiddenByPosition {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+
+// corrects for a problem with build of react-bootstrap and react-select (unicode corrupted when build on linux  machines)
+.Select--multi .Select-value-icon {
+    text-indent: -9999px;
+    line-height: 0;
+    /* Collapse the original line */
+
+    &::after {
+        content: '✖';
+        text-indent: 0;
+        display: block;
+        line-height: initial;
+        /* New content takes up original line height */
+    }
+}
+
+.modal-header .close {
+    &::before {
+        content: '✖';
+    }
+
+    span {
+        display: none;
+    }
+}
+
+.subhead-dark #mainColumn {
+}
+
+.headBlock {
+    background: $main-bg;
+    margin-top: -$gutterWidth;
+    position: relative;
+    padding-top: 10px;
+    padding-left: $gutterWidth;
+    padding-right: $gutterWidth;
+    padding-bottom: 10px;
+
+    &:empty {
+        padding-bottom: 0;
+    }
+
+    .headBlurb {
+        padding: 0 $gutterWidth 10px $gutterWidth;
+    }
+}
+
+#mainColumn {
+    padding-top: $gutterWidth;
+}
+
+.fixedWidth {
+    #mainColumn {
+        flex: 1;
+        padding-left: 0;
+        padding-right: 0;
+        line-height: 26px;
+    }
+
+    .contentWrapper {
+    }
+
+    header {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    &.twoColumn {
+        .contentWrapper {
+            //.contentWidth {
+            //  padding-right: 0;
+            //}
+        }
+    }
+}
+
+.twoColumn {
+    #mainColumn {
+        padding-right: $gutterWidth;
+    }
+}
+
+h1 {
+    margin-top: 30px !important;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif !important;
+    margin-bottom: 10px !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: $headerColor !important;
+
+    &:first-child {
+        margin-top: 0 !important;
+    }
+}
+
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+#rightColumn {
+    background: $lightBlue;
+    padding: $gutterWidth 0;
+    font-size: 12px;
+    flex: 0 0 325px;
+    border-right: 1px solid $borderColor;
+    border-left: 1px solid $borderColor;
+
+    .rightBarSection {
+        h3 {
+            border-bottom: 1px solid #ddd;
+            margin: 0 0 4px 0;
+            padding-bottom: 4px;
+            color: $brand-primary;
+        }
+
+        padding: 0 $gutterWidth 10px $gutterWidth;
+    }
+
+    .exampleQueries {
+        ul {
+            margin: 0 0 0 15px;
+            padding: 0;
+
+            li {
+                color: #cfd9ea;
+                text-indent: -3px;
+            }
+        }
+    }
+}
+
+.fixedWidth .contentWidth {
+    width: 1200px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0 auto;
+}
+
+.noMargin {
+    .contentWidth {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    header {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.contentWidth {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    #mainColumn {
+        flex: 1;
+        padding-left: 0;
+        min-height: 80vh;
+        max-width: 100%;
+    }
+
+    &.noMargin {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.alert {
+    border-color: #ddd;
+    color: inherit;
+}
+
+.alert-info {
+    background: $lightBlue;
+}
+
+.borderedChart {
+    @include dashed-border-section;
+    position: relative;
+    max-width: 100%;
+
+    .chartDownloadButtons {
+        position: absolute;
+        right: 10px !important;
+        top: 10px !important;
+        z-index: 10;
+    }
+}
+
+h3.hr {
+    margin: 0 30px;
+    border: 1px dashed $borderColor !important;
+}
+
+.popover {
+    &.cbioTooltip {
+        position: absolute !important;
+        display: block !important;
+        max-width: 600px !important;
+        border-radius: $border-radius-base;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+
+        div:last-child {
+            white-space: normal;
+        }
+
+        p {
+            margin-bottom: 0 !important;
+        }
+
+        .popover-content,
+        p,
+        td {
+            font-size: 11px !important;
+        }
+    }
+}
+
+.inlineBlock {
+    display: inline-block;
+}
+
+.displayBlock {
+    display: block;
+}
+
+.positionAbsolute {
+    position: absolute;
+}
+
+.noOqlWarning {
+    color: #74bedb;
+}
+
+.tabMessageContainer {
+    padding-bottom: $standardMargin;
+
+    &:empty {
+        display: none;
+    }
+
+    > :last-child {
+        margin-bottom: 0 !important;
+    }
+}
+
+.alert {
+    padding: 5px 10px !important;
+}
+
+.whiteBackground {
+    background: #fff;
+}
+
+.form-group.form-group-custom {
+    margin-right: 15px;
+    padding-right: 15px;
+    border-right: 1px dashed $borderColor;
+    display: flex !important;
+    align-items: center;
+
+    h5 {
+        font-weight: bold !important;
+        margin-right: 5px;
+    }
+
+    &:last-child {
+        border-right: none;
+    }
+}
+
+.studyViewHeader {
+    margin-top: $gutterWidth;
+}
+
+.staticPage {
+    padding-bottom: $gutterWidth;
+
+    .markdown-body {
+        h1 {
+            display: none !important;
+        }
+
+        h2 {
+            font-size: 20px;
+        }
+
+        h3 {
+            font-size: 18px;
+        }
+    }
+}
+
+.beta-text {
+    color: #ffa500;
+    text-decoration: none;
+}
+
+.text-with-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.cbioportal-frontend h1.blackHeader,
+h2.blackHeader,
+h3.blackHeader,
+h4.blackHeader,
+h5.blackHeader,
+h6.blackHeader {
+    color: black !important;
+}
+
+.noselect {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.nomouse {
+    pointer-events: none;
+}
+
+h2.divider {
+    margin: 40px 0 !important;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $borderColor;
+}
+
+.myoverlay {
+    position: fixed;
+    top: 0;
+    z-index: 10000;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+
+    .myclose {
+        position: absolute;
+        top: 5px;
+        right: 12px;
+        z-index: 200;
+
+        button {
+            cursor: pointer;
+        }
+    }
+
+    .modal-iframe {
+        z-index: 100;
+        margin: 0px;
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        height: 100%;
+        width: 100%;
+        padding: 30px 10px 10px 10px;
+    }
+}
+
+.displayFlex {
+    display: flex;
+}
+
+// igv overrides
+.igv-ui-popover {
+    border: 1px solid $borderColor;
+    padding: 5px;
+    box-shadow: $boxShadow;
+
+    > div:first-child {
+        background: none;
+        border: none;
+        height: 1px;
+
+        svg {
+            position: relative;
+            top: 2px;
+            right: -4px;
+        }
+    }
+}
+
+.marching-ants {
+    @include marching-ants();
+}
+
+.newsContent {
+    height: 300px;
+    width: 300px;
+    padding: 10px 20px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border: 1px solid $borderColor;
+
+    /* Fix for #10511: reduce spacing between date and list items */
+    > ul {
+        padding-left: 20px;
+        margin-top: 10px;
+        padding-top: 0;
+        margin-bottom: 10px;
+
+        > li {
+            margin-bottom: 12px;
+        }
+    }
+
+    img {
+        max-width: 250px;
+        margin: 5px 0;
+    }
+
+    doc-anchor-trigger {
+        display: none;
+    }
+
+    /* tightened up the headers to reduce whitespace */
+    h2,
+    h3,
+    h4 {
+        font-size: 14px;
+        border-top: 1px dashed $borderColor;
+        padding-top: 10px;
+        margin-bottom: 2px;
+        margin-top: 0;
+        line-height: 1.4;
+    }
+
+    /* special case for the first item: no top border needed */
+    doc-anchor-target:first-of-type {
+        h2,
+        h3,
+        h4 {
+            padding-top: 0;
+            border: none;
+            margin-top: 0;
+        }
+    }
+
+    .newsLoader {
+        position: relative;
+        top: 45%;
+        left: 40%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .contentWidth {
+        flex-direction: column;
+    }
+
+    #rightColumn {
+        flex: auto;
+        width: 100%;
+        border-left: none;
+        border-right: none;
+        border-top: 1px solid $borderColor;
+        padding-left: 0;
+        padding-right: 0;
+
+        > div {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 20px;
+
+            > .rightBarSection {
+                flex: 1 1 300px;
+                margin-bottom: 0;
+                min-width: 300px;
+            }
+        }
+    }
+}

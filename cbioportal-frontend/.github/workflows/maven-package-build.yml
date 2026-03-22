@@ -1,0 +1,152 @@
+name: Build & Publish Maven Package
+
+on:
+  release:
+    types:
+      - published
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: "Branch, release tag, or commit hash to build"
+        type: string
+        required: true
+      update_backend:
+        description: "Update backend pom.xml with the above tag"
+        type: boolean
+        required: false
+        default: false
+
+env:
+  JAVA_VERSION: '21'
+  JAVA_DIST: 'temurin'
+  MAVEN_SERVER: 'central'
+  DEPLOYMENT_NAME_PREFIX: 'cbioportal-frontend'
+
+jobs:
+  maven-central:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository (manual trigger)
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_ref }}
+
+      - name: Checkout repository (automatic trigger)
+        if: github.event_name == 'release' || github.event_name == 'push'
+        uses: actions/checkout@v4
+
+      - name: Setup java for Maven Central
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DIST }}
+          server-id: ${{ env.MAVEN_SERVER }}
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-private-key: ${{ secrets.MAVEN_CENTRAL_GPG_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+
+      - name: Set maven version from source ref (manual trigger)
+        if: github.event_name == 'workflow_dispatch'
+        run: mvn versions:set -DnewVersion=${{ inputs.source_ref }} -DgenerateBackupPoms=false
+
+      - name: Set maven version from release tag (automatic trigger)
+        if: github.event_name == 'release'
+        run: mvn versions:set -DnewVersion=${{ github.event.release.tag_name }} -DgenerateBackupPoms=false
+
+      - name: Set maven version from pushed tag
+        if: github.event_name == 'push'
+        run: mvn versions:set -DnewVersion=${{ github.ref_name }} -DgenerateBackupPoms=false
+
+      - name: Publish package to Maven Central
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          TAG="${{ inputs.source_ref }}"
+          elif [ "${{ github.event_name }}" == "release" ]; then
+          TAG="${{ github.event.release.tag_name }}"
+          elif [ "${{ github.event_name }}" == "push" ]; then
+          TAG="${{ github.ref_name }}"
+          else
+          echo "Action triggered through an invalid event!";
+          exit 1
+          fi
+          
+          mvn --batch-mode deploy -DmavenCentralDeploymentName="$DEPLOYMENT_NAME_PREFIX-$TAG"
+        env:
+          MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_CENTRAL_GPG_PASSPHRASE }}
+
+      - name: Check publish status
+        env:
+          ARTIFACT_ID: "frontend-cbioportal"
+          GROUP_ID_PATH: "io/github/cbioportal"
+          MAX_RETRIES: 30
+          INTERVAL_SECONDS: 60
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          VERSION="${{ inputs.source_ref }}"
+          elif [ "${{ github.event_name }}" == "release" ]; then
+          VERSION="${{ github.event.release.tag_name }}"
+          elif [ "${{ github.event_name }}" == "push" ]; then
+          VERSION="${{ github.ref_name }}"
+          else
+          echo "Action triggered through an invalid event!";
+          exit 1
+          fi
+          URL="https://repo1.maven.org/maven2/${GROUP_ID_PATH}/${ARTIFACT_ID}/${VERSION}"
+          for ((i=1; i<=$MAX_RETRIES; i++)); do
+          if curl --silent --head --fail "$URL" > /dev/null; then
+          echo "Package successfully published!"
+          exit 0
+          else
+          echo "Package not yet published! Retrying check in $INTERVAL_SECONDS seconds..."
+          sleep "$INTERVAL_SECONDS"
+          fi
+          done
+          echo "Successful publish status NOT FOUND after $MAX_RETRIES attempts."
+          exit 1
+
+  update-backend:
+    runs-on: ubuntu-latest
+    needs: [maven-central]
+    if: inputs.update_backend == 'true' || github.event_name == 'release'
+    steps:
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.BACKEND_REPO_TOKEN }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+      - name: Set up git
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+
+      - name: Checkout cbioportal/cbioportal
+        run: |
+          git clone git@github.com:cBioPortal/cbioportal.git
+
+      - name: Update backend pom with new frontend version
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            TAG="${{ inputs.source_ref }}"
+          elif [ "${{ github.event_name }}" == "release" ]; then
+            TAG="${{ github.event.release.tag_name }}"
+          else
+            echo "Action triggered through an invalid event!";
+            exit 1
+          fi
+          cd cbioportal
+          sed -i "s|<version>\(.*\)-SNAPSHOT</version>|<version>$TAG</version>|" pom.xml
+          sed -i "s|<frontend.version>.*</frontend.version>|<frontend.version>$TAG</frontend.version>|" pom.xml
+          git add pom.xml
+          git commit -m "Frontend $TAG"
+          git push

@@ -1,0 +1,202 @@
+$study-view-table-icon-size: 10px;
+
+.studyViewTablesTable {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+// The current portal is wrapped a class .cbioportal-frontend to overwrite the legacy styles
+// May need to come back to clean up the important statements after in SPA
+.tableSearchInput {
+    width: 150px !important;
+    height: 25px !important;
+}
+
+.labelContent {
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.labelContentSVG {
+    flex-shrink: 0;
+}
+
+.controls {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-grow: 1;
+    font-size: 13px !important;
+    padding: 0 5px;
+
+    &:not(.controlsAtTop) {
+        button,
+        :global(.btn-group) {
+            margin-left: 3px;
+        }
+
+        .tableSearchInput {
+            margin-right: 10px;
+        }
+    }
+
+    &.controlsAtTop {
+        button {
+            margin-right: 3px;
+        }
+
+        .tableSearchInput {
+            margin-left: 10px;
+        }
+    }
+}
+
+.controlsBtn {
+    padding: 2px 5px;
+}
+
+.geneSymbol {
+    .addControl {
+        display: none;
+    }
+
+    %addGeneUIHover {
+        display: flex !important;
+        opacity: 0.5;
+    }
+    .addGeneUI {
+        display: none;
+        &.selected {
+            display: flex !important;
+            opacity: 1 !important;
+        }
+        &.hover {
+            @extend %addGeneUIHover;
+        }
+        padding-left: 3px;
+        font-size: 12px;
+        color: #55c;
+        position: relative;
+        top: -2px;
+    }
+    cursor: pointer;
+}
+
+.cancerGene {
+    font-weight: bold;
+}
+
+.headerColumn {
+    text-transform: none;
+    font-size: 13px;
+    line-height: 15px;
+}
+
+.pullRight {
+    display: flex !important;
+    flex-direction: row-reverse !important;
+}
+
+.headerRow {
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.row {
+    font-size: 13px;
+
+    &:hover {
+        .addGeneUI {
+            @extend %addGeneUIHover;
+        }
+    }
+}
+
+.oddRow {
+    background-color: #f9f9f9;
+}
+
+.evenRow {
+    background-color: #ffffff;
+}
+
+.highlightedEvenRow,
+.highlightedRow {
+    background-color: #d3d3d3;
+}
+
+.highlightedOddRow {
+    background-color: #e0e0e0;
+}
+
+.cancerGeneIcon {
+    margin-right: 5px;
+}
+
+.cancerGeneIcon > img {
+    height: $study-view-table-icon-size;
+}
+
+.gistic,
+.mutsig,
+.cancerGenesRow > img {
+    height: $study-view-table-icon-size;
+    margin-left: 2px;
+    vertical-align: inherit !important;
+}
+
+.amp {
+    color: red;
+}
+
+.del {
+    color: #0000ff;
+}
+
+.amp,
+.del {
+    font-weight: bold;
+}
+
+.displayFlex {
+    display: flex;
+    align-items: center;
+}
+
+.headerSortingIconAsc {
+    margin-left: 5px;
+    position: relative;
+    top: 3px;
+}
+.headerSortingIconDesc {
+    margin-left: 5px;
+    position: relative;
+    top: -3px;
+}
+
+.autoMarginCheckbox {
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+}
+
+.union {
+    background: url('../../../globalStyles/images/union.svg');
+    -webkit-background-size: 18px 18px;
+    background-size: 18px 18px;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: text-top;
+}
+
+.intersection {
+    background: url('../../../globalStyles/images/intersection.svg');
+    -webkit-background-size: 18px 18px;
+    background-size: 18px 18px;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: text-top;
+}

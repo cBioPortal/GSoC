@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cbioportal.legacy.persistence.mybatis.ResourceDefinitionMapper">
+    <sql id="select">
+        resource_definition.resource_id AS "${prefix}resourceId",
+        cancer_study.cancer_study_identifier AS "${prefix}cancerStudyIdentifier",
+        resource_definition.cancer_study_id AS "${prefix}cancerStudyId",
+        resource_definition.display_name AS "${prefix}displayName"
+        <if test="projection == 'SUMMARY' || projection == 'DETAILED'">
+            ,
+            resource_definition.open_by_default AS "${prefix}openByDefault",
+            resource_definition.description AS "${prefix}description",
+            resource_definition.resource_type AS "${prefix}resourceType",
+            resource_definition.priority AS "${prefix}priority",
+            resource_definition.custom_metadata AS "${prefix}customMetaData"
+        </if>
+    </sql>
+
+    <select id="getResourceDefinitions" resultType="org.cbioportal.legacy.model.ResourceDefinition">
+        SELECT
+        <include refid="select">
+            <property name="prefix" value=""/>
+        </include>
+        FROM resource_definition
+        INNER JOIN cancer_study ON resource_definition.cancer_study_id = cancer_study.cancer_study_id
+        <where>
+            <choose>
+                <when test="studyIds == null or studyIds.isEmpty()">
+                    NULL
+                </when>
+                <otherwise>
+                    cancer_study.cancer_study_identifier IN
+                        <foreach item="id" collection="studyIds" open="(" separator="," close=")">#{id}</foreach>
+                </otherwise>
+            </choose>
+        </where>
+        <choose>    
+            <when test="sortBy != null and projection != 'ID'">
+                ORDER BY "${sortBy}" ${direction}
+            </when>
+            <otherwise>
+                ORDER BY resource_definition.resource_id ASC
+            </otherwise>
+        </choose>
+        <if test="limit != null and limit != 0">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
+    </select>
+
+    <select id="getResourceDefinition" resultType="org.cbioportal.legacy.model.ResourceDefinition">
+        SELECT
+        <include refid="select">
+            <property name="prefix" value=""/>
+        </include>
+        FROM resource_definition
+        INNER JOIN cancer_study ON resource_definition.cancer_study_id = cancer_study.cancer_study_id
+        <where>
+            <if test="studyId != null">
+                cancer_study.cancer_study_identifier = #{studyId}
+            </if>
+            <if test="resourceId != null">
+                AND resource_definition.resource_id = #{resourceId}
+            </if>
+        </where>
+    </select>
+
+</mapper>

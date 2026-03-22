@@ -1,0 +1,26 @@
+.hgvsg-data {
+    white-space: nowrap;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+
+    a {
+        color: black;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &:visited {
+            color: black;
+        }
+    }
+}
+
+.genome-nexus-logo {
+    background: url('../../images/genome-nexus-logo.png');
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    vertical-align: middle;
+}

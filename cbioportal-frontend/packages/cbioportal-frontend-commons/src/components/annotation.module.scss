@@ -1,0 +1,23 @@
+.annotation-item-load {
+    color: #aaaaaa;
+    height: 18px;
+}
+
+.annotation-item-text {
+    font-size: 9px;
+    width: 22px;
+    cursor: default;
+}
+
+.annotation-item-error {
+    width: 16px;
+    height: 18px;
+    float: left;
+}
+
+.annotation-item {
+    width: 22px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

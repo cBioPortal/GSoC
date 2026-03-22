@@ -1,0 +1,56 @@
+package org.cbioportal.domain.genomic_data.usecase;
+
+import java.util.List;
+import org.cbioportal.domain.genomic_data.repository.GenomicDataRepository;
+import org.cbioportal.domain.studyview.StudyViewFilterContext;
+import org.cbioportal.legacy.model.GenomicDataCountItem;
+import org.cbioportal.legacy.web.parameter.GenomicDataFilter;
+import org.springframework.stereotype.Service;
+
+@Service
+/**
+ * Use case for retrieving mutation counts by type from the repository. This class encapsulates the
+ * business logic for fetching mutation counts based on the provided study view filter context and
+ * genomic data filters.
+ */
+public class GetMutationCountsByTypeUseCase {
+
+  private final GenomicDataRepository repository;
+
+  /**
+   * Constructs a {@code GetMutationCountsByTypeUseCase} with the provided repository.
+   *
+   * @param repository the repository to be used for fetching mutation counts
+   */
+  public GetMutationCountsByTypeUseCase(GenomicDataRepository repository) {
+    this.repository = repository;
+  }
+
+  /**
+   * Executes the use case to retrieve mutation counts by type.
+   *
+   * @param studyViewFilterContext the context of the study view filter to apply
+   * @param genomicDataFilters a list of genomic data filters to apply
+   * @param includeSampleIds flag to include sample ids
+   * @return a list of {@link GenomicDataCountItem} representing the mutation counts by type
+   */
+  public List<GenomicDataCountItem> execute(
+      StudyViewFilterContext studyViewFilterContext,
+      List<GenomicDataFilter> genomicDataFilters,
+      boolean includeSampleIds) {
+    String hugoGeneSymbol = null;
+    // This is to enforce data accuracy and to avoid sending a list of genomicDataFilters when
+    // including sample id == true
+    if (includeSampleIds) {
+      if (genomicDataFilters == null || genomicDataFilters.size() != 1) {
+        throw new IllegalArgumentException(
+            "Only one gene allowed in GenomicDataFilter list when includeSampleIds is true");
+      }
+
+      hugoGeneSymbol = genomicDataFilters.getFirst().getHugoGeneSymbol();
+    }
+
+    return repository.getMutationCountsByType(
+        studyViewFilterContext, genomicDataFilters, includeSampleIds, hugoGeneSymbol);
+  }
+}

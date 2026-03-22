@@ -1,0 +1,6 @@
+FROM cimg/node:22.18.0-browsers
+MAINTAINER Pim van Nierop <pim@thehyve.nl>
+LABEL Description="End-2-end test image for cBioPortal frontend"
+USER root
+
+CMD /cbioportal-frontend/end-to-end-test/local/docker_compose/docker/screenshottest.sh

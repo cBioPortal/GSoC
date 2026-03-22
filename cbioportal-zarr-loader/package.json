@@ -1,0 +1,16 @@
+{
+  "name": "cbioportal-zarr-loader",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "Jason Hwee (Hweej) <hweej@users.noreply.github.com>",
+  "license": "ISC",
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@9.12.1+sha1.7084e7df42ee1d221994c2c2599277a2a937f050"
+}

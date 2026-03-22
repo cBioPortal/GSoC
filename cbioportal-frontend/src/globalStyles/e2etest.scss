@@ -1,0 +1,53 @@
+.e2etest {
+    input:focus,
+    select:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: $borderColor !important;
+    }
+
+    .simple-table tbody > tr:nth-of-type(odd).clickable:hover {
+        background-color: #f9f9f9 !important;
+    }
+
+    .simple-table tbody > tr:nth-of-type(even).clickable:hover {
+        background-color: #ffffff !important;
+    }
+
+    .oncoprintjs__tooltip {
+        display: none !important;
+    }
+
+    .plotsTab .cbioTooltip.popover {
+        opacity: 0 !important;
+    }
+
+    .disablePointerEvents {
+        pointer-events: none;
+    }
+
+    .local-dev-banner {
+        display: none;
+    }
+
+    #blockUIToDisableMouse {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        zindex: 999999999;
+    }
+
+    .tabAnchor_heatmaps {
+        display: none !important;
+    }
+
+    .helpWidget {
+        display: none;
+    }
+
+    .e2eHide {
+        display: none;
+    }
+}

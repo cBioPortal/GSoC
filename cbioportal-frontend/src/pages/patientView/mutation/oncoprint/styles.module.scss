@@ -1,0 +1,44 @@
+.zoomControls {
+    display: flex !important;
+    align-items: center;
+    border: 1px solid #e4e4e4;
+    border-radius: 5px;
+    padding: 3px 5px;
+    margin-left: 5px;
+
+    > * {
+        margin-right: 10px;
+    }
+
+    > :last-child {
+        margin-right: 0;
+    }
+
+    > .zoomButton {
+        cursor: pointer;
+    }
+
+    :global(.rangeslider) {
+        margin: 0;
+        :global(.rangeslider__labels) {
+            display: none;
+        }
+        :global(.rangeslider__handle) {
+            height: 15px;
+            width: 15px;
+            &:after {
+                width: 9px;
+                height: 9px;
+                top: 2px;
+                left: 2px;
+            }
+        }
+        :global(.rangeslider__fill) {
+            background-image: linear-gradient(
+                to bottom,
+                #89cdef 0,
+                #81bfde 100%
+            );
+        }
+    }
+}

@@ -1,0 +1,41 @@
+.simple-table {
+    th {
+        padding-left: 10px;
+        padding-bottom: 5px;
+        background-color: rgb(255, 255, 255); // solid background
+    }
+
+    tbody > tr:nth-of-type(odd).highlighted {
+        background-color: #9fafd1 !important;
+    }
+
+    tbody > tr:nth-of-type(even) {
+        // solid background - hard coded hack, react-bootstrap .table-striped makes ODD # rows grey
+        background-color: rgb(255, 255, 255);
+    }
+
+    tbody > tr:nth-of-type(even).highlighted {
+        background-color: #b0bed9;
+    }
+
+    tbody > tr.clickable {
+        cursor: pointer;
+    }
+
+    tbody > tr:nth-of-type(even).clickable:hover {
+        background-color: #b6c4df !important;
+    }
+
+    tbody > tr:nth-of-type(odd).clickable:hover {
+        background-color: #a7b6d8 !important;
+    }
+
+    td.columnResizer {
+        border-color: transparent !important;
+    }
+
+    thead td.columnResizer {
+        border-color: transparent !important;
+        background-color: $borderColor;
+    }
+}

@@ -1,0 +1,130 @@
+.validationBubbleBase {
+    margin: 0px 5px 3px 0;
+    padding: 2px 5px;
+    border-radius: $border-radius-base;
+    font-size: 0.8rem;
+}
+
+.topRow {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 5px;
+}
+
+.genesSelection {
+    textarea.default {
+        width: 555px;
+        resize: vertical;
+    }
+    textarea.oncoprintHeatmap {
+        width: 100%;
+        resize: vertical;
+        border-radius: 2px;
+    }
+    textarea {
+        border-radius: $border-radius-base;
+        padding: 5px;
+        &.empty {
+        }
+        border-color: $borderColor;
+    }
+
+    textarea.studyView {
+        width: 200px;
+        height: 30px;
+        border-radius: $border-radius-base;
+        outline-offset: -2px;
+        font-size: 12px;
+        resize: none;
+        margin: 0px 3px;
+        line-height: 18px;
+        padding-left: 10px;
+    }
+
+    textarea.studyViewFocus {
+        height: 5em;
+        font-size: 13px;
+    }
+
+    .GeneSymbolValidator {
+        cursor: default;
+        display: flex;
+        align-items: center;
+        padding-top: 1px;
+        flex-wrap: wrap;
+        &.nowrap {
+            white-space: nowrap;
+            flex-wrap: nowrap;
+            width: 200px;
+        }
+
+        button {
+            line-height: 1 !important;
+        }
+
+        span.icon {
+            text-align: center;
+            margin-right: 4px;
+            width: 16px;
+            height: 16px;
+            line-height: 17px;
+        }
+        span.pendingMessage,
+        span.oqlNotice,
+        span.errorMessage {
+            font-size: small;
+            color: $redError;
+            font-weight: bold;
+        }
+        div.validBubble,
+        div.invalidBubble {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            @extend .validationBubbleBase;
+            span.icon {
+                color: #fff;
+                line-height: 17px;
+            }
+        }
+        div.invalidBubble {
+            background: $redError;
+            white-space: nowrap;
+        }
+        div.validBubble {
+            background: $greenSuccess;
+            white-space: nowrap;
+        }
+        div.suggestionBubble {
+            color: rgba(0, 0, 0, 0.5);
+            white-space: nowrap;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            @extend .validationBubbleBase;
+            background-color: $lightGrey;
+            border-radius: 2px;
+            &:hover {
+                background-color: $mediumGrey;
+            }
+            span.icon {
+                color: $darkGrey;
+                line-height: 17px;
+            }
+            span.noChoiceLabel {
+                font-weight: normal;
+            }
+            span.singleChoiceLabel {
+                font-weight: bold;
+            }
+            span.multiChoiceLabel {
+                font-weight: normal;
+            }
+            div:global(.Select) {
+                width: 140px;
+                margin-left: 4px;
+                float: left;
+            }
+        }
+    }
+}
